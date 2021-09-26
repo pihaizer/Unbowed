@@ -67,9 +67,14 @@ namespace Gameplay.AI.Brains {
         }
 
         bool CanGoTo(Character character) {
-            NavMeshPath path = new NavMeshPath();
-            return NavMesh.CalculatePath(body.transform.position,
-                character.transform.position, NavMesh.AllAreas, path);
+            var path = new NavMeshPath();
+            
+            if (NavMesh.CalculatePath(body.transform.position,
+                character.transform.position, NavMesh.AllAreas, path)) {
+                return path.GetLength() < character.attackConfig.maxChaseRange;
+            }
+
+            return false;
         }
 
         void MoveToRandomPoint() {

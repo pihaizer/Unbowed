@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace Utility {
     public static class PathUtility {
-        public static float GetPathLength(NavMeshPath path) {
+        public static float GetLength(this NavMeshPath path) {
             float length = 0.0f;
 
             if (path.status != NavMeshPathStatus.PathInvalid && path.corners.Length > 1) {
@@ -16,7 +16,7 @@ namespace Utility {
         }
         
         public static float GetRemainingDistance(this NavMeshAgent agent) {
-            return GetPathLength(agent.path);
+            return agent.path.GetLength();
         }
     }
 }
