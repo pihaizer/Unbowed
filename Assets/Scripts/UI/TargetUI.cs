@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Gameplay;
 using SO;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using Utility;
@@ -25,7 +26,15 @@ public class TargetUI : MonoBehaviour {
         OnTargetChanged(targetSO.Value);
     }
 
+    void OnDestroy() {
+        targetSO.Changed -= OnTargetChanged;
+    }
+
     void OnTargetChanged(ISelectable newTarget) {
+        if (_target is IHittable oldHittable && oldHittable is Mortal oldMortal) {
+            oldMortal.HealthChanged -= healthBar.OnHealthChanged;
+        }
+        
         _target = newTarget;
         gameObject.SetActive(_target != null);
         if (_target == null) return;
@@ -33,9 +42,8 @@ public class TargetUI : MonoBehaviour {
         nameText.text = _target.GetName();
 
         if (_target is IHittable hittable && hittable is Mortal mortal) {
-            healthBar.SetTarget(mortal);
-        } else {
-            healthBar.SetTarget(null);
+            mortal.HealthChanged += healthBar.OnHealthChanged;
+            healthBar.SetHealthPercent(mortal.GetHealthPercent());
         }
     }
 }

@@ -100,6 +100,8 @@ MonoBehaviour:
   movementConfig: {fileID: 11400000, guid: 67c5df07088bacd4caed0c6221bed1e7, type: 2}
   attackConfig: {fileID: 11400000, guid: 6d3c25841cd96524cb85540746bdf5c3, type: 2}
   runningSpeedMultiplier: 2
+  diedEventSO: {fileID: 11400000, guid: fb6110682f4b102429f941533142ea97, type: 2}
+  healthChangedEventSO: {fileID: 11400000, guid: 981a27e7ff89d1b46b79efa1af851e03, type: 2}
 --- !u!114 &6934537335714228286
 MonoBehaviour:
   m_ObjectHideFlags: 0

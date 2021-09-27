@@ -1,35 +1,27 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
+using Gameplay;
+using SO.Events;
 using UnityEngine;
 using UnityEngine.UI;
-using Utility;
 
-public class HealthBarUI : MonoBehaviour {
-    [SerializeField] Mortal target;
-    [SerializeField] Image fillImage;
-    [SerializeField] float animationTime;
-    [SerializeField] Ease animationEase;
+namespace UI {
+    public class HealthBarUI : MonoBehaviour {
+        [SerializeField] HealthChangedEventSO healthChangedEventSO;
+        [SerializeField] Image fillImage;
+        [SerializeField] float animationTime;
+        [SerializeField] Ease animationEase;
 
-    void Start() {
-        SetTarget(target);
-    }
-
-    public void SetTarget(Mortal newTarget) {
-        if (target != null) target.currentHealth.Changed -= OnHealthChanged;
-        target = newTarget;
-        if (target != null) {
-            target.currentHealth.Changed += OnHealthChanged;
-            SetFill(target.GetHealthPercent());
-        } else {
-            SetFill(0);
+        void Awake() {
+            if(healthChangedEventSO)
+                healthChangedEventSO.AddListener(OnHealthChanged);
         }
-    }
 
-    public void SetFill(float value) => fillImage.fillAmount = value;
+        public void SetHealthPercent(float value) => SetFill(value);
 
-    void OnHealthChanged(float newHealth) {
-        fillImage.DOFillAmount(target.GetHealthPercent(), animationTime).SetEase(animationEase);
+        public void OnHealthChanged(HealthChangeData data) {
+            fillImage.DOFillAmount(data.target.GetHealthPercent(), animationTime).SetEase(animationEase);
+        }
+
+        void SetFill(float value) => fillImage.fillAmount = value;
     }
 }

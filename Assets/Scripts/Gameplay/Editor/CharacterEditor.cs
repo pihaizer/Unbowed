@@ -10,7 +10,7 @@ namespace Gameplay.Editor {
             
             var character = target as Character;
             Assert.IsNotNull(character);
-            EditorGUILayout.LabelField($"Current command: {character.CurrentCommand}");
+            EditorGUILayout.LabelField($"Current command: {character.CurrentCharacterCommand}");
         }
     }
 }

@@ -2,12 +2,12 @@
 
 namespace Gameplay {
     public readonly struct HealthChangeData {
-        public readonly float oldHealth;
+        public readonly Mortal target;
         public readonly float newHealth;
         public readonly GameObject source;
 
-        public HealthChangeData(float oldHealth, float newHealth, GameObject source) {
-            this.oldHealth = oldHealth;
+        public HealthChangeData(Mortal target, float newHealth, GameObject source) {
+            this.target = target;
             this.newHealth = newHealth;
             this.source = source;
         }

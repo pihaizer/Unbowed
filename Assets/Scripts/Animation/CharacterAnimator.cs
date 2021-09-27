@@ -29,18 +29,18 @@ namespace DefaultNamespace {
             };
         }
 
-        void CharacterOnStartedExecuting(Command command) {
-            if (command is AttackCommand attackCommand) {
+        void CharacterOnStartedExecuting(CharacterCommand characterCommand) {
+            if (characterCommand is AttackCommand attackCommand) {
                 attackCommand.isAttacking.Changed += OnAttacking;
-            } else if (command is HitRecoveryCommand) {
+            } else if (characterCommand is HitRecoveryCommand) {
                 OnHitRecovering(true);
             }
         }
 
-        void CharacterOnStoppedExecuting(Command command) {
-            if (command is AttackCommand attackCommand) {
+        void CharacterOnStoppedExecuting(CharacterCommand characterCommand) {
+            if (characterCommand is AttackCommand attackCommand) {
                 attackCommand.isAttacking.Changed -= OnAttacking;
-            } else if (command is HitRecoveryCommand) {
+            } else if (characterCommand is HitRecoveryCommand) {
                 OnHitRecovering(false);
             }
         }
