@@ -9,6 +9,7 @@ namespace DefaultNamespace {
         [SerializeField] Animator animator;
         [SerializeField] AnimationClip attackAnimation;
         [SerializeField] AnimationClip gotHitAnimation;
+        [SerializeField] Rigidbody ragdollRigidbody;
 
         static readonly int RelativeSpeed = Animator.StringToHash("relativeSpeed");
         static readonly int Attack = Animator.StringToHash("attack");
@@ -69,7 +70,11 @@ namespace DefaultNamespace {
         }
 
         void OnDied() {
-            animator.SetTrigger(Died);
+            if (ragdollRigidbody) {
+                animator.enabled = false;
+            } else {
+                animator.SetTrigger(Died);
+            }
         }
 
         void OnRevived() {

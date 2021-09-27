@@ -45,7 +45,6 @@ namespace Gameplay.AI.Brains {
                 var hitCharacter = hit.GetComponentInParent<Character>();
                 if (hitCharacter && IsWanted(hitCharacter) && Sees(hitCharacter) && CanGoTo(hitCharacter)) {
                     character = hitCharacter;
-                    Debug.Log("Sees wanted character");
                     break;
                 }
             }

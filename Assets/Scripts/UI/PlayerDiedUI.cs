@@ -6,27 +6,27 @@ using UnityEngine.UI;
 
 namespace UI {
     public class PlayerDiedUI : MonoBehaviour {
-        [SerializeField] Button restartButton;
-        [SerializeField] Button exitButton;
+        [SerializeField] Button reviveButton;
+        [SerializeField] Button toMainMenuButton;
 
         [SerializeField] SceneLoadRequestEventSO sceneLoadRequestEvent;
 
         void Awake() {
-            restartButton.onClick.AddListener(Restart);
-            exitButton.onClick.AddListener(Exit);
+            reviveButton.onClick.AddListener(Revive);
+            toMainMenuButton.onClick.AddListener(ToMainMenu);
             gameObject.SetActive(false);
         }
 
-        void Restart() {
+        void Revive() {
             gameObject.SetActive(false);
-            sceneLoadRequestEvent.Invoke(new SceneLoadRequestEventSO.SceneLoadRequestData() {
-                hasLoadScreen = true,
-                isLoad = true,
-                name = SceneManager.GetActiveScene().name
-            });
+            // sceneLoadRequestEvent.Invoke(new SceneLoadRequestEventSO.SceneLoadRequestData() {
+            //     hasLoadScreen = true,
+            //     isLoad = true,
+            //     name = SceneManager.GetActiveScene().name
+            // });
         }
 
-        void Exit() {
+        void ToMainMenu() {
 #if UNITY_EDITOR
             // Application.Quit() does not work in the editor so
             // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game

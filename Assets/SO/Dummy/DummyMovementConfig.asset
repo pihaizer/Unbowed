@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d07633d804f42d197c00ee9d8d29e9f, type: 3}
   m_Name: DummyMovementConfig
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 1
   noMoveRange: 0.15
+  runSpeedMultiplier: 2
