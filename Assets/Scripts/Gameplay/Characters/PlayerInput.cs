@@ -7,7 +7,7 @@ using UnityEngine.AI;
 namespace Gameplay {
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerInput : MonoBehaviour {
-        [SerializeField] TargetSO mouseTargetSO;
+        [SerializeField] MouseStateSO mouseStateSO;
         [SerializeField] LayerMask navMeshLayerMask;
         [SerializeField] float maxWalkDistance = 100f;
 
@@ -27,8 +27,9 @@ namespace Gameplay {
         }
 
         void OnLMB() {
-            if (mouseTargetSO.Value != null) {
-                if (mouseTargetSO.Value is IHittable hittable && hittable.CanBeHit()) {
+            if (mouseStateSO.isOffGameView) return;
+            if (mouseStateSO.Target != null) {
+                if (mouseStateSO.Target is IHittable hittable && hittable.CanBeHit()) {
                     if(!(_target.CurrentCharacterCommand is AttackCommand attackCommand) || attackCommand.Target != hittable)
                         _target.Execute(new AttackCommand(hittable));
                 }

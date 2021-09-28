@@ -10,27 +10,27 @@ using UnityEngine.UI;
 using Utility;
 
 public class TargetUI : MonoBehaviour {
-    [SerializeField] TargetSO targetSO;
+    [SerializeField] MouseStateSO mouseStateSO;
     [SerializeField] TMP_Text nameText;
     [SerializeField] HealthBarUI healthBar;
 
     ISelectable _target;
 
     void Start() {
-        if (!targetSO) {
+        if (!mouseStateSO) {
             gameObject.SetActive(false);
             return;
         }
 
-        targetSO.Changed += OnTargetChanged;
-        OnTargetChanged(targetSO.Value);
+        mouseStateSO.Changed += OnMouseStateChanged;
+        OnMouseStateChanged(mouseStateSO.Target);
     }
 
     void OnDestroy() {
-        targetSO.Changed -= OnTargetChanged;
+        mouseStateSO.Changed -= OnMouseStateChanged;
     }
 
-    void OnTargetChanged(ISelectable newTarget) {
+    void OnMouseStateChanged(ISelectable newTarget) {
         if (_target is IHittable oldHittable && oldHittable is Mortal oldMortal) {
             oldMortal.HealthChanged -= healthBar.OnHealthChanged;
         }
