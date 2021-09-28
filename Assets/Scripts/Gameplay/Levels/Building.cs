@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
@@ -39,17 +40,21 @@ public class Building : MonoBehaviour {
         Debug.Log($"Player in {gameObject}: {value}");
 
         foreach (var roof in roofs) {
-            if (value) {
-                roof.material = new Material(transparentMaterial) {
-                    mainTexture = defaultMaterial.mainTexture, color = defaultMaterial.color
-                };
-                roof.material.SetShaderPassEnabled("ShadowCaster", true);
+            for (int i = 0; i < roof.materials.Length; i++) {
+                if (value) {
+                    roof.materials[i] = new Material(transparentMaterial) {
+                        mainTexture = defaultMaterial.mainTexture, color = defaultMaterial.color,
+                    };
+                    roof.materials[i].SetShaderPassEnabled("ShadowCaster", true);
+                }
+                var tweener = roof.materials[i].DOFade(value ? 0 : 1, 0.3f);
+                if (!value) {
+                    int i1 = i;
+                    tweener.onComplete += () => {
+                        roof.materials[i1] = new Material(defaultMaterial);
+                    };
+                }
             }
-            var tweener = roof.material.DOFade(value ? 0 : 1, 0.3f);
-            if (!value)
-                tweener.onComplete += () => {
-                    roof.material = new Material(defaultMaterial);
-                };
         }
 
         foreach (var wall in walls) {
