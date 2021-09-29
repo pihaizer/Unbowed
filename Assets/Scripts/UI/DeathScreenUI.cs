@@ -14,7 +14,6 @@ namespace UI {
         void Awake() {
             reviveButton.onClick.AddListener(Revive);
             toMainMenuButton.onClick.AddListener(ToMainMenu);
-            gameObject.SetActive(false);
         }
 
         void Revive() {

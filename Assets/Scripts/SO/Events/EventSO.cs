@@ -5,18 +5,19 @@ using UnityEngine;
 namespace SO.Events {
     [CreateAssetMenu(fileName = "Void event", menuName = "SO/Events/Void event")]
     public class EventSO : ScriptableObject {
-        Action _actions;
+        event Action Actions;
 
         public void Raise() {
-            _actions?.Invoke();
+            Debug.Log($"Raising");
+            Actions?.Invoke();
         }
 
         public void AddListener(Action listener) {
-            _actions += listener;
+            Actions += listener;
         }
 
         public void RemoveListener(Action listener) {
-            _actions -= listener;
+            Actions -= listener;
         }
     }
 }

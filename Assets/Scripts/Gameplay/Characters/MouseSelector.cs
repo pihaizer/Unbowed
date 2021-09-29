@@ -27,14 +27,12 @@ public class MouseSelector : MonoBehaviour {
         outputMouseMouseStateSO.isOffGameView = false;
         
         if (!screenRect.Contains(Input.mousePosition)) {
-            Debug.Log("off screen");
             outputMouseMouseStateSO.SetTarget(null);
             outputMouseMouseStateSO.isOffGameView = true;
             return;
         }
 
         if (eventSystem.IsPointerOverGameObject()) {
-            Debug.Log($"over go {eventSystem.currentSelectedGameObject}");
             outputMouseMouseStateSO.SetTarget(null);
             outputMouseMouseStateSO.isOffGameView = true;
             return;
