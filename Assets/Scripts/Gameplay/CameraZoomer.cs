@@ -1,9 +1,8 @@
-﻿using System;
-using Cinemachine;
+﻿using Cinemachine;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Gameplay {
+namespace Unbowed.Gameplay {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class CameraZoomer : MonoBehaviour {
         [SerializeField] float[] distances;

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace SO.Events {
+namespace Unbowed.SO.Events {
     [CreateAssetMenu(fileName = "Void event", menuName = "SO/Events/Void event")]
     public class EventSO : ScriptableObject {
         event Action Actions;
 
         public void Raise() {
-            Debug.Log($"Raising");
             Actions?.Invoke();
         }
 

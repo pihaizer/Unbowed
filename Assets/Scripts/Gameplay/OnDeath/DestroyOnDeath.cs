@@ -1,14 +1,14 @@
 ﻿using System.Collections;
+using Unbowed.Utility.WaitFor;
 using UnityEngine;
-using Utility;
 
-namespace Gameplay.OnDeath {
-    [RequireComponent(typeof(Mortal))]
+namespace Unbowed.Gameplay.OnDeath {
+    [RequireComponent(typeof(HealthModule))]
     public class DestroyOnDeath : MonoBehaviour {
         [SerializeField] AnimationClip optionalAnimationDelay;
 
         void Start() {
-            GetComponent<Mortal>().isDead.Changed += value => {
+            GetComponent<HealthModule>().isDead.Changed += value => {
                 if (value) StartCoroutine(DestroyCoroutine());
             };
         }

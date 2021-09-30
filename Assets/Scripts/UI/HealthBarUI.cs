@@ -1,10 +1,10 @@
 using DG.Tweening;
-using Gameplay;
-using SO.Events;
+using Unbowed.Gameplay;
+using Unbowed.SO.Events;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI {
+namespace Unbowed.UI {
     public class HealthBarUI : MonoBehaviour {
         [SerializeField] HealthChangedEventSO healthChangedEventSO;
         [SerializeField] Image fillImage;
@@ -12,15 +12,15 @@ namespace UI {
         [SerializeField] Ease animationEase;
 
         void Awake() {
-            if(healthChangedEventSO)
-                healthChangedEventSO.AddListener(OnHealthChanged);
+            if (healthChangedEventSO) healthChangedEventSO.AddListener(OnHealthChanged);
+        }
+
+        public void OnHealthChanged(HealthChangeData data) {
+            fillImage.DOFillAmount((float) data.target.Current / data.target.Max, animationTime)
+                .SetEase(animationEase);
         }
 
         public void SetHealthPercent(float value) => SetFill(value);
-
-        public void OnHealthChanged(HealthChangeData data) {
-            fillImage.DOFillAmount(data.target.GetHealthPercent(), animationTime).SetEase(animationEase);
-        }
 
         void SetFill(float value) => fillImage.fillAmount = value;
     }

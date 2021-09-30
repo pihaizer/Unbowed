@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SO {
+namespace Unbowed.SO {
     public class CommonSettingsSO : ScriptableObject {
         
     }

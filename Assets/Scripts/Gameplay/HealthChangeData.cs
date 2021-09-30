@@ -1,14 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace Gameplay {
+namespace Unbowed.Gameplay {
     public readonly struct HealthChangeData {
-        public readonly Mortal target;
-        public readonly float newHealth;
+        public readonly HealthModule target;
         public readonly GameObject source;
 
-        public HealthChangeData(Mortal target, float newHealth, GameObject source) {
+        public HealthChangeData(HealthModule target, GameObject source) {
             this.target = target;
-            this.newHealth = newHealth;
             this.source = source;
         }
     }

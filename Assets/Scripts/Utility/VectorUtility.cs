@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Utility {
+namespace Unbowed.Utility {
     public static class VectorUtility {
         public static Vector2Int RotatedClockwise(this Vector2Int v) {
             return new Vector2Int(v.y, -v.x);

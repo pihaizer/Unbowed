@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Utility {
+namespace Unbowed.Utility.WaitFor {
     public class WaitForSecondsRange : CustomYieldInstruction {
         readonly float _startTime;
         readonly float _waitTime;

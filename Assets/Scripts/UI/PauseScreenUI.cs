@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI {
+namespace Unbowed.UI {
     public class PauseScreenUI : MonoBehaviour {
         [SerializeField] Button resumeButton;
         [SerializeField] Button saveAndExitButton;

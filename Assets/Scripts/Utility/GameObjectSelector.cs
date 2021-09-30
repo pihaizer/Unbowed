@@ -1,9 +1,6 @@
-﻿using System;
-using Cinemachine;
-using DG.Tweening;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Gameplay {
+namespace Unbowed.Utility {
     public class GameObjectSelector : MonoBehaviour {
         [SerializeField] GameObject[] objects;
 

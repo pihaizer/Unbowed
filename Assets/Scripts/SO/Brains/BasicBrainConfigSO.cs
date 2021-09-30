@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Gameplay;
-using Gameplay.AI;
-using Gameplay.AI.Brains;
+using Unbowed.Gameplay.Characters;
+using Unbowed.Gameplay.Characters.AI.Brains;
 using UnityEngine;
 
-namespace SO.Brains {
+namespace Unbowed.SO.Brains {
     [CreateAssetMenu(fileName = "BasicBrainConfig", menuName = "SO/Brains/BasicBrainConfig")]
     public class BasicBrainConfigSO : BrainConfigSO {
         public float playerAggroRange;

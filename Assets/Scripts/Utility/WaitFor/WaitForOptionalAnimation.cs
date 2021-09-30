@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Utility {
+namespace Unbowed.Utility.WaitFor {
     public class WaitForOptionalAnimation : CustomYieldInstruction {
         readonly AnimationClip _clip;
         readonly float _startTime;

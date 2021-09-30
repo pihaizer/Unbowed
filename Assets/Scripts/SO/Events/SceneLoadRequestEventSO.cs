@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SO.Events {
+namespace Unbowed.SO.Events {
     [CreateAssetMenu(fileName = "SceneLoadRequestEventSO", menuName = "SO/Events/SceneLoadRequestEvent")]
     public class SceneLoadRequestEventSO : ParameterEventSO<SceneLoadRequestEventSO.SceneLoadRequestData> {
         [Serializable]

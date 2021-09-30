@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using Gameplay.AI.Brains;
-using SO.Brains;
+using Unbowed.Gameplay.Characters.AI.Brains;
+using Unbowed.SO.Brains;
 using UnityEngine;
 
-namespace Gameplay.AI {
+namespace Unbowed.Gameplay.Characters.AI {
     [RequireComponent(typeof(Character))]
     public class CharacterAI : MonoBehaviour {
         [SerializeField] BrainConfigSO brainConfig;

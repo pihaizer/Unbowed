@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Gameplay {
+namespace Unbowed.Gameplay {
     public class ColliderZone : MonoBehaviour {
         public List<Collider> colliders;
 

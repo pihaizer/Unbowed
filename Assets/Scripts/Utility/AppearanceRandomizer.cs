@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Utility {
+namespace Unbowed.Utility {
     [ExecuteInEditMode]
     public class AppearanceRandomizer : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Utility {
+namespace Unbowed.Utility {
     [RequireComponent(typeof(Collider))]
     public class Trigger : MonoBehaviour {
         public event Action<Collider> Enter;

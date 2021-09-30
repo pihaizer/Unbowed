@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Gameplay.Commands {
+namespace Unbowed.Gameplay.Characters.Commands {
     public class MoveCommand : CharacterCommand {
         readonly Vector3 _newMoveTarget;
         readonly float _maxTime;
@@ -20,35 +17,36 @@ namespace Gameplay.Commands {
             _character = character;
 
             if (Vector3.Distance(_character.transform.position, _newMoveTarget) <
-                _character.movementConfig.noMoveRange) {
+                _character.config.distances.noMoveRange) {
                 Stop(true);
                 return;
             }
 
             var path = new NavMeshPath();
-            _character.NavAgent.CalculatePath(_newMoveTarget, path);
+            _character.Movement.NavAgent.CalculatePath(_newMoveTarget, path);
 
-            if (path.status == NavMeshPathStatus.PathPartial || path.status == NavMeshPathStatus.PathInvalid) {
+            if (path.status == NavMeshPathStatus.PathInvalid) {
                 Stop(false);
                 return;
             }
 
-            _character.NavAgent.SetPath(path);
+            _character.Movement.NavAgent.SetPath(path);
             _startTime = Time.time;
         }
 
         public override void Update(float deltaTime) {
             base.Update(deltaTime);
-            if (_character.NavAgent.hasPath && _character.NavAgent.remainingDistance < 0.05f) {
+            if (_character.Movement.NavAgent.hasPath && _character.Movement.NavAgent.remainingDistance < 0.05f) {
                 Stop(true);
-            } else if (!_character.NavAgent.hasPath || Time.time > _startTime + _maxTime) {
+            } else if (!_character.Movement.NavAgent.pathPending && !_character.Movement.NavAgent.hasPath ||
+                       Time.time > _startTime + _maxTime) {
                 Stop(false);
             }
         }
 
         public override void Stop(bool result) {
             base.Stop(result);
-            _character.NavAgent.ResetPath();
+            _character.Movement.NavAgent.ResetPath();
         }
 
         public override string ToString() => $"Moving to {_newMoveTarget}";

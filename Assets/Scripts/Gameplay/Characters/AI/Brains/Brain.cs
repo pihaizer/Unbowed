@@ -1,7 +1,7 @@
-﻿using Gameplay.Commands;
+﻿using Unbowed.Gameplay.Characters.Commands;
 using UnityEngine;
 
-namespace Gameplay.AI.Brains {
+namespace Unbowed.Gameplay.Characters.AI.Brains {
     public abstract class Brain {
         public int ID { get; }
 

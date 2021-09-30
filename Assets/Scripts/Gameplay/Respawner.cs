@@ -1,14 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
-using Gameplay;
 using UnityEngine;
 
-public class Respawner : MonoBehaviour {
-    public void ScheduleRespawn(Mortal mortal, float delay) =>
-        StartCoroutine(RespawnCoroutine(mortal, delay));
+namespace Unbowed.Gameplay {
+    public class Respawner : MonoBehaviour {
+        public void ScheduleRespawn(HealthModule healthModule, float delay) =>
+            StartCoroutine(RespawnCoroutine(healthModule, delay));
 
-    static IEnumerator RespawnCoroutine(Mortal mortal, float delay) {
-        yield return new WaitForSeconds(delay);
-        mortal.Revive();
+        static IEnumerator RespawnCoroutine(HealthModule healthModule, float delay) {
+            yield return new WaitForSeconds(delay);
+            healthModule.Revive();
+        }
     }
 }

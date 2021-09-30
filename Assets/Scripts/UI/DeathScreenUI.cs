@@ -1,10 +1,9 @@
-using System;
-using SO.Events;
+using Unbowed.Gameplay.Characters;
+using Unbowed.SO.Events;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace UI {
+namespace Unbowed.UI {
     public class DeathScreenUI : MonoBehaviour {
         [SerializeField] Button reviveButton;
         [SerializeField] Button toMainMenuButton;
@@ -18,11 +17,7 @@ namespace UI {
 
         void Revive() {
             gameObject.SetActive(false);
-            // sceneLoadRequestEvent.Invoke(new SceneLoadRequestEventSO.SceneLoadRequestData() {
-            //     hasLoadScreen = true,
-            //     isLoad = true,
-            //     name = SceneManager.GetActiveScene().name
-            // });
+            FindObjectOfType<PlayerCharacter>().Health.Revive();
         }
 
         void ToMainMenu() {

@@ -1,8 +1,8 @@
 ﻿using System;
-using Gameplay;
+using Unbowed.Gameplay;
 using UnityEngine;
 
-namespace SO {
+namespace Unbowed.SO {
     [CreateAssetMenu(fileName = "Target", menuName = "SO/Gameplay/Target", order = 0)]
     public class MouseStateSO : ScriptableObject {
         public event Action<ISelectable> Changed;

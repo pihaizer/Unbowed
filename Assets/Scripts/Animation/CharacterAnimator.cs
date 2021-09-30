@@ -1,9 +1,9 @@
-﻿using Gameplay;
-using Gameplay.Commands;
+﻿using Unbowed.Gameplay.Characters;
+using Unbowed.Gameplay.Characters.Commands;
+using Unbowed.Gameplay.Characters.Configs.Stats;
 using UnityEngine;
-using UnityEngine.AI;
 
-namespace DefaultNamespace {
+namespace Unbowed.Animation {
     public class CharacterAnimator : MonoBehaviour {
         [SerializeField] Character character;
         [SerializeField] Animator animator;
@@ -22,7 +22,7 @@ namespace DefaultNamespace {
         void Start() {
             character.StartedExecuting += CharacterOnStartedExecuting;
             character.StoppedExecuting += CharacterOnStoppedExecuting;
-            character.isDead.Changed += (value) => {
+            character.Health.isDead.Changed += (value) => {
                 if (value)
                     OnDied();
                 else
@@ -47,7 +47,7 @@ namespace DefaultNamespace {
         }
 
         void Update() {
-            float relativeSpeed = character.NavAgent.hasPath
+            float relativeSpeed = character.Movement.NavAgent.hasPath
                 ? character.speed.ModifiedValue / character.speed.BaseValue
                 : 0;
             animator.SetFloat(RelativeSpeed, relativeSpeed, 0.1f, Time.deltaTime);
@@ -56,7 +56,7 @@ namespace DefaultNamespace {
         void OnAttacking(bool value) {
             if (value) {
                 animator.SetTrigger(Attack);
-                float attackSpeed = attackAnimation.length / character.attackConfig.attackTime;
+                float attackSpeed = attackAnimation.length / character.stats[StatType.AttackTime];
                 animator.SetFloat(AttackSpeed, attackSpeed);
             }
         }
@@ -64,7 +64,7 @@ namespace DefaultNamespace {
         void OnHitRecovering(bool value) {
             if (value) {
                 animator.SetTrigger(GotHit);
-                float hitRecoverSpeed = gotHitAnimation.length / character.hitRecoveryConfig.hitRecoveryTime;
+                float hitRecoverSpeed = gotHitAnimation.length / character.stats[StatType.HitRecoveryTime];
                 animator.SetFloat(HitRecoverySpeed, hitRecoverSpeed);
             }
         }
@@ -80,7 +80,7 @@ namespace DefaultNamespace {
         void OnRevived() {
             animator.ResetTrigger(GotHit);
             animator.ResetTrigger(Died);
-            // animator.SetTrigger(Revived);
+            animator.SetTrigger(Revived);
         }
     }
 }

@@ -1,3 +1,5 @@
-﻿public interface IInteractable {
-    void Interact();
+﻿namespace Unbowed.Gameplay {
+    public interface IInteractable {
+        void Interact();
+    }
 }

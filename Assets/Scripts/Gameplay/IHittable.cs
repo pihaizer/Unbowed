@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Gameplay {
+namespace Unbowed.Gameplay {
     public interface IHittable {
-        void Hit(float damage, GameObject source);
+        void Hit(int damage, GameObject source);
 
         bool CanBeHit();
 

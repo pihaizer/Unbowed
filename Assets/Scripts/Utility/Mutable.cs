@@ -1,8 +1,8 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Utility.DisplayWithoutEdit;
 
-namespace Utility {
+namespace Unbowed.Utility {
     [Serializable]
     public class Mutable<T> {
         public event Action<T> Changed;

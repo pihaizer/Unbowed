@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using Unbowed.Gameplay.Characters;
+using Unbowed.Utility.WaitFor;
 using UnityEngine;
-using Utility;
 
-namespace Gameplay.OnDeath {
-    [RequireComponent(typeof(Mortal))]
+namespace Unbowed.Gameplay.OnDeath {
+    [RequireComponent(typeof(Character))]
     public class RespawnOnDeath : MonoBehaviour {
         [SerializeField] AnimationClip optionalAnimationDelay;
         [SerializeField] Respawner respawner;
@@ -15,7 +15,7 @@ namespace Gameplay.OnDeath {
                 Debug.LogWarning("Respawner is not set.");
             }
 
-            GetComponent<Mortal>().isDead.Changed += value => {
+            GetComponent<Character>().Health.isDead.Changed += value => {
                 if (value) StartCoroutine(RespawnCoroutine());
             };
         }
@@ -24,7 +24,7 @@ namespace Gameplay.OnDeath {
             yield return new WaitForOptionalAnimation(optionalAnimationDelay);
             gameObject.SetActive(false);
             if (respawner != null) {
-                respawner.ScheduleRespawn(GetComponent<Mortal>(),
+                respawner.ScheduleRespawn(GetComponent<Character>().Health,
                     Random.Range(respawnDelayRange.x, respawnDelayRange.y));
             } else {
                 Debug.LogWarning("Tried to respawn, but respawner was null.");

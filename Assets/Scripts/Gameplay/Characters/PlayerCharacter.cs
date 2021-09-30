@@ -1,39 +1,38 @@
-﻿using System;
-using SO.Events;
+﻿using Sirenix.OdinInspector;
+using Unbowed.SO;
+using Unbowed.SO.Events;
+using Unbowed.Utility.Modifiers;
 using UnityEngine;
-using Utility.Modifiers;
 
-namespace Gameplay {
+namespace Unbowed.Gameplay.Characters {
     public class PlayerCharacter : Character {
-        [SerializeField] float runningSpeedMultiplier = 2f;
         [SerializeField] EventSO diedEventSO;
         [SerializeField] HealthChangedEventSO healthChangedEventSO;
 
-        bool _isRunning = false;
-        readonly Modifier<float> _runningSpeedModifier = new Modifier<float>(1f);
-
         protected override void Start() {
             base.Start();
-            _runningSpeedModifier.Value = runningSpeedMultiplier;
-            HealthChanged += healthChangedEventSO.Invoke;
-            healthChangedEventSO.Invoke(new HealthChangeData(this, currentHealth, gameObject));
+
+            GlobalContext.Instance.playerCharacter = this;
+            
+            Health.HealthChanged += healthChangedEventSO.Invoke;
+            healthChangedEventSO.Invoke(new HealthChangeData(Health, gameObject));
         }
 
-        public void ToggleRunning() => SetRunning(!_isRunning);
-
-        protected override void Die() {
-            base.Die();
+        protected override void OnRevive() {
+            base.OnRevive();
+            Movement.NavAgent.Warp(Vector3.zero);
+            transform.rotation = new Quaternion();
+        }
+        
+        protected override void OnDeath() {
+            base.OnDeath();
             diedEventSO.Raise();
         }
-
-
-        public void SetRunning(bool value) {
-            if (_isRunning == value) return;
-            _isRunning = value;
-            if (_isRunning)
-                speed += _runningSpeedModifier;
-            else
-                speed -= _runningSpeedModifier;
+        
+        [HideInEditorMode]
+        [Button]
+        void GetHitToDeath() {
+            while(!Health.isDead) Hit(1, gameObject);
         }
     }
 }

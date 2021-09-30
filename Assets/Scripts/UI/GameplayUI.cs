@@ -1,16 +1,11 @@
-using System.Collections;
-using System.Runtime.InteropServices;
 using Cinemachine;
 using DG.Tweening;
-using SO.Events;
+using Unbowed.SO.Events;
+using Unbowed.Utility;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
-using Utility;
 
-namespace UI {
+namespace Unbowed.UI {
     public class GameplayUI : MonoBehaviour {
         [Header("Values")]
         [SerializeField] float screenAnimationTime;
@@ -59,7 +54,6 @@ namespace UI {
         }
 
         void OpenDeathScreen() {
-            Debug.Log("Opening");
             deathScreen.gameObject.SetActive(true);
         }
 

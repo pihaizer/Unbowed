@@ -1,4 +1,4 @@
-﻿namespace Gameplay {
+﻿namespace Unbowed.Gameplay {
     public interface ISelectable {
         string GetName();
 

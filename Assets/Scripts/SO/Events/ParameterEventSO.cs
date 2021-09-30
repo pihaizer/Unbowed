@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace SO.Events {
+namespace Unbowed.SO.Events {
     public abstract class ParameterEventSO<T> : ScriptableObject {
         Action<T> _action;
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using SO;
-using SO.Events;
-using Unity.AI.Navigation;
+﻿using Unbowed.SO.Events;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-namespace Managers {
+namespace Unbowed.Managers {
     public class SceneChanger : MonoBehaviour {
         [SerializeField] SceneLoadRequestEventSO loadRequestEvent;
         [SerializeField] BoolEventSO loadingScreenRequestEvent;

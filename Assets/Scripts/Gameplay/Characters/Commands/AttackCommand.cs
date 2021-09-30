@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections;
-using UnityEditor.Rendering;
+﻿using System.Collections;
+using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Utility;
+using Unbowed.Utility.Modifiers;
 using UnityEngine;
 using UnityEngine.AI;
-using Utility;
-using Utility.Modifiers;
 
-namespace Gameplay.Commands {
+namespace Unbowed.Gameplay.Characters.Commands {
     public class AttackCommand : CharacterCommand {
         public readonly Mutable<bool> isAttacking = new Mutable<bool>();
 
@@ -14,7 +13,7 @@ namespace Gameplay.Commands {
         readonly float _maxTime;
         Character _character;
         IEnumerator _coroutine;
-        readonly Modifier<bool> _actionsBlock = new Modifier<bool>(true);
+        readonly Modifier<bool> _actionsBlock = new Modifier<bool>(true, Operations.Or);
         float _startTime;
 
 
@@ -45,8 +44,8 @@ namespace Gameplay.Commands {
 
         public override void Stop(bool result) {
             if (_coroutine != null) _character.StopCoroutine(_coroutine);
-            _character.areActionsBlocked -= _actionsBlock;
-            _character.NavAgent.ResetPath();
+            _character.areActionsBlocked.RemoveModifier(_actionsBlock);
+            _character.Movement.Stop();
             isAttacking.Set(false);
             base.Stop(result);
         }
@@ -55,18 +54,19 @@ namespace Gameplay.Commands {
             var path = new NavMeshPath();
             var newMoveTarget = target.GetGameObject().transform.position;
 
-            _character.NavAgent.CalculatePath(newMoveTarget, path);
-            
+            _character.Movement.NavAgent.CalculatePath(newMoveTarget, path);
+
             if (path.status == NavMeshPathStatus.PathInvalid) {
                 Debug.Log("Stopping attack due to invalid path");
                 Stop(false);
                 return;
             }
 
-            _character.NavAgent.SetPath(path);
+            _character.Movement.NavAgent.SetPath(path);
 
-            if (_character.NavAgent.hasPath && _character.NavAgent.GetRemainingDistance() > _character.attackConfig.maxChaseRange) {
-                Debug.Log($"Stopping attack due to remaining distance {_character.NavAgent.GetRemainingDistance()}");
+            if (_character.Movement.NavAgent.hasPath &&
+                _character.Movement.NavAgent.GetRemainingDistance() > _character.config.distances.maxChaseRange) {
+                Debug.Log($"Stopping attack due to remaining distance {_character.Movement.NavAgent.GetRemainingDistance()}");
                 Stop(false);
             }
         }
@@ -74,7 +74,7 @@ namespace Gameplay.Commands {
         bool TryAttack(IHittable target) {
             if (!IsWithinAttackRange(target)) return false;
 
-            _character.NavAgent.ResetPath();
+            _character.Movement.NavAgent.ResetPath();
             _coroutine = AttackCoroutine(target);
             _character.StartCoroutine(_coroutine);
             return true;
@@ -84,18 +84,21 @@ namespace Gameplay.Commands {
             if (target == null || target.GetGameObject() == null) return false;
 
             return (target.GetGameObject().transform.position - _character.transform.position).sqrMagnitude <
-                   Mathf.Pow(_character.attackConfig.attackRadius, 2);
+                   Mathf.Pow(_character.config.distances.attackRadius, 2);
         }
 
         IEnumerator AttackCoroutine(IHittable target) {
-            var attackConfig = _character.attackConfig;
-            _character.areActionsBlocked += _actionsBlock;
+            float attackTime = _character.stats[StatType.AttackTime];
+            var damageRange = new Vector2Int(
+                Mathf.FloorToInt(_character.stats[StatType.MinDamage]),
+                Mathf.FloorToInt(_character.stats[StatType.MaxDamage]));
+            _character.areActionsBlocked.AddModifier(_actionsBlock);
             isAttacking.Set(true);
             _character.transform.LookAt(target.GetGameObject().transform);
-            yield return new WaitForSeconds(attackConfig.attackTime * attackConfig.hitTimeMomentPercent);
-            target.Hit(attackConfig.attackDamage, _character.gameObject);
-            yield return new WaitForSeconds(attackConfig.attackTime * (1 - attackConfig.hitTimeMomentPercent));
-            _character.areActionsBlocked -= _actionsBlock;
+            yield return new WaitForSeconds(attackTime * _character.config.animationConfig.hitMomentPercent);
+            target.Hit(VectorRandom.Range(damageRange), _character.gameObject);
+            yield return new WaitForSeconds(attackTime * (1 - _character.config.animationConfig.hitMomentPercent));
+            _character.areActionsBlocked.RemoveModifier(_actionsBlock);
             isAttacking.Set(false);
             Stop(true);
         }

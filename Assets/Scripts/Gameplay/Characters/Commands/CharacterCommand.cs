@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gameplay.Commands {
+namespace Unbowed.Gameplay.Characters.Commands {
     public abstract class CharacterCommand {
         public event Action<bool> Executed;
         

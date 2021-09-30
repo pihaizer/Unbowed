@@ -1,10 +1,9 @@
-using System;
-using Gameplay.Commands;
-using SO;
+using Unbowed.Gameplay.Characters.Commands;
+using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Gameplay {
+namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerInput : MonoBehaviour {
         [SerializeField] MouseStateSO mouseStateSO;
@@ -18,11 +17,11 @@ namespace Gameplay {
         }
 
         void Update() {
-            if (Input.GetKeyDown(KeyCode.R)) _target.ToggleRunning();
+            if (Input.GetKeyDown(KeyCode.R)) _target.Movement.ToggleRunning();
         }
 
         void FixedUpdate() {
-            if (_target.isDead || _target.areActionsBlocked) return;
+            if (_target.Health.isDead || _target.areActionsBlocked) return;
             if (Input.GetMouseButton(0)) OnLMB();
         }
 
@@ -43,6 +42,6 @@ namespace Gameplay {
         }
 
         [ContextMenu("Revive")]
-        public void Revive() => _target.Revive();
+        public void Revive() => _target.Health.Revive();
     }
 }

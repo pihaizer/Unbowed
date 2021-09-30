@@ -1,10 +1,10 @@
-﻿using Gameplay.Commands;
-using SO.Brains;
+﻿using Unbowed.Gameplay.Characters.Commands;
+using Unbowed.SO.Brains;
+using Unbowed.Utility;
 using UnityEngine;
 using UnityEngine.AI;
-using Utility;
 
-namespace Gameplay.AI.Brains {
+namespace Unbowed.Gameplay.Characters.AI.Brains {
     public class BasicBrain : Brain {
         readonly BasicBrainConfigSO _config;
         CharacterCommand _previousCharacterCommand;
@@ -16,7 +16,7 @@ namespace Gameplay.AI.Brains {
 
         public override void Update(float deltaTime) {
             base.Update(deltaTime);
-            if (body.isDead || body.areActionsBlocked) return;
+            if (body.Health.isDead || body.areActionsBlocked) return;
             if (body.CurrentCharacterCommand == null) {
                 SelectNewCommand();
             }
@@ -57,8 +57,8 @@ namespace Gameplay.AI.Brains {
         }
 
         bool Sees(Character other) {
-            var thisHead = body.transform.position + Vector3.up * (body.NavAgent.height + body.NavAgent.baseOffset);
-            var otherHead = other.transform.position + Vector3.up * (other.NavAgent.height + other.NavAgent.baseOffset);
+            var thisHead = body.transform.position + Vector3.up * (body.Movement.NavAgent.height + body.Movement.NavAgent.baseOffset);
+            var otherHead = other.transform.position + Vector3.up * (other.Movement.NavAgent.height + other.Movement.NavAgent.baseOffset);
             bool sees = !Physics.Raycast(thisHead, otherHead - thisHead,
                 Vector3.Distance(thisHead, otherHead), _config.sightLayerMask);
             Debug.DrawLine(thisHead, otherHead, sees ? Color.green : Color.red);
@@ -70,7 +70,7 @@ namespace Gameplay.AI.Brains {
             
             if (NavMesh.CalculatePath(body.transform.position,
                 character.transform.position, NavMesh.AllAreas, path)) {
-                return path.GetLength() < character.attackConfig.maxChaseRange;
+                return path.GetLength() < character.config.distances.maxChaseRange;
             }
 
             return false;

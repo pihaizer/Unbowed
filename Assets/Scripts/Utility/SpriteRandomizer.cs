@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Utility {
+namespace Unbowed.Utility {
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteRandomizer : MonoBehaviour {
         public List<SpriteWeight> sprites;

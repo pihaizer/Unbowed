@@ -95,11 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245610e003914c63b306bcfcc0b4d7f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthConfig: {fileID: 11400000, guid: ee33e5b6548d1304288a4b39d1fdf238, type: 2}
   characterType: {fileID: 11400000, guid: 4ad3bf4f56a177645a15ac9dedd70c32, type: 2}
-  hitRecoveryConfig: {fileID: 11400000, guid: ee013e215e8d9eb4a8dc815b3fecb6f0, type: 2}
-  movementConfig: {fileID: 11400000, guid: 41ab0c0a5915aed4b84366a6381bd992, type: 2}
-  attackConfig: {fileID: 11400000, guid: fbf3d425e6ab9024fbce6ab06cb4f915, type: 2}
+  config: {fileID: 11400000, guid: 4ce9f56ad9154a442969b2faeb47103a, type: 2}
 --- !u!114 &4498325376960812699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +164,7 @@ MonoBehaviour:
   animator: {fileID: 126790878505758423}
   attackAnimation: {fileID: 7400000, guid: dfc15c633f0d98141920018f79a042a6, type: 3}
   gotHitAnimation: {fileID: 7400000, guid: 81d4af5a5190e3d4d88c97161d881bf3, type: 3}
+  ragdollRigidbody: {fileID: 0}
 --- !u!1001 &126790878513109943
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-namespace Utility {
+namespace Unbowed.Utility {
     public static class PathUtility {
         public static float GetLength(this NavMeshPath path) {
             float length = 0.0f;

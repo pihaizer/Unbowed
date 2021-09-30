@@ -1,10 +1,10 @@
-using UnityEngine;
-
-#if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
+#if UNITY_EDITOR
+
 #endif
 
-namespace UI {
+namespace Unbowed.UI {
     [RequireComponent(typeof(Camera)), ExecuteInEditMode]
     public class UICamera : MonoBehaviour {
         [SerializeField] Side side;
