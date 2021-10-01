@@ -7,30 +7,30 @@ using UnityEngine.AI;
 namespace Unbowed.Gameplay.Characters.AI.Brains {
     public class BasicBrain : Brain {
         readonly BasicBrainConfigSO _config;
-        CharacterCommand _previousCharacterCommand;
+        Command _previousCommand;
 
         public BasicBrain(BasicBrainConfigSO config, Character body, int id) : base(body, id) {
             _config = config;
-            body.StoppedExecuting += OnStoppedExecuting;
+            body.characterCommandExecutor.StoppedExecuting += OnStoppedExecuting;
         }
 
         public override void Update(float deltaTime) {
             base.Update(deltaTime);
             if (body.health.isDead || body.areActionsBlocked) return;
-            if (body.CurrentCharacterCommand == null) {
+            if (body.characterCommandExecutor.MainCommand == null) {
                 SelectNewCommand();
             }
         }
 
-        void OnStoppedExecuting(CharacterCommand characterCommand) {
-            _previousCharacterCommand = characterCommand;
+        void OnStoppedExecuting(Command characterCommand) {
+            _previousCommand = characterCommand;
         }
 
         void SelectNewCommand() {
-            if (!(_previousCharacterCommand is AttackCommand && !_previousCharacterCommand.Result) &&
+            if (!(_previousCommand is AttackCommand && !_previousCommand.Result) &&
                 SeesWantedCharacter(out var wantedCharacter)) {
                 Attack(wantedCharacter);
-            } else if (_previousCharacterCommand is IdleCommand) {
+            } else if (_previousCommand is IdleCommand) {
                 MoveToRandomPoint();
             } else {
                 Idle(VectorRandom.Range(_config.idleAfterMoveTimeRange));
@@ -57,8 +57,8 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
         }
 
         bool Sees(Character other) {
-            var thisHead = body.transform.position + Vector3.up * (body.movement.NavAgent.height + body.movement.NavAgent.baseOffset);
-            var otherHead = other.transform.position + Vector3.up * (other.movement.NavAgent.height + other.movement.NavAgent.baseOffset);
+            var thisHead = body.transform.position + Vector3.up * (body.characterMovement.NavAgent.height + body.characterMovement.NavAgent.baseOffset);
+            var otherHead = other.transform.position + Vector3.up * (other.characterMovement.NavAgent.height + other.characterMovement.NavAgent.baseOffset);
             bool sees = !Physics.Raycast(thisHead, otherHead - thisHead,
                 Vector3.Distance(thisHead, otherHead), _config.sightLayerMask);
             Debug.DrawLine(thisHead, otherHead, sees ? Color.green : Color.red);

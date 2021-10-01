@@ -14,32 +14,23 @@ namespace Unbowed {
         [OdinSerialize] Dictionary<EquipmentSlot, BagSlotUI> equipments = Enum.GetValues(typeof(EquipmentSlot))
             .Cast<EquipmentSlot>().ToDictionary(slot => slot, slot => (BagSlotUI)null);
 
-        InventoryModule _displayedInventory;
+        public List<BagSlotUI> Slots => equipments.Values.ToList();
 
-        void OnEnable() {
-            if (!GlobalContext.Instance.playerCharacter ||
-                !GlobalContext.Instance.playerCharacter.IsStarted) {
-                return;
-            }
+        Inventory _displayedInventory;
 
-            _displayedInventory = GlobalContext.Instance.playerCharacter.inventory;
+        public void Init(InventoryUI parent) {
+            _displayedInventory = parent.Inventory;
             _displayedInventory.Changed += UpdateEquipment;
 
             foreach (var equipment in equipments) {
-                equipment.Value.Init(0);
-                equipment.Value.Clicked += OnEquipmentClicked;
+                equipment.Value.Init(parent, equipment.Key);
             }
 
             UpdateEquipment();
-
-            Debug.Log("Started bags UI");
         }
 
         void OnDisable() {
             if (_displayedInventory != null) _displayedInventory.Changed -= UpdateEquipment;
-        }
-
-        void OnEquipmentClicked(BagSlotUI arg1, PointerEventData arg2) {
         }
 
         void UpdateEquipment() {

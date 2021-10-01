@@ -15,53 +15,33 @@ namespace Unbowed {
         [SerializeField] ItemConfig testItemConfig;
         [SerializeField] ItemConfig testItemConfig2;
 
+        public BagSlotUI[] Slots => slots;
+
         int Size => Application.isPlaying ? _displayedInventory.inventoryItems.Length : editorSize;
 
-        InventoryModule _displayedInventory;
+        Inventory _displayedInventory;
 
-        void OnEnable() {
+        public void Init(InventoryUI parent) {
             reference.gameObject.SetActive(false);
 
-            if (!GlobalContext.Instance.playerCharacter ||
-                !GlobalContext.Instance.playerCharacter.IsStarted) {
-                return;
-            }
-
-            _displayedInventory = GlobalContext.Instance.playerCharacter.inventory;
+            _displayedInventory = parent.Inventory; 
             _displayedInventory.Changed += UpdateBags;
 
             UpdateBagsSize();
 
             for (int i = 0; i < slots.Length; i++) {
-                slots[i].Init(i);
-                slots[i].Clicked += OnSlotClicked;
+                slots[i].Init(parent, i);
             }
 
-            UpdateBags();
-
-            var testItem = new Item();
-            testItem.config = testItemConfig;
+            var testItem = new Item {config = testItemConfig};
             _displayedInventory.SetItem(0, testItem);
             _displayedInventory.SetItem(1, testItem);
 
-            var testItem2 = new Item();
-            testItem2.config = testItemConfig2;
+            var testItem2 = new Item {config = testItemConfig2};
             _displayedInventory.SetItem(3, testItem2);
             _displayedInventory.SetItem(4, testItem2);
 
-            Debug.Log("Started bags UI");
-        }
-
-        void OnDisable() {
-            if (_displayedInventory != null) _displayedInventory.Changed -= UpdateBags;
-        }
-
-        void OnSlotClicked(BagSlotUI slot, PointerEventData data) {
-            if (data.button == PointerEventData.InputButton.Right) {
-                if (!_displayedInventory.TryEquip(slot.Index)) {
-                    slot.AnimateError();
-                }
-            }
+            UpdateBags();
         }
 
         void UpdateBags() {

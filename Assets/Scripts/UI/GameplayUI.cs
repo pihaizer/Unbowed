@@ -16,9 +16,9 @@ namespace Unbowed.UI {
         [SerializeField] GameObject deathScreen;
 
         [Header("PartialScreens")]
-        [SerializeField] GameObject characterScreen;
+        [SerializeField] Menu characterMenu;
 
-        [SerializeField] GameObject inventoryScreen;
+        [SerializeField] Menu inventoryMenu;
 
         [Header("Menu buttons")]
         [SerializeField] Button characterButton;
@@ -42,8 +42,8 @@ namespace Unbowed.UI {
 
             deathScreen.SetActive(false);
             pauseScreen.SetActive(false);
-            characterScreen.SetActive(false);
-            inventoryScreen.SetActive(false);
+            characterMenu.Close();
+            inventoryMenu.Close();
 
             _transposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
             _currentTransposerTargetValue = _transposer.m_ScreenX;
@@ -60,17 +60,17 @@ namespace Unbowed.UI {
         }
 
         void ToggleLeftMenus() {
-            characterScreen.ToggleActive();
+            characterMenu.ToggleOpened();
             
-            var characterScreenRt = characterScreen.GetComponent<RectTransform>();
+            var characterScreenRt = characterMenu.GetComponent<RectTransform>();
 
             FloatScreen(characterScreenRt);
         }
 
         void ToggleRightMenus() {
-            inventoryScreen.ToggleActive();
+            inventoryMenu.ToggleOpened();
             
-            var inventoryScreenRt = inventoryScreen.GetComponent<RectTransform>();
+            var inventoryScreenRt = inventoryMenu.GetComponent<RectTransform>();
             
             FloatScreen(inventoryScreenRt);
         }

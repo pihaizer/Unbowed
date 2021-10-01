@@ -26,6 +26,8 @@ namespace Unbowed.Gameplay.Characters.AI {
 
         void OnValidate() {
             if (!Application.isPlaying) return;
+            var character = GetComponent<Character>();
+            if (!character.IsStarted) return;
             if (brainConfig == null) {
                 _brain = null;
             } else if (_brain?.ID != brainConfig.ID) {

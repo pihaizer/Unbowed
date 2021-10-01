@@ -55,6 +55,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6934537335714228284}
   - component: {fileID: 4052728289871795434}
+  - component: {fileID: 5208877964504438424}
+  - component: {fileID: 8622382516364442156}
+  - component: {fileID: 1768623300848008538}
+  - component: {fileID: 3838825683161514624}
   - component: {fileID: 6934537335714228286}
   - component: {fileID: 6934537335714228257}
   - component: {fileID: 6934537335714228287}
@@ -96,10 +100,110 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9022ef28449443d9a110cc40f5f0ecc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   characterType: {fileID: 11400000, guid: d5c8972de7b40a34e8441c958d1e74ca, type: 2}
   config: {fileID: 11400000, guid: 007df2ef7539c79478accc56a30a7d58, type: 2}
+  health: {fileID: 5208877964504438424}
+  characterMovement: {fileID: 8622382516364442156}
+  inventory: {fileID: 1768623300848008538}
+  characterCommandExecutor: {fileID: 3838825683161514624}
   diedEventSO: {fileID: 11400000, guid: fb6110682f4b102429f941533142ea97, type: 2}
   healthChangedEventSO: {fileID: 11400000, guid: 981a27e7ff89d1b46b79efa1af851e03, type: 2}
+--- !u!114 &5208877964504438424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934537335714228283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaa106379dc7554c9e0da5d16674b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8622382516364442156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934537335714228283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0fda69bad489396766a044b544c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1768623300848008538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934537335714228283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c94de1686943a2abbcf029e6f7bec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: equipments
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Unbowed.Gameplay.Characters.Items.EquipmentSlot,
+        Assembly-CSharp],[Unbowed.Gameplay.Characters.Items.Item, Assembly-CSharp]],
+        mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Unbowed.Gameplay.Characters.Items.EquipmentSlot,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: inventoryItems
+      Entry: 6
+      Data: 
+--- !u!114 &3838825683161514624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934537335714228283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24bf7a73e9046b0963fa4363e738389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6934537335714228286
 MonoBehaviour:
   m_ObjectHideFlags: 0

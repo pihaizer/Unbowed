@@ -19,8 +19,8 @@ namespace Unbowed.Animation {
         static readonly int HitRecoverySpeed = Animator.StringToHash("hitRecoverySpeed");
 
         void Start() {
-            character.StartedExecuting += CharacterOnStartedExecuting;
-            character.StoppedExecuting += CharacterOnStoppedExecuting;
+            character.characterCommandExecutor.StartedExecuting += CharacterOnStartedExecuting;
+            character.characterCommandExecutor.StoppedExecuting += CharacterOnStoppedExecuting;
             character.health.isDead.Changed += (value) => {
                 if (value)
                     OnDied();
@@ -29,27 +29,27 @@ namespace Unbowed.Animation {
             };
         }
 
-        void CharacterOnStartedExecuting(CharacterCommand characterCommand) {
-            if (characterCommand is AttackCommand attackCommand) {
+        void Update() {
+            float relativeSpeed = character.characterMovement.NavAgent.hasPath
+                ? character.characterMovement.speed.ModifiedValue / character.characterMovement.speed.BaseValue
+                : 0;
+            animator.SetFloat(RelativeSpeed, relativeSpeed, 0.1f, Time.deltaTime);
+        }
+
+        void CharacterOnStartedExecuting(Command command) {
+            if (command is AttackCommand attackCommand) {
                 attackCommand.isAttacking.Changed += OnAttacking;
-            } else if (characterCommand is HitRecoveryCommand) {
+            } else if (command is HitRecoveryCommand) {
                 OnHitRecovering(true);
             }
         }
 
-        void CharacterOnStoppedExecuting(CharacterCommand characterCommand) {
-            if (characterCommand is AttackCommand attackCommand) {
+        void CharacterOnStoppedExecuting(Command command) {
+            if (command is AttackCommand attackCommand) {
                 attackCommand.isAttacking.Changed -= OnAttacking;
-            } else if (characterCommand is HitRecoveryCommand) {
+            } else if (command is HitRecoveryCommand) {
                 OnHitRecovering(false);
             }
-        }
-
-        void Update() {
-            float relativeSpeed = character.movement.NavAgent.hasPath
-                ? character.movement.speed.ModifiedValue / character.movement.speed.BaseValue
-                : 0;
-            animator.SetFloat(RelativeSpeed, relativeSpeed, 0.1f, Time.deltaTime);
         }
 
         void OnAttacking(bool value) {

@@ -300,7 +300,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -806,7 +805,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1719,7 +1717,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2045,7 +2042,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh48632
+  m_Name: pb_Mesh23878
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2257,7 +2254,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2679,6 +2675,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
     - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -2795,7 +2795,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3185,7 +3184,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -3480,6 +3478,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
     - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -3760,7 +3762,6 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -4303,6 +4304,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1928441132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7527860590083313997, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+  m_PrefabInstance: {fileID: 4498325375451987820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e24bf7a73e9046b0963fa4363e738389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1928441133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+  m_PrefabInstance: {fileID: 4498325375451987820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c94de1686943a2abbcf029e6f7bec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1928441134 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5208873020895564635, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+  m_PrefabInstance: {fileID: 4498325375451987820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0fda69bad489396766a044b544c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1928441135 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5282695693614217950, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+  m_PrefabInstance: {fileID: 4498325375451987820}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aaa106379dc7554c9e0da5d16674b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1944724104
 GameObject:
   m_ObjectHideFlags: 0
@@ -4367,6 +4412,44 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 369438598318585314, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: _serializedBlackboard
+      value: '{"_variables":{"Speed":{"_propertyPath":"Unbowed.Gameplay.CharacterMovement.Speed","_name":"Speed","_id":"a7499c5c-64b4-497e-b77e-a9f16b3a6a0d","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}}}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 369438598318585314, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: _serializedVariables.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 369438598318585314, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: _serializedVariables.Array.data[0]._json
+      value: '{"_propertyPath":"Unbowed.Gameplay.CharacterMovement.Speed","_name":"Speed","_id":"a7499c5c-64b4-497e-b77e-a9f16b3a6a0d","$type":"NodeCanvas.Framework.Variable`1[[System.Single,
+        mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 2043776207721848958, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+    - target: {fileID: 4498325375448173452, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 1928441135}
+    - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1928441133}
+    - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: characterMovement
+      value: 
+      objectReference: {fileID: 1928441134}
+    - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: characterCommandExecutor
+      value: 
+      objectReference: {fileID: 1928441132}
     - target: {fileID: 4498325376960812692, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
       propertyPath: serializationData.Prefab
       value: 
@@ -4422,10 +4505,6 @@ PrefabInstance:
     - target: {fileID: 4498325376960812697, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
       propertyPath: m_Name
       value: Dummy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4498325376960812697, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4498325376960812699, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
       propertyPath: restrictedZone

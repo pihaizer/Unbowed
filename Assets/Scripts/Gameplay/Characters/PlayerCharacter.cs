@@ -21,7 +21,7 @@ namespace Unbowed.Gameplay.Characters {
 
         protected override void OnRevive() {
             base.OnRevive();
-            movement.NavAgent.Warp(Vector3.zero);
+            characterMovement.NavAgent.Warp(Vector3.zero);
             transform.rotation = new Quaternion();
         }
         

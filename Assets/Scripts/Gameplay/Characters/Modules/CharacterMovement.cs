@@ -1,19 +1,21 @@
 ﻿using Unbowed.Utility.Modifiers;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Unbowed.Gameplay {
-    public class MovementModule {
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class CharacterMovement : MonoBehaviour {
         public ModifiableParameter<float> speed;
-        
+
         float runningSpeedMultiplier = 2f;
         bool _isRunning;
         Modifier<float> _runningSpeedModifier;
-        
-        public NavMeshAgent NavAgent { get; private set; }
-        
 
-        public void Init(NavMeshAgent agent, float baseSpeed) {
-            NavAgent = agent;
+        public float Speed => speed;
+        public NavMeshAgent NavAgent { get; private set; }
+
+        public void Init(float baseSpeed) {
+            NavAgent = GetComponent<NavMeshAgent>();
             speed = new ModifiableParameter<float>(baseSpeed);
             speed.Changed += newSpeed => NavAgent.speed = newSpeed;
             NavAgent.speed = speed;

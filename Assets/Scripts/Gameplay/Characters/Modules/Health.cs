@@ -1,12 +1,13 @@
 using System;
 using Sirenix.OdinInspector;
+using Unbowed.Gameplay.Characters;
 using Unbowed.Utility;
 using UnityEngine;
 
 namespace Unbowed.Gameplay {
-    public class HealthModule {
+    public class Health : MonoBehaviour {
         public event Action<HealthChangeData> HealthChanged;
-
+        
         [ShowInInspector]
         public int Current { get; private set; }
 
@@ -19,7 +20,6 @@ namespace Unbowed.Gameplay {
             SetMax(maxHealth);
             SetCurrent(Max, null);
             isDead.Set(false);
-            HealthChanged += data => Debug.Log("Health changed");
         }
 
         public void Hit(int damage, GameObject source) => SetCurrent(Current - damage, source);

@@ -8,13 +8,14 @@ using Unbowed.SO;
 using UnityEngine;
 
 namespace Unbowed.UI.Stats {
-    public class StatsUI : SerializedMonoBehaviour {
+    public class StatsUI : Menu {
         [OdinSerialize]
         Dictionary<StatType, StatUI> _statUis =
             Enum.GetValues(typeof(StatType)).Cast<StatType>()
                 .ToDictionary((type) => type, (type) => (StatUI) null);
 
-        void Start() {
+        protected override void Start() {
+            base.Start();
             var player = GlobalContext.Instance.playerCharacter;
             player.stats.Updated += UpdateStats;
             UpdateStats();
