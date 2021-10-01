@@ -4,40 +4,38 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Items;
-using Unbowed.Gameplay.Characters.Modules;
-using Unbowed.SO;
-using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace Unbowed {
+namespace Unbowed.UI.Inventory {
     public class EquipmentUI : SerializedMonoBehaviour {
         [OdinSerialize] Dictionary<EquipmentSlot, BagSlotUI> equipments = Enum.GetValues(typeof(EquipmentSlot))
             .Cast<EquipmentSlot>().ToDictionary(slot => slot, slot => (BagSlotUI)null);
 
         public List<BagSlotUI> Slots => equipments.Values.ToList();
 
-        Inventory _displayedInventory;
+        Gameplay.Characters.Modules.Inventory _inventory;
 
         public void Init(InventoryUI parent) {
-            _displayedInventory = parent.Inventory;
-            _displayedInventory.Changed += UpdateEquipment;
+            _inventory = parent.Inventory;
+            _inventory.Changed += UpdateEquipment;
 
             foreach (var equipment in equipments) {
-                equipment.Value.Init(parent, equipment.Key);
+                equipment.Value.Init(new ItemLocation(_inventory, equipment.Key));
             }
 
             UpdateEquipment();
         }
 
         void OnDisable() {
-            if (_displayedInventory != null) _displayedInventory.Changed -= UpdateEquipment;
+            if (_inventory != null) _inventory.Changed -= UpdateEquipment;
         }
 
         void UpdateEquipment() {
             foreach (var equipment in equipments) {
-                equipment.Value.SetItem(_displayedInventory.equipments.ContainsKey(equipment.Key)
-                    ? _displayedInventory.equipments[equipment.Key]
-                    : null);
+                equipment.Value.SetItem(null);
+            }
+
+            foreach (var item in _inventory.Equipped) {
+                equipments[item.location.slot].SetItem(item);
             }
         }
     }

@@ -6613,9 +6613,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
     - target: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+      propertyPath: DEBUG_ITEM_CONFIG
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
+    - target: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+      propertyPath: DEBUG_ITEM_CONFIG_2
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d6d36ead7a37244abaa1d71611d415e, type: 2}
+    - target: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 6934537335714228283, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: m_Name
       value: Player
@@ -9717,8 +9725,6 @@ MonoBehaviour:
   - {fileID: 37013767}
   reference: {fileID: 463588914}
   editorSize: 31
-  testItemConfig: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
-  testItemConfig2: {fileID: 11400000, guid: 1d6d36ead7a37244abaa1d71611d415e, type: 2}
 --- !u!1 &1303931229
 GameObject:
   m_ObjectHideFlags: 0

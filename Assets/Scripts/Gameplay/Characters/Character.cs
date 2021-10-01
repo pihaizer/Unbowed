@@ -6,6 +6,7 @@ using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
@@ -23,6 +24,10 @@ namespace Unbowed.Gameplay.Characters {
         public CharacterTypeSO characterType;
         public CharacterConfig config;
         public CharacterRuntimeStats stats;
+        
+        //DEBUG
+        public ItemConfig DEBUG_ITEM_CONFIG;
+        public ItemConfig DEBUG_ITEM_CONFIG_2;
 
         // modules
         [HideInInspector]
@@ -77,6 +82,14 @@ namespace Unbowed.Gameplay.Characters {
 
         void InitInventory() {
             inventory.Init(16);
+            var item1 = new Item(DEBUG_ITEM_CONFIG, new ItemLocation());
+            inventory.TryAddItemToInventory(item1);
+            inventory.TryAddItemToInventory(item1);
+            var item2 = new Item(DEBUG_ITEM_CONFIG, new ItemLocation());
+            inventory.TryAddItemToInventory(item2);
+            var item3 = new Item(DEBUG_ITEM_CONFIG_2, new ItemLocation());
+            inventory.TryAddItemToInventory(item3);
+            inventory.TryAddItemToInventory(item3);
         }
 
         void InitCommandExecutor() {

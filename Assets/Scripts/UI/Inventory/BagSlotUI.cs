@@ -23,10 +23,7 @@ namespace Unbowed {
         public event Action<BagSlotUI, PointerEventData> Clicked;
         public event Action<BagSlotUI, PointerEventData> Dragged;
 
-        public InventoryUI Parent { get; private set; }
-        public int Index { get; private set; }
-        public EquipmentSlot EquipmentSlot { get; private set; }
-        public SlotLocation Location { get; private set; }
+        public ItemLocation Location { get; private set; }
         public Item Item { get; private set; }
 
         Color _defaultColor;
@@ -35,20 +32,8 @@ namespace Unbowed {
         Canvas _tempCanvas;
         
 
-        public void Init(InventoryUI parent, int index) {
-            Init(parent);
-            Index = index;
-            Location = SlotLocation.Bags;
-        }
-        
-        public void Init(InventoryUI parent, EquipmentSlot equipmentSlot) {
-            Init(parent);
-            EquipmentSlot = equipmentSlot;
-            Location = SlotLocation.Equipment;
-        }
-
-        void Init(InventoryUI parent) {
-            Parent = parent;
+        public void Init(ItemLocation location) {
+            Location = location;
             SetItem(null);
             _defaultColor = background.color;
         }
@@ -86,6 +71,7 @@ namespace Unbowed {
         }
 
         public void OnBeginDrag(PointerEventData eventData) {
+            if (Item == null) return;
             _isDragged = true;
             _tempCanvas = gameObject.AddComponent<Canvas>();
             _tempCanvas.overrideSorting = true;
@@ -93,21 +79,18 @@ namespace Unbowed {
         }
 
         public void OnDrag(PointerEventData eventData) {
+            if (Item == null) return;
             RectTransformUtility.ScreenPointToWorldPointInRectangle(background.rectTransform,
                 eventData.position, null, out var worldPoint);
             icon.transform.position = worldPoint;
         }
 
         public void OnEndDrag(PointerEventData eventData) {
+            if (Item == null) return;
             _isDragged = false;
             Destroy(_tempCanvas);
             icon.transform.localPosition = Vector3.zero;
             Dragged?.Invoke(this, eventData);
-        }
-
-        public enum SlotLocation {
-            Bags,
-            Equipment
         }
     }
 }

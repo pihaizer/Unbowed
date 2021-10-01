@@ -4506,6 +4506,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy
       objectReference: {fileID: 0}
+    - target: {fileID: 4498325376960812697, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4498325376960812699, guid: 091c993a481463e46b73ebbbc3bb976e, type: 3}
       propertyPath: restrictedZone
       value: 

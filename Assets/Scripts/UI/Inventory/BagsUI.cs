@@ -1,52 +1,40 @@
-using System;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
-using Unbowed.Gameplay.Characters.Modules;
-using Unbowed.SO;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-namespace Unbowed {
+namespace Unbowed.UI.Inventory {
     public class BagsUI : MonoBehaviour {
         [SerializeField] BagSlotUI[] slots;
         [SerializeField] BagSlotUI reference;
 
-        [SerializeField, HideInPlayMode] int editorSize;
-        [SerializeField] ItemConfig testItemConfig;
-        [SerializeField] ItemConfig testItemConfig2;
-
         public BagSlotUI[] Slots => slots;
 
-        int Size => Application.isPlaying ? _displayedInventory.inventoryItems.Length : editorSize;
+        int Size => Application.isPlaying ? _inventory.Size : editorSize;
 
-        Inventory _displayedInventory;
+        Gameplay.Characters.Modules.Inventory _inventory;
 
         public void Init(InventoryUI parent) {
             reference.gameObject.SetActive(false);
 
-            _displayedInventory = parent.Inventory; 
-            _displayedInventory.Changed += UpdateBags;
+            _inventory = parent.Inventory; 
+            _inventory.Changed += UpdateBags;
 
             UpdateBagsSize();
 
             for (int i = 0; i < slots.Length; i++) {
-                slots[i].Init(parent, i);
+                slots[i].Init(new ItemLocation(_inventory, i));
             }
-
-            var testItem = new Item {config = testItemConfig};
-            _displayedInventory.SetItem(0, testItem);
-            _displayedInventory.SetItem(1, testItem);
-
-            var testItem2 = new Item {config = testItemConfig2};
-            _displayedInventory.SetItem(3, testItem2);
-            _displayedInventory.SetItem(4, testItem2);
 
             UpdateBags();
         }
 
         void UpdateBags() {
-            for (int i = 0; i < Size; i++) {
-                slots[i].SetItem(_displayedInventory.inventoryItems[i]);
+            foreach (var slot in slots) {
+                slot.SetItem(null);
+            }
+
+            foreach (var item in _inventory.InBags) {
+                slots[item.location.indexInBag].SetItem(item);
             }
         }
 
@@ -68,11 +56,17 @@ namespace Unbowed {
             }
         }
 
+        #region EDITOR
+
+        [SerializeField, HideInPlayMode] int editorSize;
+
         void OnValidate() {
             if (Application.isPlaying) return;
             if (slots.Length != Size) {
                 UpdateBagsSize();
             }
         }
+
+        #endregion
     }
 }
