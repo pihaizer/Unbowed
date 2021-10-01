@@ -16,8 +16,8 @@ namespace Unbowed.UI {
         }
 
         public void OnHealthChanged(HealthChangeData data) {
-            fillImage.DOFillAmount((float) data.target.Current / data.target.Max, animationTime)
-                .SetEase(animationEase);
+            float percent = (float) data.target.Current / data.target.Max;
+            fillImage.DOFillAmount(percent, animationTime).SetEase(animationEase);
         }
 
         public void SetHealthPercent(float value) => SetFill(value);

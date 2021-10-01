@@ -15,7 +15,7 @@ namespace Unbowed.Gameplay.OnDeath {
                 Debug.LogWarning("Respawner is not set.");
             }
 
-            GetComponent<Character>().Health.isDead.Changed += value => {
+            GetComponent<Character>().health.isDead.Changed += value => {
                 if (value) StartCoroutine(RespawnCoroutine());
             };
         }
@@ -24,7 +24,7 @@ namespace Unbowed.Gameplay.OnDeath {
             yield return new WaitForOptionalAnimation(optionalAnimationDelay);
             gameObject.SetActive(false);
             if (respawner != null) {
-                respawner.ScheduleRespawn(GetComponent<Character>().Health,
+                respawner.ScheduleRespawn(GetComponent<Character>().health,
                     Random.Range(respawnDelayRange.x, respawnDelayRange.y));
             } else {
                 Debug.LogWarning("Tried to respawn, but respawner was null.");

@@ -23,22 +23,22 @@ namespace Unbowed.Gameplay.Characters.Commands {
             }
 
             var path = new NavMeshPath();
-            _character.Movement.NavAgent.CalculatePath(_newMoveTarget, path);
+            _character.movement.NavAgent.CalculatePath(_newMoveTarget, path);
 
             if (path.status == NavMeshPathStatus.PathInvalid) {
                 Stop(false);
                 return;
             }
 
-            _character.Movement.NavAgent.SetPath(path);
+            _character.movement.NavAgent.SetPath(path);
             _startTime = Time.time;
         }
 
         public override void Update(float deltaTime) {
             base.Update(deltaTime);
-            if (_character.Movement.NavAgent.hasPath && _character.Movement.NavAgent.remainingDistance < 0.05f) {
+            if (_character.movement.NavAgent.hasPath && _character.movement.NavAgent.remainingDistance < 0.05f) {
                 Stop(true);
-            } else if (!_character.Movement.NavAgent.pathPending && !_character.Movement.NavAgent.hasPath ||
+            } else if (!_character.movement.NavAgent.pathPending && !_character.movement.NavAgent.hasPath ||
                        Time.time > _startTime + _maxTime) {
                 Stop(false);
             }
@@ -46,7 +46,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
 
         public override void Stop(bool result) {
             base.Stop(result);
-            _character.Movement.NavAgent.ResetPath();
+            _character.movement.NavAgent.ResetPath();
         }
 
         public override string ToString() => $"Moving to {_newMoveTarget}";

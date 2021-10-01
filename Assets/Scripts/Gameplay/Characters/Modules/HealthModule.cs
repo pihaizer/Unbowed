@@ -19,6 +19,7 @@ namespace Unbowed.Gameplay {
             SetMax(maxHealth);
             SetCurrent(Max, null);
             isDead.Set(false);
+            HealthChanged += data => Debug.Log("Health changed");
         }
 
         public void Hit(int damage, GameObject source) => SetCurrent(Current - damage, source);

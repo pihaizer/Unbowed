@@ -42,6 +42,8 @@ namespace Unbowed.UI {
 
             deathScreen.SetActive(false);
             pauseScreen.SetActive(false);
+            characterScreen.SetActive(false);
+            inventoryScreen.SetActive(false);
 
             _transposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
             _currentTransposerTargetValue = _transposer.m_ScreenX;

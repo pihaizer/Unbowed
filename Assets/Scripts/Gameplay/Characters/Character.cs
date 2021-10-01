@@ -1,47 +1,62 @@
 ﻿using System;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Character : MonoBehaviour, ISelectable, IHittable {
+    public class Character : SerializedMonoBehaviour, ISelectable, IHittable {
+        // configs
         public CharacterTypeSO characterType;
         public CharacterConfig config;
         public CharacterRuntimeStats stats;
 
-        public HealthModule Health { get; } = new HealthModule();
-        public MovementModule Movement { get; } = new MovementModule();
-
+        // events
         public event Action<CharacterCommand> StartedExecuting;
         public event Action<CharacterCommand> StoppedExecuting;
-        
-        public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
 
-        public ModifiableParameter<float> speed;
+        // modules
+        [NonSerialized, ShowInInspector]
+        public readonly HealthModule health = new HealthModule();
 
+        [NonSerialized, ShowInInspector]
+        public readonly MovementModule movement = new MovementModule();
 
-        public CharacterCommand CurrentCharacterCommand { get; private set; }
+        [NonSerialized, ShowInInspector]
+        public readonly InventoryModule inventory = new InventoryModule();
+
+        // runtime values
         public bool IsStarted { get; private set; }
-
+        public CharacterCommand CurrentCharacterCommand { get; private set; }
         [ShowInInspector] string CurrentCommandString => CurrentCharacterCommand?.ToString();
+
+        [NonSerialized, ShowInInspector]
+        public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
 
         protected virtual void Start() {
             stats = new CharacterRuntimeStats(config.baseStats);
-            
+
             InitHealth();
             InitSpeed();
+            InitInventory();
             IsStarted = true;
         }
 
+        void FixedUpdate() {
+            CurrentCharacterCommand?.Update(Time.fixedDeltaTime);
+        }
+
         void InitHealth() {
-            Health.Init(Mathf.FloorToInt(stats[StatType.Endurance]) * 5);
-            Health.isDead.Changed += (becameDead) => {
+            health.Init(Mathf.FloorToInt(stats[StatType.Endurance]) * 5);
+            health.isDead.Changed += (becameDead) => {
                 if (becameDead)
                     OnDeath();
                 else
@@ -50,22 +65,21 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InitSpeed() {
-            Movement.Init(GetComponent<NavMeshAgent>(), stats[StatType.MoveSpeed]);
-            speed = new ModifiableParameter<float>(stats[StatType.MoveSpeed]);
+            movement.Init(GetComponent<NavMeshAgent>(), stats[StatType.MoveSpeed]);
         }
 
-        void FixedUpdate() {
-            CurrentCharacterCommand?.Update(Time.fixedDeltaTime);
+        void InitInventory() {
+            inventory.Init(16);
         }
 
         public void Hit(int damage, GameObject source) {
-            Health.Hit(damage, source);
-            if (damage >= Health.Max * CharacterConstants.StunDamageThreshold) {
+            health.Hit(damage, source);
+            if (damage >= health.Max * CharacterConstants.StunDamageThreshold) {
                 ForceExecute(new HitRecoveryCommand());
             }
         }
 
-        public bool CanBeHit() => !Health.isDead;
+        public bool CanBeHit() => !health.isDead;
 
         public void Execute(CharacterCommand characterCommand) {
             if (areActionsBlocked) return;
@@ -89,7 +103,7 @@ namespace Unbowed.Gameplay.Characters {
         protected virtual void OnDeath() {
             CurrentCharacterCommand?.Stop(false);
             StopAllCoroutines();
-            Movement.Stop();
+            movement.Stop();
         }
 
         protected virtual void OnRevive() {
@@ -100,6 +114,6 @@ namespace Unbowed.Gameplay.Characters {
 
         public string GetName() => gameObject.name;
 
-        public bool CanBeSelected() => !Health.isDead;
+        public bool CanBeSelected() => !health.isDead;
     }
 }

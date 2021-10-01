@@ -17,7 +17,7 @@ namespace Unbowed.UI {
 
         void Revive() {
             gameObject.SetActive(false);
-            FindObjectOfType<PlayerCharacter>().Health.Revive();
+            FindObjectOfType<PlayerCharacter>().health.Revive();
         }
 
         void ToMainMenu() {

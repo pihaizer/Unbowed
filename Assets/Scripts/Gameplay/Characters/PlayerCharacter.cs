@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using Unbowed.SO;
 using Unbowed.SO.Events;
 using Unbowed.Utility.Modifiers;
@@ -11,16 +12,16 @@ namespace Unbowed.Gameplay.Characters {
 
         protected override void Start() {
             base.Start();
-
+            
             GlobalContext.Instance.playerCharacter = this;
             
-            Health.HealthChanged += healthChangedEventSO.Invoke;
-            healthChangedEventSO.Invoke(new HealthChangeData(Health, gameObject));
+            health.HealthChanged += healthChangedEventSO.Invoke;
+            healthChangedEventSO.Invoke(new HealthChangeData(health, gameObject));
         }
 
         protected override void OnRevive() {
             base.OnRevive();
-            Movement.NavAgent.Warp(Vector3.zero);
+            movement.NavAgent.Warp(Vector3.zero);
             transform.rotation = new Quaternion();
         }
         
@@ -32,7 +33,7 @@ namespace Unbowed.Gameplay.Characters {
         [HideInEditorMode]
         [Button]
         void GetHitToDeath() {
-            while(!Health.isDead) Hit(1, gameObject);
+            while(!health.isDead) Hit(1, gameObject);
         }
     }
 }

@@ -2,7 +2,6 @@
 using UnityEngine;
 
 namespace Unbowed.Utility.Modifiers {
-    [Serializable]
     public class Modifier<T> : BaseModifier {
         public T Value {
             get => _value;

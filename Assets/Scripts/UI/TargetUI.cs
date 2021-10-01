@@ -28,7 +28,7 @@ namespace Unbowed.UI {
 
         void OnMouseStateChanged(ISelectable newTarget) {
             if (_target is IHittable oldHittable && oldHittable is Character oldCharacter) {
-                oldCharacter.Health.HealthChanged -= healthBar.OnHealthChanged;
+                oldCharacter.health.HealthChanged -= healthBar.OnHealthChanged;
             }
 
             _target = newTarget;
@@ -38,8 +38,8 @@ namespace Unbowed.UI {
             nameText.text = _target.GetName();
 
             if (_target is IHittable hittable && hittable is Character character) {
-                character.Health.HealthChanged += healthBar.OnHealthChanged;
-                healthBar.SetHealthPercent((float) character.Health.Current / character.Health.Max);
+                character.health.HealthChanged += healthBar.OnHealthChanged;
+                healthBar.SetHealthPercent((float) character.health.Current / character.health.Max);
             }
         }
     }

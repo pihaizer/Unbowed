@@ -9,7 +9,6 @@ namespace Unbowed.Animation {
         [SerializeField] Animator animator;
         [SerializeField] AnimationClip attackAnimation;
         [SerializeField] AnimationClip gotHitAnimation;
-        [SerializeField] Rigidbody ragdollRigidbody;
 
         static readonly int RelativeSpeed = Animator.StringToHash("relativeSpeed");
         static readonly int Attack = Animator.StringToHash("attack");
@@ -22,7 +21,7 @@ namespace Unbowed.Animation {
         void Start() {
             character.StartedExecuting += CharacterOnStartedExecuting;
             character.StoppedExecuting += CharacterOnStoppedExecuting;
-            character.Health.isDead.Changed += (value) => {
+            character.health.isDead.Changed += (value) => {
                 if (value)
                     OnDied();
                 else
@@ -47,8 +46,8 @@ namespace Unbowed.Animation {
         }
 
         void Update() {
-            float relativeSpeed = character.Movement.NavAgent.hasPath
-                ? character.speed.ModifiedValue / character.speed.BaseValue
+            float relativeSpeed = character.movement.NavAgent.hasPath
+                ? character.movement.speed.ModifiedValue / character.movement.speed.BaseValue
                 : 0;
             animator.SetFloat(RelativeSpeed, relativeSpeed, 0.1f, Time.deltaTime);
         }
@@ -70,11 +69,7 @@ namespace Unbowed.Animation {
         }
 
         void OnDied() {
-            if (ragdollRigidbody) {
-                animator.enabled = false;
-            } else {
-                animator.SetTrigger(Died);
-            }
+            animator.SetTrigger(Died);
         }
 
         void OnRevived() {

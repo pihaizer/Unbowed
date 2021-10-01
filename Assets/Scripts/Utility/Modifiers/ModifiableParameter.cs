@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using Sirenix.OdinInspector;
 
 namespace Unbowed.Utility.Modifiers {
-    [ShowInInspector, InlineProperty(LabelWidth = 80)]
     public class ModifiableParameter<T> : BaseModifiable {
-        [ShowInInspector]
-        [HorizontalGroup]
         public T BaseValue {
             get => _baseValue;
             set => SetBaseValue(value);
         }
 
-        [ShowInInspector]
-        [HorizontalGroup]
         public T ModifiedValue => _modifiedValue;
 
         public event Action<T> Changed;

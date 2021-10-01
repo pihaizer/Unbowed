@@ -17,11 +17,11 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void Update() {
-            if (Input.GetKeyDown(KeyCode.R)) _target.Movement.ToggleRunning();
+            if (Input.GetKeyDown(KeyCode.R)) _target.movement.ToggleRunning();
         }
 
         void FixedUpdate() {
-            if (_target.Health.isDead || _target.areActionsBlocked) return;
+            if (_target.health.isDead || _target.areActionsBlocked) return;
             if (Input.GetMouseButton(0)) OnLMB();
         }
 
@@ -42,6 +42,6 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         [ContextMenu("Revive")]
-        public void Revive() => _target.Health.Revive();
+        public void Revive() => _target.health.Revive();
     }
 }
