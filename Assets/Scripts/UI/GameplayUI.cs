@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
 using Unbowed.SO;
 using Unbowed.SO.Events;
@@ -23,8 +24,11 @@ namespace Unbowed.UI {
         [SerializeField] GameObject deathScreen;
 
         [Header("PartialScreens")]
+        [Title("Left")]
+        [SerializeField] MenuContainer leftMenus;
         [SerializeField] Menu characterMenu;
-
+        [Title("Right")]
+        [SerializeField] MenuContainer rightMenus;
         [SerializeField] CharacterInventoryUI inventoryMenu;
 
         [Header("Menu buttons")]
@@ -46,8 +50,8 @@ namespace Unbowed.UI {
         IEnumerator Start() {
             deathEvent.AddListener(OpenDeathScreen);
 
-            characterButton.onClick.AddListener(ToggleLeftMenus);
-            inventoryButton.onClick.AddListener(ToggleRightMenus);
+            characterButton.onClick.AddListener(characterMenu.ToggleOpened);
+            inventoryButton.onClick.AddListener(inventoryMenu.ToggleOpened);
 
             deathScreen.SetActive(false);
             pauseScreen.SetActive(false);
@@ -62,6 +66,14 @@ namespace Unbowed.UI {
             
             inventoryMenu.SetInventory(PlayerInventory);
             inventoryMenu.ItemClicked += OnItemClicked;
+            leftMenus.IsOpened.Changed += (value) => FloatCameraLeft();
+            rightMenus.IsOpened.Changed += (value) => FloatCameraRight();
+        }
+        
+        void Update() {
+            if (Input.GetKeyDown(KeyCode.Escape)) pauseScreen.ToggleActive();
+            if (Input.GetKeyDown(KeyCode.C)) characterMenu.ToggleOpened();
+            if (Input.GetKeyDown(KeyCode.B)) inventoryMenu.ToggleOpened();
         }
 
         void OnItemClicked(ItemUI itemUI, PointerEventData data) {
@@ -132,37 +144,25 @@ namespace Unbowed.UI {
             }
         }
 
-        void Update() {
-            if (Input.GetKeyDown(KeyCode.Escape)) pauseScreen.ToggleActive();
-            if (Input.GetKeyDown(KeyCode.C)) ToggleLeftMenus();
-            if (Input.GetKeyDown(KeyCode.B)) ToggleRightMenus();
-        }
 
         void OpenDeathScreen() {
             deathScreen.gameObject.SetActive(true);
         }
 
-        void ToggleLeftMenus() {
-            characterMenu.ToggleOpened();
-            
-            var characterScreenRt = characterMenu.GetComponent<RectTransform>();
-
-            FloatScreen(characterScreenRt);
+        void FloatCameraLeft() {
+            FloatScreen(leftMenus);
         }
 
-        void ToggleRightMenus() {
-            inventoryMenu.ToggleOpened();
-            
-            var inventoryScreenRt = inventoryMenu.GetComponent<RectTransform>();
-            
-            FloatScreen(inventoryScreenRt);
+        void FloatCameraRight() {
+            FloatScreen(rightMenus);
         }
 
-        void FloatScreen(RectTransform screen) {
+        void FloatScreen(Menu screen) {
+            var rectTransform = screen.GetComponent<RectTransform>();
             var cam = Camera.main;
-            float offsetPixels = screen.sizeDelta.x * transform.localScale.x * 
-                                 (screen.gameObject.activeSelf ? 1 : -1) *
-                                 (screen.anchorMin.x < 0.5 ? 1 : -1);
+            float offsetPixels = rectTransform.sizeDelta.x * transform.localScale.x * 
+                                 (screen.IsOpened ? 1 : -1) *
+                                 (rectTransform.anchorMin.x < 0.5 ? 1 : -1);
             _currentTransposerTargetValue += offsetPixels / cam.pixelWidth / 2;
             DOTween.To(() => _transposer.m_ScreenX, value => _transposer.m_ScreenX = value,
                 _currentTransposerTargetValue, screenAnimationTime);

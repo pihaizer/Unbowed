@@ -36,6 +36,7 @@ namespace Unbowed {
         }
 
         void UpdateColor() {
+            _background.DOKill();
             Color color;
             if (_isHovered)
                 color = _hoverColor;

@@ -8353,7 +8353,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 1
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 124132237
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -8398,7 +8398,9 @@ MonoBehaviour:
   screenAnimationTime: 0.2
   pauseScreen: {fileID: 1348922317}
   deathScreen: {fileID: 819583046}
+  leftMenus: {fileID: 1918849716}
   characterMenu: {fileID: 2072704131}
+  rightMenus: {fileID: 641561100}
   inventoryMenu: {fileID: 1040698520}
   characterButton: {fileID: 1433851801}
   inventoryButton: {fileID: 1781272677}

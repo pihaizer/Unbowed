@@ -31,6 +31,7 @@ namespace Unbowed.UI {
             if (!_isStarted) Start();
             IsOpened.Set(value);
             _canvasGroup.alpha = IsOpened ? 1 : 0;
+            _canvasGroup.blocksRaycasts = IsOpened;
         }
     }
 }
