@@ -81,16 +81,19 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InitInventory() {
-            inventory.Init(16);
+            inventory.Init(new Vector2Int(14, 8));
             var item1 = new Item(DEBUG_ITEM_CONFIG, new ItemLocation());
-            inventory.TryAddItemToInventory(item1);
-            inventory.TryAddItemToInventory(item1);
+            inventory.TryAddItemToBags(item1);
+            // Debug.Log(inventory.TryAddItemToBags(item1));
             var item2 = new Item(DEBUG_ITEM_CONFIG, new ItemLocation());
-            inventory.TryAddItemToInventory(item2);
+            inventory.TryAddItemToBags(item2);
             var item3 = new Item(DEBUG_ITEM_CONFIG_2, new ItemLocation());
-            inventory.TryAddItemToInventory(item3);
-            inventory.TryAddItemToInventory(item3);
+            // Debug.Log(inventory.TryAddItemToBags(item3));
+            inventory.TryAddItemToBags(item3);
         }
+
+        [Button]
+        void AddTestItem() => inventory.TryAddItemToBags(new Item(DEBUG_ITEM_CONFIG, ItemLocation.None));
 
         void InitCommandExecutor() {
             characterCommandExecutor.Init(this);

@@ -22,7 +22,8 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   displayName: 
-  icon: {fileID: 21300000, guid: 8b611ba38c320ed4eaf755fad728e29a, type: 3}
+  icon: {fileID: 21300000, guid: 6fc27c9d7fc2d9448af6851bf935e6d2, type: 3}
+  size: {x: 4, y: 3}
   isEquipment: 1
   equipment:
-    slot: 1
+    slot: 2

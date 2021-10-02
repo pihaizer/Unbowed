@@ -1,11 +1,8 @@
-﻿using System.Linq;
-using Sirenix.OdinInspector.Demos.RPGEditor;
-using Sirenix.OdinInspector.Editor;
+﻿using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using Unbowed.Gameplay.Characters.Configs;
 using UnityEditor;
-using UnityEngine;
 
 namespace Unbowed.Editor {
     public class CharactersOverview : OdinMenuEditorWindow {

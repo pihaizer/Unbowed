@@ -9,105 +9,97 @@ using UnityEngine.Assertions;
 
 namespace Unbowed.Gameplay.Characters.Modules {
     public class Inventory : SerializedMonoBehaviour {
-        public event Action Changed;
+        public event Action<Item> AddedItem;
+        public event Action<Item> RemovedItem;
 
         [ShowInInspector]
         public List<Item> Items { get; private set; }
+
         public List<Item> Equipped => Items.Where(it => it.location.isEquipped).ToList();
         public List<Item> InBags => Items.Where(it => !it.location.isEquipped).ToList();
-        public int Size { get; private set; }
+        public Vector2Int Size { get; private set; }
 
-        public void Init(int size, List<Item> savedItems = null) {
+        public void Init(Vector2Int size, List<Item> savedItems = null) {
             Size = size;
             Items = savedItems == null ? new List<Item>() : this.Items;
         }
 
-        public bool TryMoveItem(Item item, ItemLocation location) {
-            if (item == null) return false;
-            if (item.location.inventory != this) return false;
-            if (item.location == location) return true;
+        public bool TryAddItemToBags(Item item) {
+            if (!CanAddToBags(item, out var position)) return false;
+            SetLocation(item, new ItemLocation(this, position));
+            return true;
+        }
 
-            switch (item.location.isEquipped) {
-                case false when location.isEquipped:
-                    return TryEquipItem(item);
-                case false when !location.isEquipped: {
-                    var other = Items.Find(it => it.location == location);
-
-                    if (other != null)
-                        SwapLocations(item, other);
-                    else {
-                        SetLocation(item, location);
-                    }
-
-                    return true;
-                }
-                case true when location.isEquipped:
-                    return false;
-                case true when !location.isEquipped: {
-                    var other = Items.Find(it => it.location == location);
-
-                    if (other != null) {
-                        return TryEquipItem(other);
-                    }
-
-                    SetLocation(item, location);
-                    return true;
-                }
-                default:
-                    throw new Exception("Impossible situation");
+        public bool TryMoveItemToLocation(Item item, ItemLocation location, out Item removedItem) {
+            removedItem = null;
+            if (location.position.x < 0 || location.position.y < 0) return false;
+            if (location.position.x >= Size.x - item.config.size.x + 1 ||
+                location.position.y >= Size.y - item.config.size.y + 1) return false;
+            var overlaps = InBags
+                .Where(other => other.OverlapsWith(new RectInt(location.position, item.config.size))).ToList();
+            if (overlaps.Count > 1) return false;
+            if (overlaps.Count == 1) {
+                removedItem = overlaps.First();
+                SetLocation(removedItem, ItemLocation.None);
             }
+            SetLocation(item, location);
+            return true;
         }
 
-        public bool CanAddToInventory(Item item) {
-            return InBags.Count < Size;
+        public bool TryEquipItem(Item item, EquipmentSlot slot, out Item removedItem) {
+            removedItem = null;
+            if (!CanEquipItem(item, slot)) return false;
+            removedItem = Items.Find(it => it.location.isEquipped && it.location.slot == slot);
+            SetLocation(removedItem, ItemLocation.None);
+            SetLocation(item, new ItemLocation(this, slot));
+            return true;
         }
 
-        public bool TryAddItemToInventory(Item item) {
+        public void RemoveItem(Item item) {
+            SetLocation(item, ItemLocation.None);
+        }
+
+        static bool RectFits(RectInt rect, List<Item> bagItems) {
+            return bagItems.All(it => !it.OverlapsWith(rect));
+        }
+
+        bool CanMoveItemToLocation(Item item, ItemLocation location) {
+            if (location.isEquipped) return true;
+            return InBags.Count(other => other.OverlapsWith(item)) < 2;
+        }
+
+        bool CanAddToBags(Item item, out Vector2Int position) {
             var bagItems = InBags;
-            if (bagItems.Count >= Size) return false;
+            var itemRect = new RectInt(Vector2Int.zero, item.config.size);
 
-            for (int i = 0; i < Size; i++) {
-                if (bagItems.Exists(it => it.location.indexInBag == i)) continue;
-                item.location = new ItemLocation(this, i);
-                Items.Add(item);
-                Changed?.Invoke();
-                return true;
+            for (int i = 0; i < Size.x - itemRect.width + 1; i++) {
+                for (int j = 0; j < Size.y - itemRect.height + 1; j++) {
+                    itemRect.position = new Vector2Int(i, j);
+                    if (!RectFits(itemRect, bagItems)) continue;
+                    position = itemRect.position;
+                    return true;
+                }
             }
 
-            throw new Exception("Impossible situation");
+            position = -Vector2Int.one;
+            return false;
         }
 
-        public bool CanEquipItem(Item item) {
-            if (item.location.inventory != this) return false;
-            if (!item.config.isEquipment) return false;
-            if (item.location.isEquipped) return false;
-            return true;
+        static bool CanEquipItem(Item item, EquipmentSlot slot) {
+            if (item.config.isEquipment) return item.config.equipment.slot == slot;
+            return false;
         }
 
-        public bool TryEquipItem(Item item) {
-            if (!CanEquipItem(item)) return false;
-            var slot = item.config.equipment.slot;
-            var oldItem = Items.Find((it) => it.location.isEquipped && it.location.slot == slot);
-            if (oldItem != null)
-                SwapLocations(oldItem, item);
-            else
-                item.location = new ItemLocation(this, slot);
-            Changed?.Invoke();
-            return true;
-        }
+        static void SetLocation(Item item, ItemLocation location) {
+            if (item.Inventory != null) {
+                item.Inventory.Items.Remove(item);
+                item.Inventory.RemovedItem?.Invoke(item);
+            }
 
-        void SetLocation(Item item, ItemLocation location) {
-            if (item == null) return;
             item.location = location;
-            Changed?.Invoke();
-        }
-
-        static void SwapLocations(Item from, Item to) {
-            if (from == null || to == null) return;
-            if (from.location == to.location) return;
-            var tempLocation = from.location;
-            from.location = to.location;
-            to.location = tempLocation;
+            if (location.inventory == null) return;
+            item.Inventory.Items.Add(item);
+            item.Inventory.AddedItem?.Invoke(item);
         }
     }
 }

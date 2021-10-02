@@ -7,26 +7,20 @@ using Unbowed.Gameplay.Characters.Items;
 
 namespace Unbowed.UI.Inventory {
     public class EquipmentUI : SerializedMonoBehaviour {
-        [OdinSerialize] Dictionary<EquipmentSlot, BagSlotUI> equipments = Enum.GetValues(typeof(EquipmentSlot))
-            .Cast<EquipmentSlot>().ToDictionary(slot => slot, slot => (BagSlotUI)null);
+        [OdinSerialize] Dictionary<EquipmentSlot, ItemUI> equipments = Enum.GetValues(typeof(EquipmentSlot))
+            .Cast<EquipmentSlot>().ToDictionary(slot => slot, slot => (ItemUI)null);
 
-        public List<BagSlotUI> Slots => equipments.Values.ToList();
+        public Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
 
-        Gameplay.Characters.Modules.Inventory _inventory;
-
-        public void Init(InventoryUI parent) {
-            _inventory = parent.Inventory;
-            _inventory.Changed += UpdateEquipment;
+        public void SetInventory(Gameplay.Characters.Modules.Inventory inventory) {
+            Inventory = inventory;
 
             foreach (var equipment in equipments) {
-                equipment.Value.Init(new ItemLocation(_inventory, equipment.Key));
+                if(equipment.Key == EquipmentSlot.None) continue;
+                equipment.Value.SetItem(null);
             }
 
             UpdateEquipment();
-        }
-
-        void OnDisable() {
-            if (_inventory != null) _inventory.Changed -= UpdateEquipment;
         }
 
         void UpdateEquipment() {
@@ -34,7 +28,7 @@ namespace Unbowed.UI.Inventory {
                 equipment.Value.SetItem(null);
             }
 
-            foreach (var item in _inventory.Equipped) {
+            foreach (var item in Inventory.Equipped) {
                 equipments[item.location.slot].SetItem(item);
             }
         }

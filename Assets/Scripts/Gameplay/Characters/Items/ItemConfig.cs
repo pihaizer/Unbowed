@@ -6,6 +6,7 @@ namespace Unbowed.Gameplay.Characters.Items {
     public class ItemConfig : SerializedScriptableObject {
         public string displayName;
         public Sprite icon;
+        public Vector2Int size;
 
         public bool isEquipment;
         [ShowIf(nameof(isEquipment))]

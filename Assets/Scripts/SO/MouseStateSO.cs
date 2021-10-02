@@ -1,5 +1,6 @@
 ﻿using System;
 using Unbowed.Gameplay;
+using Unbowed.Gameplay.Characters.Items;
 using UnityEngine;
 
 namespace Unbowed.SO {
@@ -7,16 +8,14 @@ namespace Unbowed.SO {
     public class MouseStateSO : ScriptableObject {
         public event Action<ISelectable> Changed;
         
-        public bool isOffGameView;
+        [NonSerialized] public bool isOffGameView;
         
-        public ISelectable Target => _target;
-        
-        ISelectable _target;
+        public ISelectable Target { get; private set; }
 
         public void SetTarget(ISelectable target) {
-            if (_target != target) {
-                _target = target;
-                Changed?.Invoke(_target);
+            if (Target != target) {
+                Target = target;
+                Changed?.Invoke(Target);
             }
         }
     }
