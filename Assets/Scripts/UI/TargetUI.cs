@@ -6,24 +6,18 @@ using UnityEngine;
 
 namespace Unbowed.UI {
     public class TargetUI : MonoBehaviour {
-        [SerializeField] MouseStateSO mouseStateSO;
         [SerializeField] TMP_Text nameText;
         [SerializeField] HealthBarUI healthBar;
 
         ISelectable _target;
 
         void Start() {
-            if (!mouseStateSO) {
-                gameObject.SetActive(false);
-                return;
-            }
-
-            mouseStateSO.Changed += OnMouseStateChanged;
-            OnMouseStateChanged(mouseStateSO.Target);
+            MouseState.Instance.Changed += OnMouseStateChanged;
+            OnMouseStateChanged(MouseState.Instance.Target);
         }
 
         void OnDestroy() {
-            mouseStateSO.Changed -= OnMouseStateChanged;
+            MouseState.Instance.Changed -= OnMouseStateChanged;
         }
 
         void OnMouseStateChanged(ISelectable newTarget) {

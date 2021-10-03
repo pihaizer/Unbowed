@@ -11,16 +11,14 @@ namespace Unbowed.UI.Inventory {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(GridLayoutGroup))]
     public class BagsUI : SerializedMonoBehaviour {
-        [OdinSerialize, ChildGameObjectsOnly] BagSlotCellUI _cellReference;
+        [OdinSerialize, ChildGameObjectsOnly] CellUI _cellReference;
         [OdinSerialize, AssetsOnly] ItemUI _itemUIPrefab;
-        
+
         // ReSharper disable once Unity.RedundantHideInInspectorAttribute
-        [OdinSerialize, HideInInspector] BagSlotCellUI[,] _cells;
-        
-        public event Action<ItemUI, PointerEventData> ItemClicked;
+        [OdinSerialize, HideInInspector] CellUI[,] _cells;
 
         public List<ItemUI> ItemUIs { get; private set; }
-        
+
         public Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
 
         public Vector2Int Size { get; private set; }
@@ -36,12 +34,12 @@ namespace Unbowed.UI.Inventory {
 
         void SetSize(Vector2Int size) {
             Size = size;
-            
+
             foreach (var cell in _cells) {
                 if (cell != null) DestroyImmediate(cell.gameObject);
             }
 
-            _cells = new BagSlotCellUI[Size.x, Size.y];
+            _cells = new CellUI[Size.x, Size.y];
 
             for (int j = 0; j < Size.y; j++) {
                 for (int i = 0; i < Size.x; i++) {
@@ -51,9 +49,9 @@ namespace Unbowed.UI.Inventory {
                     cell.transform.SetParent(transform, false);
                 }
             }
-            
-            var rectTransform =  GetComponent<RectTransform>();
-            var grid =  GetComponent<GridLayoutGroup>();
+
+            var rectTransform = GetComponent<RectTransform>();
+            var grid = GetComponent<GridLayoutGroup>();
 
             float height = grid.cellSize.y * Size.y + grid.spacing.y * (Size.y - 1) + grid.padding.vertical;
             rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, height);
@@ -68,38 +66,24 @@ namespace Unbowed.UI.Inventory {
         }
 
         void AddItem(Item item) {
+            if (item.IsEquipped) return;
+
             var itemUI = Instantiate(_itemUIPrefab, transform);
             itemUI.SetItem(item);
+            itemUI.IsHoveredChanged += OnItemHoveredChanged;
+            itemUI.Dragged += OnItemDragged;
+            ItemUIs.Add(itemUI);
+
             foreach (var position in new RectInt(item.location.position, item.config.size).allPositionsWithin) {
                 _cells[position.x, position.y].SetItem(item);
             }
+
             itemUI.transform.SetParent(_cells[item.location.position.x, item.location.position.y].transform, false);
-            ItemUIs.Add(itemUI);
-            itemUI.IsHoveredChanged += OnItemHoveredChanged;
-            itemUI.Clicked += OnItemClicked;
-        }
-
-        void OnItemHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
-            var rect = new RectInt(itemUI.Item.location.position, itemUI.Item.config.size);
-            foreach (var cell in rect.allPositionsWithin) {
-                _cells[cell.x, cell.y].SetHovered(value);
-            }
-        }
-
-        public void SetAreaHovered(Vector2Int position, Vector2Int size, bool value) {
-            var rect = new RectInt(position, size);
-            foreach (var cell in rect.allPositionsWithin) {
-                if (cell.x < 0 || cell.y < 0) return;
-                if (cell.x >= Size.x || cell.y >= Size.y) return;
-                _cells[cell.x, cell.y].SetHovered(value);
-            }
-        }
-
-        void OnItemClicked(ItemUI itemUI, PointerEventData pointerEventData) {
-            ItemClicked?.Invoke(itemUI, pointerEventData);
         }
 
         void RemoveItem(Item item) {
+            if (item.IsEquipped) return;
+
             var uiToRemove = ItemUIs.Find(ui => ui.Item == item);
             ItemUIs.Remove(uiToRemove);
             Destroy(uiToRemove.gameObject);
@@ -108,7 +92,33 @@ namespace Unbowed.UI.Inventory {
                 _cells[cell.x, cell.y].SetItem(null);
             }
         }
-        
+
+        void OnItemHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
+            if (ItemDragger.Instance.IsDragging) return;
+            SetAreaState(itemUI.Item.location.position, itemUI.Item.config.size,
+                value ? CellUI.State.Hover : CellUI.State.Default);
+        }
+
+        public void SetAreaState(Vector2Int position, Vector2Int size, CellUI.State state) =>
+            SetAreaAction(position, size, ui => ui.SetState(state));
+
+        public void ResetAreaState(Vector2Int position, Vector2Int size) =>
+            SetAreaAction(position, size, ui => ui.ResetState());
+
+        void SetAreaAction(Vector2Int position, Vector2Int size, Action<CellUI> action) {
+            var rect = new RectInt(position, size);
+            foreach (var cell in rect.allPositionsWithin) {
+                if (cell.x < 0 || cell.y < 0) return;
+                if (cell.x >= Size.x || cell.y >= Size.y) return;
+                action(_cells[cell.x, cell.y]);
+            }
+        }
+
+        void OnItemDragged(ItemUI itemUI, PointerEventData pointerEventData) {
+            if (ItemDragger.Instance.IsDragging) return;
+            ItemDragger.Instance.DragItem(itemUI.Item);
+        }
+
         #region Editor
 
         [NonSerialized, ShowInInspector, HideInPlayMode, OnValueChanged(nameof(UpdateSizeInEditor))]

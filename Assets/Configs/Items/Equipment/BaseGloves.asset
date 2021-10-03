@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b6d9913d38d4052957b926e75725807, type: 3}
-  m_Name: Equipment Base Config 1
+  m_Name: BaseGloves
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,9 +21,11 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  displayName: 
-  icon: {fileID: 21300000, guid: 6fc27c9d7fc2d9448af6851bf935e6d2, type: 3}
-  size: {x: 4, y: 3}
-  isEquipment: 1
+  displayName: Gloves
+  icon: {fileID: 21300000, guid: d4f5634edede200468fc1ccf30e6f3a1, type: 3}
+  size: {x: 2, y: 2}
+  type: 0
   equipment:
-    slot: 2
+    slot: 4
+    rarity: 4
+  specialColor: {r: 0, g: 0, b: 0, a: 0}

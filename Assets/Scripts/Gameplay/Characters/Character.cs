@@ -26,8 +26,7 @@ namespace Unbowed.Gameplay.Characters {
         public CharacterRuntimeStats stats;
         
         //DEBUG
-        public ItemConfig DEBUG_ITEM_CONFIG;
-        public ItemConfig DEBUG_ITEM_CONFIG_2;
+        public List<Item> defaultItems;
 
         // modules
         [HideInInspector]
@@ -81,19 +80,8 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InitInventory() {
-            inventory.Init(new Vector2Int(14, 8));
-            var item1 = new Item(DEBUG_ITEM_CONFIG, new ItemLocation());
-            inventory.TryAddItemToBags(item1);
-            // Debug.Log(inventory.TryAddItemToBags(item1));
-            var item2 = new Item(DEBUG_ITEM_CONFIG, new ItemLocation());
-            inventory.TryAddItemToBags(item2);
-            var item3 = new Item(DEBUG_ITEM_CONFIG_2, new ItemLocation());
-            // Debug.Log(inventory.TryAddItemToBags(item3));
-            inventory.TryAddItemToBags(item3);
+            inventory.Init(new Vector2Int(14, 8), defaultItems);
         }
-
-        [Button]
-        void AddTestItem() => inventory.TryAddItemToBags(new Item(DEBUG_ITEM_CONFIG, ItemLocation.None));
 
         void InitCommandExecutor() {
             characterCommandExecutor.Init(this);

@@ -17,21 +17,12 @@ namespace Unbowed {
 
         [SerializeField, Required, ChildGameObjectsOnly]
         EquipmentUI equipmentUI;
-        
-        public event Action<ItemUI, PointerEventData> ItemClicked;
-
         public Inventory Inventory { get; private set; }
 
         public void SetInventory(Inventory inventory) {
             Inventory = inventory;
             equipmentUI.SetInventory(Inventory);
             bagsUI.SetInventory(Inventory);
-            
-            bagsUI.ItemClicked += OnItemClicked;
-        }
-
-        void OnItemClicked(ItemUI item, PointerEventData data) {
-            ItemClicked?.Invoke(item, data);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Unbowed.Gameplay.Characters.Modules;
 using UnityEngine;
 
 namespace Unbowed.Gameplay {

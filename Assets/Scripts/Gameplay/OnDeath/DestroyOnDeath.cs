@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.Utility.WaitFor;
 using UnityEngine;
 

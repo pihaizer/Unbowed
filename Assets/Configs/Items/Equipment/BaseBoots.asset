@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6d9913d38d4052957b926e75725807, type: 3}
+  m_Name: BaseBoots
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  displayName: Booties
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis
+    lectus eu turpis ultricies dignissim. Morbi tincidunt eleifend maximus. Cras
+    commodo nisi id elementum pellentesque. Nulla pretium vitae ligula quis congue.
+    Donec id dolor volutpat, ultrices libero sed, condimentum erat. Integer tellus
+    justo, faucibus sit amet diam at, posuere scelerisque nibh. Aliquam lobortis
+    tempor neque porta venenatis. Maecenas molestie lorem non dui euismod ullamcorper.
+    Praesent sit amet dapibus eros. Duis nec nibh magna. Nunc tristique nisl leo,
+    a eleifend ligula malesuada ac. Maecenas feugiat nulla neque, rutrum suscipit
+    turpis tempus eget. Cras non finibus eros. Ut magna elit, tempus id ornare vel,
+    hendrerit vel lacus. Suspendisse iaculis accumsan eros, et lobortis eros facilisis
+    eu.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis
+    lectus eu turpis ultricies dignissim. Morbi tincidunt eleifend maximus. Cras
+    commodo nisi id elementum pellentesque. Nulla pretium vitae ligula quis congue.
+    Donec id dolor volutpat, ultrices libero sed, condimentum erat. Integer tellus
+    justo, faucibus sit amet diam at, posuere scelerisque nibh. Aliquam lobortis
+    tempor neque porta venenatis. Maecenas molestie lorem non dui euismod ullamcorper.
+    Praesent sit amet dapibus eros. Duis nec nibh magna. Nunc tristique nisl leo,
+    a eleifend ligula malesuada ac. Maecenas feugiat nulla neque, rutrum suscipit
+    turpis tempus eget. Cras non finibus eros. Ut magna elit, tempus id ornare vel,
+    hendrerit vel lacus. Suspendisse iaculis accumsan eros, et lobortis eros facilisis
+    eu.'
+  icon: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
+  size: {x: 2, y: 2}
+  type: 0
+  equipment:
+    slot: 3
+    rarity: 1
+  specialColor: {r: 0, g: 0, b: 0, a: 0}

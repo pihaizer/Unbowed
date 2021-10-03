@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55dd6f397354b71920fa042fab9af8c, type: 3}
+  m_Name: UIConfig
+  m_EditorClassIdentifier: 
+  defaultSlotColor: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 0.5019608}
+  positiveSlotColor: {r: 0.10720008, g: 0.6886792, b: 0.20688213, a: 1}
+  positiveBlend: 0.5
+  errorSlotColor: {r: 0.5943396, g: 0.21026166, b: 0.21026166, a: 0.5019608}
+  errorBlend: 0.5
+  hoverSlotColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 0.5019608}
+  hoverBlend: 0.35
+  equipmentColors:
+  - rarity: 0
+    color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0.49803922}
+  - rarity: 1
+    color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0.49803922}
+  - rarity: 2
+    color: {r: 0.4285333, g: 0.6443281, b: 0.8490566, a: 0.49803922}
+  - rarity: 3
+    color: {r: 0.8301887, g: 0.8117629, b: 0.246707, a: 0.49803922}
+  - rarity: 4
+    color: {r: 0.8301887, g: 0.542906, b: 0.09789959, a: 0.49803922}
+  itemsAnimationTime: 0.1
+  itemUI: {fileID: 423861785635135808, guid: 3a400a73a6bcf9841ac12837df3f37ef, type: 3}

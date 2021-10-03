@@ -1,12 +1,12 @@
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.SO;
+using Unbowed.UI;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerInput : MonoBehaviour {
-        [SerializeField] MouseStateSO mouseStateSO;
         [SerializeField] LayerMask navMeshLayerMask;
         [SerializeField] float maxWalkDistance = 100f;
 
@@ -18,17 +18,15 @@ namespace Unbowed.Gameplay.Characters {
 
         void Update() {
             if (Input.GetKeyDown(KeyCode.R)) _target.characterMovement.ToggleRunning();
-        }
-
-        void FixedUpdate() {
             if (_target.health.isDead || _target.areActionsBlocked) return;
             if (Input.GetMouseButton(0)) OnLMB();
         }
 
         void OnLMB() {
-            if (mouseStateSO.isOffGameView) return;
-            if (mouseStateSO.Target != null) {
-                if (mouseStateSO.Target is IHittable hittable && hittable.CanBeHit()) {
+            if (MouseState.Instance.BlockedByUI) return;
+            if (ItemDragger.Instance.IsDragging) return;
+            if (MouseState.Instance.Target != null) {
+                if (MouseState.Instance.Target is IHittable hittable && hittable.CanBeHit()) {
                     if(!(_target.characterCommandExecutor.MainCommand is AttackCommand attackCommand) || attackCommand.Target != hittable)
                         _target.characterCommandExecutor.Execute(new AttackCommand(hittable));
                 }

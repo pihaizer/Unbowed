@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 
 namespace Unbowed.Gameplay.Characters {
     public class MouseSelector : MonoBehaviour {
-        [SerializeField] MouseStateSO outputMouseMouseStateSO;
         [SerializeField] LayerMask selectionMask;
         [SerializeField] Camera selectionCamera;
         [SerializeField] EventSystem eventSystem;
@@ -20,17 +19,18 @@ namespace Unbowed.Gameplay.Characters {
             var screenRect = new Rect(cameraRect.x * Screen.width, cameraRect.y * Screen.height, 
                 selectionCamera.pixelWidth, selectionCamera.pixelHeight);
 
-            outputMouseMouseStateSO.isOffGameView = false;
+            var mouseState = MouseState.Instance;
+            mouseState.isOffGameView = false;
         
             if (!screenRect.Contains(Input.mousePosition)) {
-                outputMouseMouseStateSO.SetTarget(null);
-                outputMouseMouseStateSO.isOffGameView = true;
+                mouseState.SetTarget(null);
+                mouseState.isOffGameView = true;
                 return;
             }
 
             if (eventSystem.IsPointerOverGameObject()) {
-                outputMouseMouseStateSO.SetTarget(null);
-                outputMouseMouseStateSO.isOffGameView = true;
+                mouseState.SetTarget(null);
+                mouseState.isOffGameView = true;
                 return;
             }
 
@@ -42,13 +42,13 @@ namespace Unbowed.Gameplay.Characters {
             for (int i = 0; i < hitsCount; i++) {
                 var selectable = _hits[i].transform.GetComponentInParent<ISelectable>();
                 if (selectable != null && selectable.CanBeSelected()) {
-                    outputMouseMouseStateSO.SetTarget(selectable);
+                    mouseState.SetTarget(selectable);
                     hasTarget = true;
                     break;
                 }
             }
 
-            if (!hasTarget) outputMouseMouseStateSO.SetTarget(null);
+            if (!hasTarget) mouseState.SetTarget(null);
         }
     }
 }

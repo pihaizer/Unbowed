@@ -1,10 +1,9 @@
 using System;
 using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Characters;
 using Unbowed.Utility;
 using UnityEngine;
 
-namespace Unbowed.Gameplay {
+namespace Unbowed.Gameplay.Characters.Modules {
     public class Health : MonoBehaviour {
         public event Action<HealthChangeData> HealthChanged;
         
