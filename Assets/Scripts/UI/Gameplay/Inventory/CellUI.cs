@@ -22,6 +22,11 @@ namespace Unbowed {
 
         public void Init() {
             SetItem(null);
+            _background.color = GetColor();
+        }
+
+        void OnDestroy() {
+            _tweener.Kill();
         }
 
         void Update() => UpdateColor();
@@ -38,6 +43,13 @@ namespace Unbowed {
         public void ResetState() => SetState(State.Default);
 
         void UpdateColor() {
+            var color = GetColor();
+            _background.color = color;
+            // _tweener.Kill();
+            // _tweener = _background.DOColor(color, UIConfig.Instance.itemsAnimationTime);
+        }
+
+        Color GetColor() {
             var color = Item?.Color ?? UIConfig.Instance.defaultSlotColor;
 
             color = _state switch {
@@ -53,13 +65,7 @@ namespace Unbowed {
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            _tweener.Kill();
-            _tweener = _background.DOColor(color, UIConfig.Instance.itemsAnimationTime);
-            // if (color == _background.color) return;
-            // if (_tweener.IsActive()) {
-            //     _tweener.endValue = color;
-            //     _tweener.Restart();
-            // } else 
+            return color;
         }
 
         public enum State {

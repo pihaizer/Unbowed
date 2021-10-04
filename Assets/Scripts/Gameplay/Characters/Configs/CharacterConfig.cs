@@ -8,15 +8,19 @@ namespace Unbowed.Gameplay.Characters.Configs {
     [CreateAssetMenu]
     public class CharacterConfig : SerializedScriptableObject {
         [NonSerialized, OdinSerialize]
-        [HorizontalGroup]
+        [HorizontalGroup("Stats"), PropertyOrder(0)]
         [Title("Base stats", TitleAlignment = TitleAlignments.Centered)]
         public CharacterStats baseStats = new CharacterStats();
 
-        [Title("Base stats", TitleAlignment = TitleAlignments.Centered)]
+        [VerticalGroup("Stats/Other"), PropertyOrder(2)]
+        [Title("Distances", TitleAlignment = TitleAlignments.Centered)]
         public CharacterDistances distances;
 
-        [Title("Animation config")]
+        [VerticalGroup("Stats/Other"), PropertyOrder(3)]
         public CharacterAnimationConfig animationConfig;
+
+        [VerticalGroup("Stats/Other"), PropertyOrder(4)]
+        public DropsConfig dropsConfig;
         
         #region EDITOR_ONLY
 
@@ -33,7 +37,7 @@ namespace Unbowed.Gameplay.Characters.Configs {
         }
 
         [NonSerialized, ShowInInspector]
-        [HorizontalGroup]
+        [HorizontalGroup("Stats"), PropertyOrder(1)]
         [Title("Runtime stats preview", TitleAlignment = TitleAlignments.Centered)]
         CharacterRuntimeStats runtimeStatsPreview;
 

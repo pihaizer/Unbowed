@@ -200,3 +200,13 @@ MonoBehaviour:
   distances: {fileID: 11400000, guid: 38340cb7be5e4ad45a8a440d3e03af03, type: 2}
   animationConfig:
     hitMomentPercent: 0.333
+  dropsConfig:
+    dropValue: 10
+    dropAmount: 10
+    alwaysDrops:
+    - config: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
+      location:
+        inventory: {fileID: 0}
+        isEquipped: 0
+        position: {x: 0, y: 0}
+      rarity: 0

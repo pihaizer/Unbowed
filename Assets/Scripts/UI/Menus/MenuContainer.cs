@@ -8,13 +8,22 @@ namespace Unbowed.UI {
         protected override void Awake() {
             base.Awake();
             foreach (var menu in menus) {
-                if (menu == this) return;
-                menu.IsOpened.Changed += IsOpenedOnChanged;
+                menu.IsOpened.Changed += (value) => IsOpenedOnChanged(menu, value);
             }
         }
 
-        void IsOpenedOnChanged(bool obj) {
-            SetOpened(menus.Any(menu => menu.IsOpened));
+        void IsOpenedOnChanged(Menu changedMenu, bool value) {
+            if (!value) {
+                Close();
+                return;
+            }
+            
+            foreach (var menu in menus) {
+                if (menu == changedMenu) continue;
+                menu.Close();
+            }
+            
+            Open();
         }
     }
 }

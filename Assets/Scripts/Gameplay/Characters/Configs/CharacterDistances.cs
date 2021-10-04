@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Configs {
     [CreateAssetMenu]
-    [InlineEditor]
+    [InlineEditor, LabelWidth(150)]
     [HideLabel]
     public class CharacterDistances : SerializedScriptableObject {
         public float attackRadius = 1.5f;

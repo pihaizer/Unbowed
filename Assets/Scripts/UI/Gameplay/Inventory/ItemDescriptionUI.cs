@@ -59,7 +59,7 @@ namespace Unbowed.UI.Inventory {
             var canvas = GetComponentsInParent<Canvas>().First(parentCanvas => parentCanvas.isRootCanvas);
             float scaleFactor = canvas.scaleFactor;
 
-            if (rt.position.x < 0) {
+            if (rt.position.x - rt.pivot.x * rt.sizeDelta.x * scaleFactor < 0) {
                 rt.position = new Vector2(rt.pivot.x * rt.sizeDelta.x * scaleFactor + screenMaxOffset.x,
                     rt.position.y);
             }
@@ -67,9 +67,7 @@ namespace Unbowed.UI.Inventory {
             var max = (Vector2) rt.position + new Vector2(rt.sizeDelta.x * rt.pivot.x, rt.sizeDelta.y)
                 * scaleFactor + screenMaxOffset;
 
-            Debug.Log("1");
             if (canvas.pixelRect.Contains(max)) return;
-            Debug.Log("2");
 
             Vector2 newPos = rt.position;
 

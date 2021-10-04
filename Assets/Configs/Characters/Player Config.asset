@@ -200,3 +200,8 @@ MonoBehaviour:
   distances: {fileID: 11400000, guid: 38340cb7be5e4ad45a8a440d3e03af03, type: 2}
   animationConfig:
     hitMomentPercent: 0.333
+  dropsConfig:
+    hasDrops: 0
+    dropValue: 11
+    dropAmount: 13
+    alwaysDrops: []

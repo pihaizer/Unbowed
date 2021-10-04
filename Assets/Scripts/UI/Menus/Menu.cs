@@ -26,8 +26,8 @@ namespace Unbowed.UI {
 
         protected virtual void SetOpened(bool value) {
             if (!isStarted) Awake();
-            IsOpened.Set(value);
             gameObject.SetActive(value);
+            IsOpened.Set(value);
         }
     }
 }

@@ -24,9 +24,6 @@ namespace Unbowed.UI {
 
         [SerializeField] List<RarityColor> equipmentColors;
 
-        [Title("Times")]
-        public float itemsAnimationTime;
-
         [Title("Prefabs")]
         [AssetsOnly]
         public ItemUI itemUI;
