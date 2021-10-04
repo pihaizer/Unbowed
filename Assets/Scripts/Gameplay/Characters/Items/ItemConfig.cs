@@ -5,9 +5,15 @@ namespace Unbowed.Gameplay.Characters.Items {
     [CreateAssetMenu, InlineEditor()]
     public class ItemConfig : SerializedScriptableObject {
         public string displayName;
+        
         [MultiLineProperty(4)]
         public string description;
+        
+        [AssetsOnly, Required]
         public Sprite icon;
+        
+        [AssetsOnly, Required]
+        public GameObject modelPrefab;
         
         [MinValue(1)] 
         public Vector2Int size;
@@ -23,7 +29,5 @@ namespace Unbowed.Gameplay.Characters.Items {
         public bool IsEquipment => type == ItemType.Equipment;
         public bool IsUsable => type == ItemType.Usable;
         public bool IsSpecial => type == ItemType.Special;
-
-        public Color Color => IsEquipment ? equipment.Color : specialColor;
     }
 }

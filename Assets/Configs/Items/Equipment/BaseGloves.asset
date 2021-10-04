@@ -22,10 +22,11 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   displayName: Gloves
+  description: 
   icon: {fileID: 21300000, guid: d4f5634edede200468fc1ccf30e6f3a1, type: 3}
+  modelPrefab: {fileID: 8306180429689506633, guid: a30e05777cfb41e40a6a93715a703256, type: 3}
   size: {x: 2, y: 2}
   type: 0
   equipment:
     slot: 4
-    rarity: 4
   specialColor: {r: 0, g: 0, b: 0, a: 0}

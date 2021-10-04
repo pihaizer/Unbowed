@@ -23,6 +23,11 @@ namespace Unbowed.Gameplay.Characters.Commands {
 
         public override void Update(float deltaTime) {
             base.Update(deltaTime);
+            
+            if (Target == null) {
+                Stop(false);
+                return;
+            }
 
             if (TryInteract()) {
                 Stop(true);

@@ -1,6 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.UI;
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Items {
@@ -11,16 +12,21 @@ namespace Unbowed.Gameplay.Characters.Items {
 
         public ItemLocation location;
 
+        [ShowIf(nameof(IsEquipment))]
+        public EquipmentRarity rarity;
+
         public bool IsInBags => !location.isEquipped;
         public bool IsEquipped => location.isEquipped;
         public Inventory Inventory => location.inventory;
 
         public string Name => config.displayName;
-        public Color Color => config.Color;
+        public Color Color => IsEquipment ? EquipmentColor : config.specialColor;
         public bool IsEquipment => config.IsEquipment;
         public EquipmentSlot Slot => config.IsEquipment ? config.equipment.slot : EquipmentSlot.None;
         public Vector2Int Size => config.size;
         public RectInt Rect => new RectInt(location.position, config.size);
+
+        Color EquipmentColor => UIConfig.Instance.GetEquipmentColor(rarity);
 
         public Item(ItemConfig config, ItemLocation location) {
             this.config = config;

@@ -108,5 +108,7 @@ namespace Unbowed.Gameplay.Characters {
         public string GetName() => gameObject.name;
 
         public bool CanBeSelected() => !health.isDead;
+
+        public bool HasTargetUI() => true;
     }
 }

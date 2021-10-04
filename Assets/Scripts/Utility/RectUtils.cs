@@ -2,20 +2,17 @@
 
 namespace Unbowed.Utility {
     public static class RectUtils {
-        public static Rect RectTransformToScreenSpace(RectTransform transform, Camera cam, bool cutDecimals = false)
-        {
+        public static Rect RectTransformToScreenSpace(RectTransform transform, Camera cam, bool cutDecimals = false) {
             var worldCorners = new Vector3[4];
             var screenCorners = new Vector3[4];
 
             transform.GetWorldCorners(worldCorners);
 
-            for (int i = 0; i < 4; i++)
-            {
+            for (int i = 0; i < 4; i++) {
                 screenCorners[i] = cam.WorldToScreenPoint(worldCorners[i]);
-                if (cutDecimals)
-                {
-                    screenCorners[i].x = (int)screenCorners[i].x;
-                    screenCorners[i].y = (int)screenCorners[i].y;
+                if (cutDecimals) {
+                    screenCorners[i].x = (int) screenCorners[i].x;
+                    screenCorners[i].y = (int) screenCorners[i].y;
                 }
             }
 
@@ -24,5 +21,7 @@ namespace Unbowed.Utility {
                 screenCorners[2].x - screenCorners[0].x,
                 screenCorners[2].y - screenCorners[0].y);
         }
+
+        public static Rect One => new Rect(0, 0, 1, 1);
     }
 }

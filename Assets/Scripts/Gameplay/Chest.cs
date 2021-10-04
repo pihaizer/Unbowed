@@ -30,13 +30,13 @@ namespace Unbowed.Gameplay {
             if (!(Vector3.Distance(transform.position, _opener.transform.position) > maxDistance)) 
                 return;
             
-            GlobalContext.Instance.CloseOtherInventoryRequest?.Invoke(_inventory);
+            GlobalContext.Instance.otherInventoryRequest?.Invoke(_inventory, false);
             _isOpened = false;
             _opener = null;
         }
 
         public void Interact(GameObject source) {
-            GlobalContext.Instance.OpenOtherInventoryRequest?.Invoke(_inventory);
+            GlobalContext.Instance.otherInventoryRequest?.Invoke(_inventory, true);
             _isOpened = true;
             _opener = source;
         }
@@ -46,5 +46,7 @@ namespace Unbowed.Gameplay {
         public string GetName() => name;
 
         public bool CanBeSelected() => true;
+
+        public bool HasTargetUI() => true;
     }
 }

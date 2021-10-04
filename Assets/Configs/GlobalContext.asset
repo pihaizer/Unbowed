@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: GlobalContext
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 0}
+  droppedItemPrefab: {fileID: 3196568061667994077, guid: 4b8e1070046dd9a4480200a5c922a305, type: 3}

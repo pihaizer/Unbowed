@@ -3,5 +3,7 @@
         string GetName();
 
         bool CanBeSelected();
+
+        bool HasTargetUI();
     }
 }
