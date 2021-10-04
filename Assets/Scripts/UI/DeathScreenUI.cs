@@ -1,4 +1,5 @@
 using Unbowed.Gameplay.Characters;
+using Unbowed.Gameplay.Characters.Player;
 using Unbowed.SO.Events;
 using UnityEngine;
 using UnityEngine.UI;

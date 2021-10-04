@@ -24,9 +24,6 @@ namespace Unbowed.Gameplay.Characters {
         public CharacterTypeSO characterType;
         public CharacterConfig config;
         public CharacterRuntimeStats stats;
-        
-        //DEBUG
-        public List<Item> defaultItems;
 
         // modules
         [HideInInspector]
@@ -80,7 +77,7 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InitInventory() {
-            inventory.Init(new Vector2Int(14, 8), defaultItems);
+            inventory.Init();
         }
 
         void InitCommandExecutor() {

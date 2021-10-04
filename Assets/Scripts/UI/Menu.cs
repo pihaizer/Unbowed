@@ -25,6 +25,7 @@ namespace Unbowed.UI {
 
         public void Close() => SetOpened(false);
 
+        [Button]
         public void ToggleOpened() => SetOpened(!IsOpened);
 
         public virtual void SetOpened(bool value) {

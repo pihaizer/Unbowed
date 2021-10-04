@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9198142649516915202
 Transform:
   m_ObjectHideFlags: 0
@@ -3001,32 +3001,6 @@ MonoBehaviour:
     SerializationNodes: []
   characterType: {fileID: 11400000, guid: d5c8972de7b40a34e8441c958d1e74ca, type: 2}
   config: {fileID: 11400000, guid: 007df2ef7539c79478accc56a30a7d58, type: 2}
-  defaultItems:
-  - config: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
-    location:
-      inventory: {fileID: 1768623300848008538}
-      isEquipped: 1
-      position: {x: 0, y: 0}
-  - config: {fileID: 11400000, guid: 0d12ca7d7ec3dc742a4f5eb0a3c2cd44, type: 2}
-    location:
-      inventory: {fileID: 1768623300848008538}
-      isEquipped: 1
-      position: {x: 0, y: 0}
-  - config: {fileID: 11400000, guid: 1d6d36ead7a37244abaa1d71611d415e, type: 2}
-    location:
-      inventory: {fileID: 1768623300848008538}
-      isEquipped: 0
-      position: {x: 0, y: 0}
-  - config: {fileID: 11400000, guid: 38207023a8b23814b96c0de75458da13, type: 2}
-    location:
-      inventory: {fileID: 1768623300848008538}
-      isEquipped: 1
-      position: {x: 0, y: 0}
-  - config: {fileID: 11400000, guid: e3c6205ce0e63c642ad2f40eb496a4a9, type: 2}
-    location:
-      inventory: {fileID: 1768623300848008538}
-      isEquipped: 0
-      position: {x: 3, y: 2}
   health: {fileID: 5208877964504438424}
   characterMovement: {fileID: 8622382516364442156}
   inventory: {fileID: 1768623300848008538}
@@ -3078,6 +3052,33 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  size: {x: 14, y: 8}
+  defaultItems:
+  - config: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
+    location:
+      inventory: {fileID: 1768623300848008538}
+      isEquipped: 1
+      position: {x: 0, y: 0}
+  - config: {fileID: 11400000, guid: 0d12ca7d7ec3dc742a4f5eb0a3c2cd44, type: 2}
+    location:
+      inventory: {fileID: 1768623300848008538}
+      isEquipped: 1
+      position: {x: 0, y: 0}
+  - config: {fileID: 11400000, guid: 1d6d36ead7a37244abaa1d71611d415e, type: 2}
+    location:
+      inventory: {fileID: 1768623300848008538}
+      isEquipped: 0
+      position: {x: 0, y: 0}
+  - config: {fileID: 11400000, guid: 38207023a8b23814b96c0de75458da13, type: 2}
+    location:
+      inventory: {fileID: 1768623300848008538}
+      isEquipped: 1
+      position: {x: 0, y: 0}
+  - config: {fileID: 11400000, guid: e3c6205ce0e63c642ad2f40eb496a4a9, type: 2}
+    location:
+      inventory: {fileID: 1768623300848008538}
+      isEquipped: 0
+      position: {x: 3, y: 2}
 --- !u!114 &3838825683161514624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3102,7 +3103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a82ba5f5db64f4fb3a60edfe6ecdf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseStateSO: {fileID: 11400000, guid: cce28d1579064b04db0a731b35a46171, type: 2}
   navMeshLayerMask:
     serializedVersion: 2
     m_Bits: 4096

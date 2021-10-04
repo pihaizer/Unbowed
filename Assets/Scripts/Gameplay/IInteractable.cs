@@ -1,5 +1,9 @@
-﻿namespace Unbowed.Gameplay {
+﻿using UnityEngine;
+
+namespace Unbowed.Gameplay {
     public interface IInteractable {
-        void Interact();
+        void Interact(GameObject source);
+
+        Transform GetTransform();
     }
 }

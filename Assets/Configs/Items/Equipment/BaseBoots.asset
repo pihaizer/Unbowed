@@ -22,29 +22,25 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   displayName: Booties
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis
-    lectus eu turpis ultricies dignissim. Morbi tincidunt eleifend maximus. Cras
-    commodo nisi id elementum pellentesque. Nulla pretium vitae ligula quis congue.
-    Donec id dolor volutpat, ultrices libero sed, condimentum erat. Integer tellus
-    justo, faucibus sit amet diam at, posuere scelerisque nibh. Aliquam lobortis
-    tempor neque porta venenatis. Maecenas molestie lorem non dui euismod ullamcorper.
-    Praesent sit amet dapibus eros. Duis nec nibh magna. Nunc tristique nisl leo,
-    a eleifend ligula malesuada ac. Maecenas feugiat nulla neque, rutrum suscipit
-    turpis tempus eget. Cras non finibus eros. Ut magna elit, tempus id ornare vel,
-    hendrerit vel lacus. Suspendisse iaculis accumsan eros, et lobortis eros facilisis
-    eu.
+  description: ' condimentum erat. Integer tellus justo, faucibus sit amet diam at,
+    posuere scelerisque nibh. Aliquam lobortis tempor neque porta venenatis. Maecenas
+    molestie lorem non dui euismod ullamcorper. Praesent sit amet dapibus eros. Duis
+    nec nibh magna. Nunc tristique nisl leo, a eleifend ligula malesuada ac. Maecenas
+    feugiat nulla neque, rutrum suscipit turpis tempus eget. Cras non finibus eros.
+    Ut magna elit, tempus id ornare vel, hendrerit vel lacus. Suspendisse iaculis
+    accumsan eros, et lobortis eros facilisis eu.
 
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis
-    lectus eu turpis ultricies dignissim. Morbi tincidunt eleifend maximus. Cras
-    commodo nisi id elementum pellentesque. Nulla pretium vitae ligula quis congue.
-    Donec id dolor volutpat, ultrices libero sed, condimentum erat. Integer tellus
-    justo, faucibus sit amet diam at, posuere scelerisque nibh. Aliquam lobortis
-    tempor neque porta venenatis. Maecenas molestie lorem non dui euismod ullamcorper.
-    Praesent sit amet dapibus eros. Duis nec nibh magna. Nunc tristique nisl leo,
-    a eleifend ligula malesuada ac. Maecenas feugiat nulla neque, rutrum suscipit
-    turpis tempus eget. Cras non finibus eros. Ut magna elit, tempus id ornare vel,
-    hendrerit vel lacus. Suspendisse iaculis accumsan eros, et lobortis eros facilisis
-    eu.'
+    Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit. Cras mollis lectus eu turpis ultricies dignissim.
+    Morbi tincidunt eleifend maximus. Cras commodo nisi id elementum pellentesque.
+    Nulla pretium vitae ligula quis congue. Donec id dolor volutpat, ultrices libero
+    sed, condimentum erat. Integer tellus justo, faucibus sit amet diam at, posuere
+    scelerisque nibh. Aliquam lobortis tempor neque porta venenatis. Maecenas molestie
+    lorem non dui euismod ullamcorper. Praesent sit amet dapibus eros. Duis nec nibh
+    magna. Nunc tristique nisl leo, a eleifend ligula malesuada ac. Maecenas feugiat
+    nulla neque, rutrum suscipit turpis tempus eget. Cras non finibus eros. Ut magna
+    elit, tempus id ornare vel, hendrerit vel lacus. Suspendisse iaculis accumsan
+    eros, et lobortis eros facilisis eu.'
   icon: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
   size: {x: 2, y: 2}
   type: 0

@@ -19,6 +19,8 @@ namespace Unbowed.UI {
         [Range(0, 1)] public float errorBlend;
         public Color hoverSlotColor;
         [Range(0, 1)] public float hoverBlend;
+        public Color replaceSlotColor;
+        [Range(0, 1)] public float replaceBlend;
 
         [SerializeField] List<RarityColor> equipmentColors;
 

@@ -1,11 +1,9 @@
-﻿using System;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Unbowed.SO;
 using Unbowed.SO.Events;
-using Unbowed.Utility.Modifiers;
 using UnityEngine;
 
-namespace Unbowed.Gameplay.Characters {
+namespace Unbowed.Gameplay.Characters.Player {
     public class PlayerCharacter : Character {
         [SerializeField] EventSO diedEventSO;
         [SerializeField] HealthChangedEventSO healthChangedEventSO;

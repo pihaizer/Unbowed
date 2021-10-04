@@ -34,6 +34,8 @@ namespace Unbowed.UI {
             if (_target is IHittable hittable && hittable is Character character) {
                 character.health.HealthChanged += healthBar.OnHealthChanged;
                 healthBar.SetHealthPercent((float) character.health.Current / character.health.Max);
+            } else {
+                healthBar.SetHealthPercent(0);
             }
         }
     }

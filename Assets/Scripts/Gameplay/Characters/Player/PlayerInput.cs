@@ -4,7 +4,7 @@ using Unbowed.UI;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Unbowed.Gameplay.Characters {
+namespace Unbowed.Gameplay.Characters.Player {
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerInput : MonoBehaviour {
         [SerializeField] LayerMask navMeshLayerMask;
@@ -29,6 +29,8 @@ namespace Unbowed.Gameplay.Characters {
                 if (MouseState.Instance.Target is IHittable hittable && hittable.CanBeHit()) {
                     if(!(_target.characterCommandExecutor.MainCommand is AttackCommand attackCommand) || attackCommand.Target != hittable)
                         _target.characterCommandExecutor.Execute(new AttackCommand(hittable));
+                } else if (MouseState.Instance.Target is IInteractable interactable) {
+                    _target.characterCommandExecutor.Execute(new InteractCommand(interactable));
                 }
             } else {
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out var hit, 100f,

@@ -46,6 +46,8 @@ namespace Unbowed {
                     Color.Lerp(color, UIConfig.Instance.hoverSlotColor, UIConfig.Instance.hoverBlend),
                 State.Positive =>
                     Color.Lerp(color, UIConfig.Instance.positiveSlotColor, UIConfig.Instance.positiveBlend),
+                State.Replace =>
+                    Color.Lerp(color, UIConfig.Instance.replaceSlotColor, UIConfig.Instance.replaceBlend),
                 State.Error =>
                     Color.Lerp(color, UIConfig.Instance.errorSlotColor, UIConfig.Instance.errorBlend),
                 _ => throw new ArgumentOutOfRangeException()
@@ -64,6 +66,7 @@ namespace Unbowed {
             Default,
             Hover,
             Positive,
+            Replace,
             Error,
         }
     }

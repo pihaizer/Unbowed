@@ -28,6 +28,8 @@ namespace Unbowed.UI {
         [SerializeField] MenuContainer leftMenus;
 
         [SerializeField] Menu characterMenu;
+        
+        [SerializeField] BagsUI lootedInventoryMenu;
 
         [Title("Right")]
         [SerializeField] MenuContainer rightMenus;
@@ -71,6 +73,20 @@ namespace Unbowed.UI {
             inventoryMenu.SetInventory(PlayerInventory);
             leftMenus.IsOpened.Changed += (value) => FloatCameraLeft();
             rightMenus.IsOpened.Changed += (value) => FloatCameraRight();
+            
+            GlobalContext.Instance.OpenOtherInventoryRequest += OnOpenOtherInventoryRequest;
+            GlobalContext.Instance.CloseOtherInventoryRequest += CloseOtherInventoryRequest;
+        }
+
+        void OnOpenOtherInventoryRequest(Gameplay.Characters.Modules.Inventory inventory) {
+            lootedInventoryMenu.SetInventory(inventory);
+            lootedInventoryMenu.Open();
+        }
+
+        void CloseOtherInventoryRequest(Gameplay.Characters.Modules.Inventory inventory) {
+            if (lootedInventoryMenu.Inventory != inventory) return;
+            lootedInventoryMenu.SetInventory(null);
+            lootedInventoryMenu.Close();
         }
 
         void Update() {

@@ -17,8 +17,10 @@ MonoBehaviour:
   positiveBlend: 0.5
   errorSlotColor: {r: 0.5943396, g: 0.21026166, b: 0.21026166, a: 0.5019608}
   errorBlend: 0.5
-  hoverSlotColor: {r: 0.066037714, g: 0.066037714, b: 0.066037714, a: 0.5019608}
+  hoverSlotColor: {r: 0, g: 0, b: 0, a: 1}
   hoverBlend: 0.35
+  replaceSlotColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  replaceBlend: 1
   equipmentColors:
   - rarity: 0
     color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0.49803922}

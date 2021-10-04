@@ -10,13 +10,14 @@ using UnityEngine.UI;
 namespace Unbowed.UI.Inventory {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(GridLayoutGroup))]
-    public class BagsUI : SerializedMonoBehaviour {
+    public class BagsUI : Menu {
         [OdinSerialize, ChildGameObjectsOnly] CellUI _cellReference;
         [OdinSerialize, AssetsOnly] ItemUI _itemUIPrefab;
 
         // ReSharper disable once Unity.RedundantHideInInspectorAttribute
         [OdinSerialize, HideInInspector] CellUI[,] _cells;
 
+        [ShowInInspector]
         public List<ItemUI> ItemUIs { get; private set; }
 
         public Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
@@ -24,8 +25,20 @@ namespace Unbowed.UI.Inventory {
         public Vector2Int Size { get; private set; }
 
         public void SetInventory(Gameplay.Characters.Modules.Inventory inventory) {
-            _cellReference.gameObject.SetActive(false);
+            if (Inventory != null) {
+                Inventory.AddedItem -= AddItem;
+                Inventory.RemovedItem -= RemoveItem;
+                
+                foreach (var itemUI in ItemUIs) {
+                    Destroy(itemUI.gameObject);
+                }
+            }
+            
             Inventory = inventory;
+            
+            if (Inventory == null) return;
+
+            _cellReference.gameObject.SetActive(false);
             SetSize(Inventory.Size);
             SetItems(Inventory.Items);
             Inventory.AddedItem += AddItem;
@@ -53,8 +66,9 @@ namespace Unbowed.UI.Inventory {
             var rectTransform = GetComponent<RectTransform>();
             var grid = GetComponent<GridLayoutGroup>();
 
+            float width = grid.cellSize.x * Size.x + grid.spacing.x * (Size.x - 1) + grid.padding.horizontal;
             float height = grid.cellSize.y * Size.y + grid.spacing.y * (Size.y - 1) + grid.padding.vertical;
-            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, height);
+            rectTransform.sizeDelta = new Vector2(width, height);
         }
 
         void SetItems(IEnumerable<Item> items) {
@@ -85,6 +99,7 @@ namespace Unbowed.UI.Inventory {
             if (item.IsEquipped) return;
 
             var uiToRemove = ItemUIs.Find(ui => ui.Item == item);
+            // if (!uiToRemove) return;
             ItemUIs.Remove(uiToRemove);
             Destroy(uiToRemove.gameObject);
             var rect = new RectInt(item.location.position, item.config.size);
@@ -101,6 +116,10 @@ namespace Unbowed.UI.Inventory {
 
         public void SetAreaState(Vector2Int position, Vector2Int size, CellUI.State state) =>
             SetAreaAction(position, size, ui => ui.SetState(state));
+
+        public void ResetCellsState() {
+            foreach (var cellUI in _cells) cellUI.ResetState();
+        }
 
         public void ResetAreaState(Vector2Int position, Vector2Int size) =>
             SetAreaAction(position, size, ui => ui.ResetState());

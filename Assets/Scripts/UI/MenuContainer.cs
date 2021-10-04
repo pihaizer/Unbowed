@@ -8,11 +8,7 @@ namespace Unbowed.UI {
         protected override void Start() {
             base.Start();
             foreach (var menu in menus) {
-                if (!menu) {
-                    Debug.LogError($"Null menu in {gameObject}");
-                    return;
-                }
-                
+                if (menu == this) return;
                 menu.IsOpened.Changed += IsOpenedOnChanged;
             }
         }

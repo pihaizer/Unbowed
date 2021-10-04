@@ -10,16 +10,18 @@ namespace Unbowed.Gameplay.Characters.Modules {
         public event Action<Item> AddedItem;
         public event Action<Item> RemovedItem;
 
+        [SerializeField] Vector2Int size;
+        [SerializeField] List<Item> defaultItems;
+        
         [ShowInInspector, ReadOnly]
         public List<Item> Items { get; private set; }
 
         public List<Item> Equipped => Items.Where(it => it.location.isEquipped).ToList();
         public List<Item> InBags => Items.Where(it => !it.location.isEquipped).ToList();
-        public Vector2Int Size { get; private set; }
+        public Vector2Int Size => size;
 
-        public void Init(Vector2Int size, List<Item> savedItems = null) {
-            Size = size;
-            Items = savedItems ?? new List<Item>();
+        public void Init(List<Item> savedItems = null) {
+            Items = savedItems ?? defaultItems;
         }
 
         public bool TryAddItemToBags(Item item) {
@@ -30,18 +32,24 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public bool TryMoveItemToLocation(Item item, ItemLocation location, out Item removedItem) {
             removedItem = null;
-            if (location.position.x < 0 || location.position.y < 0) return false;
-            if (location.position.x >= Size.x - item.config.size.x + 1 ||
-                location.position.y >= Size.y - item.config.size.y + 1) return false;
-            var overlaps = InBags
-                .Where(other => other.OverlapsWith(new RectInt(location.position, item.config.size))).ToList();
-            if (overlaps.Count > 1) return false;
-            if (overlaps.Count == 1) {
-                removedItem = overlaps.First();
-                SetLocation(removedItem, ItemLocation.None);
-            }
+            if (!CanMoveItemToLocation(item, location, out removedItem)) return false;
+            if (removedItem != null) SetLocation(removedItem, ItemLocation.None);
             SetLocation(item, location);
             return true;
+            // if (location.position.x < 0 || location.position.y < 0) return false;
+            // if (location.position.x >= Size.x - item.config.size.x + 1 ||
+            //     location.position.y >= Size.y - item.config.size.y + 1)
+            //     return false;
+            // var overlaps = InBags
+            //     .Where(other => other.OverlapsWith(new RectInt(location.position, item.config.size))).ToList();
+            // if (overlaps.Count > 1) return false;
+            // if (overlaps.Count == 1) {
+            //     removedItem = overlaps.First();
+            //     SetLocation(removedItem, ItemLocation.None);
+            // }
+            //
+            // SetLocation(item, location);
+            // return true;
         }
 
         public bool TryEquipItem(Item item, EquipmentSlot slot, out Item removedItem) {
@@ -53,14 +61,22 @@ namespace Unbowed.Gameplay.Characters.Modules {
             return true;
         }
 
-        public bool CanMoveItemToLocation(Item item, ItemLocation location) {
+        public bool CanMoveItemToLocation(Item item, ItemLocation location, out Item removedItem) {
+            removedItem = null;
             if (location.isEquipped) return true;
             var itemRect = new RectInt(location.position, item.Size);
             if (!IsInGrid(itemRect)) return false;
-            return InBags.Count(other => other.OverlapsWith(itemRect)) < 2;
+            var overlaps = InBags
+                .Where(other => other.OverlapsWith(new RectInt(location.position, item.config.size))).ToList();
+            if (overlaps.Count > 1) return false;
+            if (overlaps.Count == 1) {
+                removedItem = overlaps.First();
+            }
+
+            return true;
         }
 
-        public bool IsInGrid(RectInt rect) => 
+        public bool IsInGrid(RectInt rect) =>
             rect.x >= 0 && rect.y >= 0 && rect.x < Size.x - rect.width + 1 && rect.y < Size.y - rect.height + 1;
 
         public bool CanAddToBags(Item item, out Vector2Int position) {
@@ -86,13 +102,14 @@ namespace Unbowed.Gameplay.Characters.Modules {
         public static void RemoveItem(Item item) {
             SetLocation(item, ItemLocation.None);
         }
+
         static bool RectOverlapsWith(RectInt rect, IEnumerable<Item> items) {
             return items.All(it => !it.IsEquipped && !it.OverlapsWith(rect));
         }
 
         static void SetLocation(Item item, ItemLocation location) {
             if (item == null) return;
-            
+
             if (item.Inventory != null) {
                 item.Inventory.Items.Remove(item);
                 item.Inventory.RemovedItem?.Invoke(item);
