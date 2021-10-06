@@ -22,21 +22,6 @@ namespace Unbowed.Managers {
 
         void OnSceneLoaded(SceneLoadRequestEventSO.SceneLoadRequestData data) {
             if (data.hasLoadScreen) loadingScreenRequestEvent.Invoke(false);
-            // NavMeshBuilder.CollectSources(new Bounds(Vector3.zero, Vector3.one * 500),
-            //     LayerMask.GetMask("NavMeshRaycastTarget"), NavMeshCollectGeometry.RenderMeshes, 1
-            //     , new List<NavMeshBuildMarkup>(), new List<NavMeshBuildSource>());
-            // NavMesh.RemoveAllNavMeshData();
-
-            // FindObjectOfType<NavMeshSurface>().BuildNavMesh();
-            
-            // var surfaces = FindObjectsOfType<NavMeshSurface>();
-            // foreach (var surface in surfaces) {
-            //     if(surface != surfaces[0]) surface.enabled = false;
-            //     if(surface.navMeshData) NavMesh.AddNavMeshData(surface.navMeshData);
-            // }
-
-            // surfaces[0].AddData();
-            // NavMesh.RemoveAllNavMeshData();
         }
     }
 }

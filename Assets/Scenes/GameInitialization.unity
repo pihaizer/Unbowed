@@ -2156,9 +2156,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 463588911}
+  - component: {fileID: 463588914}
   - component: {fileID: 463588913}
   - component: {fileID: 463588912}
-  - component: {fileID: 463588914}
   m_Layer: 5
   m_Name: BagSlotReference
   m_TagString: Untagged
@@ -5103,7 +5103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1013989307
 Transform:
   m_ObjectHideFlags: 0
@@ -6956,7 +6956,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -25}
-  m_SizeDelta: {x: 620, y: 181.4}
+  m_SizeDelta: {x: 6, y: 6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1302133351
 MonoBehaviour:
@@ -7012,7 +7012,16 @@ MonoBehaviour:
       Entry: 10
       Data: 1
     - Name: _cells
-      Entry: 6
+      Entry: 7
+      Data: 0|Unbowed.CellUI[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
       Data: 
   startOpened: 1
 --- !u!222 &1302133353
@@ -10663,7 +10672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1845849821
 MonoBehaviour:
   m_ObjectHideFlags: 0
