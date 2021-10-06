@@ -11,26 +11,23 @@ namespace Unbowed.Gameplay.Characters.Items {
     public class DroppedItem : SerializedMonoBehaviour, IInteractable {
         [SerializeField, Range(0, 20f)] float throwForce = 1f;
         [SerializeField, MinMaxSlider(0, 20f)] Vector2 throwTorqueRange;
-        [SerializeField, NonSerialized, OdinSerialize] Item startItem;
+        // [OdinSerialize] Item startItem;
 
         public Item Item { get; private set; }
 
         GameObject _model;
 
-        void Awake() {
-            if (startItem != null) SetItem(startItem);
-        }
-
-        public void SetItem(Item item) {
-            Item = item;
-            _model = Instantiate(item.config.modelPrefab, transform);
-            OnPickupError();
-        }
+        // void Awake() {
+        //     if (startItem != null) {
+        //         SetItem(startItem);
+        //         GlobalContext.Instance.descriptionCreateRequest?.Invoke(this, true);
+        //     }
+        // }
 
         void Update() {
             if (Input.GetKey(KeyCode.LeftAlt)) {
                 if (!RectUtils.One.Contains(Camera.main.WorldToViewportPoint(transform.position))) return;
-                GlobalContext.Instance.descriptionRequest?.Invoke(this, true);
+                GlobalContext.Instance.descriptionShowRequest?.Invoke(this, true);
             }
 
             if (Input.GetKeyUp(KeyCode.LeftAlt)) OnMouseExit();
@@ -38,17 +35,24 @@ namespace Unbowed.Gameplay.Characters.Items {
 
         void OnDestroy() {
             OnMouseExit();
+            GlobalContext.Instance.descriptionCreateRequest?.Invoke(this, false);
         }
 
         void OnMouseOver() {
             if (MouseState.Instance.BlockedByUI) return;
-            GlobalContext.Instance.descriptionRequest?.Invoke(this, true);
+            GlobalContext.Instance.descriptionShowRequest?.Invoke(this, true);
         }
 
         void OnMouseExit() {
-            GlobalContext.Instance.descriptionRequest?.Invoke(this, false);
+            GlobalContext.Instance.descriptionShowRequest?.Invoke(this, false);
         }
 
+        public void SetItem(Item item) {
+            Item = item;
+            GlobalContext.Instance.descriptionCreateRequest?.Invoke(this, true);
+            _model = Instantiate(item.config.modelPrefab, transform);
+            OnPickupError();
+        }
 
         public void Interact(GameObject source) {
             if (!source.TryGetComponent(out Inventory inventory)) return;

@@ -28,6 +28,7 @@ namespace Unbowed.UI.ItemNameplates {
         void SetItem(DroppedItem item) {
             _item = item;
             text.text = item.Item.Name;
+            text.color = new Color(item.Item.Color.r, item.Item.Color.g, item.Item.Color.b, 1);
         }
     }
 }

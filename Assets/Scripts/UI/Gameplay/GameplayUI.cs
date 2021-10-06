@@ -78,7 +78,6 @@ namespace Unbowed.UI {
             rightMenus.IsOpened.Changed += (value) => FloatCameraRight();
 
             GlobalContext.Instance.otherInventoryRequest += OnOtherInventoryRequest;
-            GlobalContext.Instance.descriptionRequest += OnDescriptionRequest;
         }
 
         void OnOtherInventoryRequest(Gameplay.Characters.Modules.Inventory inventory, bool value) {
@@ -91,9 +90,6 @@ namespace Unbowed.UI {
                 lootedInventoryMenu.Close();
             }
         }
-
-        void OnDescriptionRequest(DroppedItem droppedItem, bool value) =>
-            droppedItemsContainerUI.RequestItem(droppedItem, value);
 
         void Update() {
             if (Input.GetKeyDown(KeyCode.Escape)) pauseScreen.ToggleActive();
