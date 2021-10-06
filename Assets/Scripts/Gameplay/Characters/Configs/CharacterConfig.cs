@@ -16,9 +16,11 @@ namespace Unbowed.Gameplay.Characters.Configs {
         [Title("Distances", TitleAlignment = TitleAlignments.Centered)]
         public CharacterDistances distances;
 
+        [Title("Animation config")]
         [VerticalGroup("Stats/Other"), PropertyOrder(3)]
         public CharacterAnimationConfig animationConfig;
 
+        [Title("Drops config")]
         [VerticalGroup("Stats/Other"), PropertyOrder(4)]
         public DropsConfig dropsConfig;
         
