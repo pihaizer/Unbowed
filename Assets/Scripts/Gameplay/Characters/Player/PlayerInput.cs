@@ -2,6 +2,7 @@ using System;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.SO;
 using Unbowed.UI;
+using Unbowed.UI.Gameplay;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,7 +32,7 @@ namespace Unbowed.Gameplay.Characters.Player {
         }
 
         void Update() {
-            if (Input.GetKeyDown(KeyCode.R)) _target.characterMovement.ToggleRunning();
+            if (Input.GetKeyDown(KeyCode.R)) _target.movement.ToggleRunning();
             if (_target.health.isDead || _target.areActionsBlocked) return;
             if (Input.GetMouseButton(0)) OnLMB();
         }

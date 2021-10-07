@@ -1,11 +1,9 @@
-﻿using DG.Tweening;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-namespace Unbowed.UI.Inventory {
+namespace Unbowed.UI.Gameplay.Inventory {
     using Inventory = Unbowed.Gameplay.Characters.Modules.Inventory;
 
     public class EquipmentSlotUI : CellUI {

@@ -4433,11 +4433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trigger: {fileID: 409029748}
-  loadRequestEvent: {fileID: 11400000, guid: e7d60578d0bec1d43b55e3d5edb8b884, type: 2}
-  data:
-    name: Location1
-    isLoad: 1
-    hasLoadScreen: 0
+  loadedSceneConfig: {fileID: 11400000, guid: d78ee309122482f45b75a0d8c97dfb0d, type: 2}
 --- !u!114 &419224076
 MonoBehaviour:
   m_ObjectHideFlags: 0

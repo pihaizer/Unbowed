@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.4438991, g: 0.4932713, b: 0.5727641, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -220,7 +220,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &45666493
 GameObject:
@@ -250,7 +250,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &83747310
 GameObject:
@@ -1045,7 +1045,7 @@ Transform:
   m_Children:
   - {fileID: 1557840954}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!114 &250718275
 MonoBehaviour:
@@ -1734,7 +1734,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &355391468
 GameObject:
@@ -2147,6 +2147,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: 0, y: 0, z: 0, w: 0}
   m_Softness: {x: 0, y: 100}
+--- !u!1 &448751136
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448751137}
+  - component: {fileID: 448751138}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &448751137
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448751136}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448751138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448751136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80644033819ef784a828ac383c2e803b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingLocationConfig: {fileID: 11400000, guid: 321043f70ab975c419f566a6e3a2ae74, type: 2}
 --- !u!1 &463588910
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,7 +2523,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 29.8, y: 45, z: 0}
 --- !u!1 &552130092
 GameObject:
@@ -4257,7 +4301,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &758019311
 GameObject:
@@ -4529,7 +4573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reviveButton: {fileID: 323604292}
   toMainMenuButton: {fileID: 1493093630}
-  sceneLoadRequestEvent: {fileID: 11400000, guid: e7d60578d0bec1d43b55e3d5edb8b884, type: 2}
+  mainMenuScene: {fileID: 0}
 --- !u!1 &861626589
 GameObject:
   m_ObjectHideFlags: 0
@@ -4699,7 +4743,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 874063622}
-  - component: {fileID: 874063625}
+  - component: {fileID: 874063623}
   m_Layer: 5
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -4728,7 +4772,7 @@ RectTransform:
   m_AnchoredPosition: {x: -300, y: 0}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 1, y: 0.5}
---- !u!114 &874063625
+--- !u!114 &874063623
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4737,10 +4781,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 874063621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d9e369d5e2c6ac44850a3c8d9bb4db9, type: 3}
+  m_Script: {fileID: 11500000, guid: c735b103af0046fc8bd3995d01e21bef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthChangedEventSO: {fileID: 11400000, guid: 981a27e7ff89d1b46b79efa1af851e03, type: 2}
   fillImage: {fileID: 355391470}
   animationTime: 0.1
   animationEase: 5
@@ -4756,6 +4799,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
     - target: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+      propertyPath: movement
+      value: 
+      objectReference: {fileID: 905891703}
+    - target: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4052728289871795434, guid: 964470a3de765434ea1524f0462dae59, type: 3}
@@ -4765,7 +4812,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6934537335714228284, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6934537335714228284, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4809,6 +4856,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+--- !u!114 &905891703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8622382516364442156, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+  m_PrefabInstance: {fileID: 898833299}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01b0fda69bad489396766a044b544c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &923006445
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,7 +5174,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1013989308
 MonoBehaviour:
@@ -7013,7 +7071,7 @@ MonoBehaviour:
       Data: 1
     - Name: _cells
       Entry: 7
-      Data: 0|Unbowed.CellUI[], Assembly-CSharp
+      Data: 0|Unbowed.UI.Gameplay.Inventory.CellUI[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 0
@@ -7190,8 +7248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resumeButton: {fileID: 1065498251}
-  saveAndExitButton: {fileID: 805862284}
   optionsButton: {fileID: 2060939351}
+  toMainMenuButton: {fileID: 805862284}
+  mainMenu: {fileID: 11400000, guid: dfba3a922cb8b8a44a4435ac6d2e39dd, type: 2}
 --- !u!1 &1376930645
 GameObject:
   m_ObjectHideFlags: 0
@@ -8133,7 +8192,7 @@ MonoBehaviour:
     - Name: _equipments
       Entry: 7
       Data: 0|System.Collections.Generic.Dictionary`2[[Unbowed.Gameplay.Characters.Items.EquipmentSlot,
-        Assembly-CSharp],[Unbowed.UI.Inventory.EquipmentSlotUI, Assembly-CSharp]],
+        Assembly-CSharp],[Unbowed.UI.Gameplay.Inventory.EquipmentSlotUI, Assembly-CSharp]],
         mscorlib
     - Name: comparer
       Entry: 7
@@ -8613,6 +8672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc44583a6db41de81a55b082a288e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  droppedItemPrefab: {fileID: 3196568061667994077, guid: 4b8e1070046dd9a4480200a5c922a305, type: 3}
 --- !u!114 &1544601550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8669,7 +8729,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9001,7 +9061,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9e369d5e2c6ac44850a3c8d9bb4db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthChangedEventSO: {fileID: 0}
   fillImage: {fileID: 1393098043}
   animationTime: 0.1
   animationEase: 5
@@ -9249,7 +9308,7 @@ RectTransform:
   - {fileID: 819583047}
   - {fileID: 707859549}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9279,7 +9338,6 @@ MonoBehaviour:
   inventoryMenu: {fileID: 1040698520}
   characterButton: {fileID: 1433851801}
   inventoryButton: {fileID: 1781272677}
-  deathEvent: {fileID: 11400000, guid: fb6110682f4b102429f941533142ea97, type: 2}
   virtualCamera: {fileID: 250718273}
 --- !u!1 &1616918814
 GameObject:
@@ -10715,7 +10773,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1856007204
 GameObject:

@@ -21,17 +21,13 @@ namespace Unbowed.Animation {
         void Start() {
             character.characterCommandExecutor.StartedExecuting += CharacterOnStartedExecuting;
             character.characterCommandExecutor.StoppedExecuting += CharacterOnStoppedExecuting;
-            character.health.isDead.Changed += (value) => {
-                if (value)
-                    OnDied();
-                else
-                    OnRevived();
-            };
+            character.health.Died += OnDied;
+            character.health.Revived += OnRevived;
         }
 
         void Update() {
-            float relativeSpeed = character.characterMovement.NavAgent.hasPath
-                ? character.characterMovement.speed.ModifiedValue / character.characterMovement.speed.BaseValue
+            float relativeSpeed = character.movement.NavAgent.hasPath
+                ? character.movement.speed.ModifiedValue / character.movement.speed.BaseValue
                 : 0;
             animator.SetFloat(RelativeSpeed, relativeSpeed, 0.1f, Time.deltaTime);
         }

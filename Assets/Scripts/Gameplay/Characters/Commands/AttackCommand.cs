@@ -45,7 +45,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
         public override void Stop(bool result) {
             if (_coroutine != null) _character.StopCoroutine(_coroutine);
             _character.areActionsBlocked.RemoveModifier(_actionsBlock);
-            _character.characterMovement.Stop();
+            _character.movement.Stop();
             isAttacking.Set(false);
             base.Stop(result);
         }
@@ -54,7 +54,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             var path = new NavMeshPath();
             var newMoveTarget = target.GetGameObject().transform.position;
 
-            _character.characterMovement.NavAgent.CalculatePath(newMoveTarget, path);
+            _character.movement.NavAgent.CalculatePath(newMoveTarget, path);
 
             if (path.status == NavMeshPathStatus.PathInvalid) {
                 Debug.Log("Stopping attack due to invalid path");
@@ -62,11 +62,11 @@ namespace Unbowed.Gameplay.Characters.Commands {
                 return;
             }
 
-            _character.characterMovement.NavAgent.SetPath(path);
+            _character.movement.NavAgent.SetPath(path);
 
-            if (_character.characterMovement.NavAgent.hasPath &&
-                _character.characterMovement.NavAgent.GetRemainingDistance() > _character.config.distances.maxChaseRange) {
-                Debug.Log($"Stopping attack due to remaining distance {_character.characterMovement.NavAgent.GetRemainingDistance()}");
+            if (_character.movement.NavAgent.hasPath &&
+                _character.movement.NavAgent.GetRemainingDistance() > _character.config.distances.maxChaseRange) {
+                Debug.Log($"Stopping attack due to remaining distance {_character.movement.NavAgent.GetRemainingDistance()}");
                 Stop(false);
             }
         }
@@ -74,7 +74,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
         bool TryAttack(IHittable target) {
             if (!IsWithinAttackRange(target)) return false;
 
-            _character.characterMovement.NavAgent.ResetPath();
+            _character.movement.NavAgent.ResetPath();
             _coroutine = AttackCoroutine(target);
             _character.StartCoroutine(_coroutine);
             return true;

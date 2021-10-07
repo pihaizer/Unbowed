@@ -4,7 +4,7 @@ using Unbowed.Gameplay;
 using UnityEngine;
 
 namespace Unbowed.SO {
-    [GlobalConfig("Configs")]
+    [GlobalConfig("Assets/Configs")]
     public class ItemsContext : GlobalConfig<ItemsContext> {
         public Action<IInteractable> droppedItemClicked;
     }

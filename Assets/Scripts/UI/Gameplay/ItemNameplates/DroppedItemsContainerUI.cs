@@ -14,8 +14,13 @@ namespace Unbowed.UI.ItemNameplates {
 
         void Awake() {
             reference.gameObject.SetActive(false);
-            GlobalContext.Instance.descriptionCreateRequest += RequestCreateItem;
-            GlobalContext.Instance.descriptionShowRequest += RequestShowItem;
+            EventsContext.Instance.descriptionCreateRequest += RequestCreateItem;
+            EventsContext.Instance.descriptionShowRequest += RequestShowItem;
+        }
+
+        void OnDestroy() {
+            EventsContext.Instance.descriptionCreateRequest -= RequestCreateItem;
+            EventsContext.Instance.descriptionShowRequest -= RequestShowItem;
         }
 
         void Update() {
@@ -26,9 +31,12 @@ namespace Unbowed.UI.ItemNameplates {
 
         void RequestShowItem(DroppedItem item, bool value) {
             if (!_shownItems.ContainsKey(item)) {
-                if (value) RequestCreateItem(item, true);
-                else return;
+                if (value)
+                    RequestCreateItem(item, true);
+                else
+                    return;
             }
+
             _shownItems[item].gameObject.SetActive(value);
         }
 
@@ -36,8 +44,7 @@ namespace Unbowed.UI.ItemNameplates {
             if (_shownItems.ContainsKey(item) && !value) {
                 Destroy(_shownItems[item].gameObject);
                 _shownItems.Remove(item);
-            }
-            else if (!_shownItems.ContainsKey(item) && value) {
+            } else if (!_shownItems.ContainsKey(item) && value) {
                 var nameplate = Instantiate(reference, transform);
                 nameplate.Item = item;
                 nameplate.transform.position = Camera.main.WorldToScreenPoint(item.transform.position);

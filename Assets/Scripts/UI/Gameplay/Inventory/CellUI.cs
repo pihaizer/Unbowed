@@ -1,17 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
-using Unbowed.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Unbowed {
+namespace Unbowed.UI.Gameplay.Inventory {
     public class CellUI : MonoBehaviour {
         [SerializeField, ChildGameObjectsOnly] Image _background;
 

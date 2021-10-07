@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Unbowed.SO {
     [CreateAssetMenu(fileName = "Target", menuName = "SO/Gameplay/Target", order = 0)]
-    [GlobalConfig("Configs")]
+    [GlobalConfig("Assets/Configs")]
     public class MouseState : GlobalConfig<MouseState> {
         public event Action<ISelectable> GameViewTargetChanged;
         

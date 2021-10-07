@@ -1,22 +1,32 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unbowed.Gameplay.Characters.Items;
 using Unbowed.SO;
-using Unbowed.UI.Inventory;
+using Unbowed.UI.Gameplay.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.ResourceManagement.Util;
 using UnityEngine.UI;
 
-namespace Unbowed.UI {
-    public class ItemDragger : ComponentSingleton<ItemDragger> {
+namespace Unbowed.UI.Gameplay {
+    public class ItemDragger : MonoBehaviour {
+        [SerializeField] DroppedItem droppedItemPrefab;
+        
         ItemUI _draggedItemUI;
         RectTransform _dragRect;
+        
+        public static ItemDragger Instance { get; private set; }
 
         public Item Item { get; private set; }
         public bool IsDragging => Item != null;
+
+        void Awake() {
+            Instance = this;
+        }
+
+        void OnDestroy() {
+            if (Instance == this) Instance = null;
+        }
 
         public void DragItem(Item item) {
             if (IsDragging) StopDragging();
@@ -33,7 +43,7 @@ namespace Unbowed.UI {
             _dragRect.anchorMin = _dragRect.anchorMax = Vector2.zero;
             _dragRect.pivot = Vector2.one / 2;
 
-            Gameplay.Characters.Modules.Inventory.RemoveItem(Item);
+            Unbowed.Gameplay.Characters.Modules.Inventory.RemoveItem(Item);
 
             StartCoroutine(DragItemCoroutine());
         }
@@ -140,8 +150,9 @@ namespace Unbowed.UI {
         }
 
         void DropItem() {
-            var droppedItem = Instantiate(GlobalContext.Instance.droppedItemPrefab);
-            droppedItem.transform.position = GlobalContext.Instance.playerCharacter.transform.position + Vector3.up;
+            if (!ActivePlayer.Exists) return;
+            var droppedItem = Instantiate(droppedItemPrefab);
+            droppedItem.transform.position = ActivePlayer.GetTransform().position + Vector3.up;
             droppedItem.SetItem(Item);
         }
     }

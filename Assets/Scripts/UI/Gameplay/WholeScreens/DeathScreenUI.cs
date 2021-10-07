@@ -1,34 +1,38 @@
-using Unbowed.Gameplay.Characters;
+using System;
 using Unbowed.Gameplay.Characters.Player;
-using Unbowed.SO.Events;
+using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unbowed.UI {
+namespace Unbowed.UI.Gameplay.WholeScreens {
     public class DeathScreenUI : MonoBehaviour {
         [SerializeField] Button reviveButton;
         [SerializeField] Button toMainMenuButton;
-
-        [SerializeField] SceneLoadRequestEventSO sceneLoadRequestEvent;
+        [SerializeField] SceneConfig mainMenuScene;
 
         void Awake() {
+            ActivePlayer.Died += OnPlayerDied;
+            ActivePlayer.Revived += OnPlayerRevived;
             reviveButton.onClick.AddListener(Revive);
             toMainMenuButton.onClick.AddListener(ToMainMenu);
         }
 
+        void OnDestroy() {
+            ActivePlayer.Died -= OnPlayerDied;
+            ActivePlayer.Revived -= OnPlayerRevived;
+        }
+
+        void OnPlayerDied() => gameObject.SetActive(true);
+
+        void OnPlayerRevived() => gameObject.SetActive(false);
+
         void Revive() {
-            gameObject.SetActive(false);
-            FindObjectOfType<PlayerCharacter>().health.Revive();
+            ActivePlayer.Revive();
         }
 
         void ToMainMenu() {
-#if UNITY_EDITOR
-            // Application.Quit() does not work in the editor so
-            // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            SceneDirector.Instance.Load(new SceneChangeRequest(mainMenuScene)
+                {setActive = true, unloadOther = true, useLoadingScreen = true});
         }
     }
 }

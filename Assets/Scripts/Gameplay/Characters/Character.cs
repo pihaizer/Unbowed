@@ -30,7 +30,7 @@ namespace Unbowed.Gameplay.Characters {
         public Health health;
 
         [HideInInspector]
-        public CharacterMovement characterMovement;
+        public CharacterMovement movement;
 
         [HideInInspector]
         public Inventory inventory;
@@ -46,7 +46,7 @@ namespace Unbowed.Gameplay.Characters {
 
         void OnEnable() {
             health = GetComponent<Health>();
-            characterMovement = GetComponent<CharacterMovement>();
+            movement = GetComponent<CharacterMovement>();
             inventory = GetComponent<Inventory>();
             characterCommandExecutor = GetComponent<CharacterCommandExecutor>();
         }
@@ -64,16 +64,12 @@ namespace Unbowed.Gameplay.Characters {
 
         void InitHealth() {
             health.Init(Mathf.FloorToInt(stats[StatType.Endurance]) * 5);
-            health.isDead.Changed += (becameDead) => {
-                if (becameDead)
-                    OnDeath();
-                else
-                    OnRevive();
-            };
+            health.Died += OnDeath;
+            health.Revived += OnRevive;
         }
 
         void InitSpeed() {
-            characterMovement.Init(stats[StatType.MoveSpeed]);
+            movement.Init(stats[StatType.MoveSpeed]);
         }
 
         void InitInventory() {
@@ -87,7 +83,7 @@ namespace Unbowed.Gameplay.Characters {
         protected virtual void OnDeath() {
             characterCommandExecutor.StopMain();
             StopAllCoroutines();
-            characterMovement.Stop();
+            movement.Stop();
         }
 
         protected virtual void OnRevive() {

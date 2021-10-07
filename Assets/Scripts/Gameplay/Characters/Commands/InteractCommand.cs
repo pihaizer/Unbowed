@@ -43,7 +43,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
         }
 
         public override void Stop(bool result) {
-            _character.characterMovement.Stop();
+            _character.movement.Stop();
             base.Stop(result);
         }
 
@@ -51,7 +51,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             var path = new NavMeshPath();
             var interactablePosition = target.GetTransform().position;
 
-            _character.characterMovement.NavAgent.CalculatePath(interactablePosition, path);
+            _character.movement.NavAgent.CalculatePath(interactablePosition, path);
 
             if (path.status == NavMeshPathStatus.PathInvalid) {
                 if (!NavMesh.Raycast(_character.transform.position,
@@ -61,7 +61,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
                     return;
                 }
 
-                _character.characterMovement.NavAgent.CalculatePath(hit.position, path);
+                _character.movement.NavAgent.CalculatePath(hit.position, path);
                 
                 if (path.status == NavMeshPathStatus.PathInvalid) {
                     Debug.Log("Stopping interacting due to invalid path");
@@ -70,13 +70,13 @@ namespace Unbowed.Gameplay.Characters.Commands {
                 }
             }
 
-            _character.characterMovement.NavAgent.SetPath(path);
+            _character.movement.NavAgent.SetPath(path);
 
-            if (_character.characterMovement.NavAgent.hasPath &&
-                _character.characterMovement.NavAgent.GetRemainingDistance() >
+            if (_character.movement.NavAgent.hasPath &&
+                _character.movement.NavAgent.GetRemainingDistance() >
                 _character.config.distances.maxChaseRange) {
                 Debug.Log(
-                    $"Stopping interacting due to remaining distance {_character.characterMovement.NavAgent.GetRemainingDistance()}");
+                    $"Stopping interacting due to remaining distance {_character.movement.NavAgent.GetRemainingDistance()}");
                 Stop(false);
             }
         }
@@ -84,7 +84,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
         bool TryInteract() {
             if (!IsInRange(Target)) return false;
 
-            _character.characterMovement.NavAgent.ResetPath();
+            _character.movement.NavAgent.ResetPath();
             Target.Interact(_character.gameObject);
             return true;
         }

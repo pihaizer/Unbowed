@@ -1,8 +1,10 @@
 using System;
 using Sirenix.OdinInspector;
+using Unbowed.SO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+
 namespace Unbowed.UI.MainMenu {
     public class MainMenu : MonoBehaviour {
         [SerializeField, ChildGameObjectsOnly]
@@ -14,6 +16,9 @@ namespace Unbowed.UI.MainMenu {
         [SerializeField, ChildGameObjectsOnly]
         Button exitButton;
 
+        [SerializeField]
+        SceneConfig gameSceneConfig;
+
         void Awake() {
             newGameButton.onClick.AddListener(StartNewGame);
             optionsButton.onClick.AddListener(OpenOptions);
@@ -21,17 +26,19 @@ namespace Unbowed.UI.MainMenu {
         }
 
         void StartNewGame() {
-            throw new NotImplementedException();
+            SceneDirector.Instance.Load(new SceneChangeRequest(gameSceneConfig) {
+                useLoadingScreen = true, setActive = true, unloadOther = true
+            });
         }
 
         void OpenOptions() { }
 
         void Exit() {
-            if (Application.isEditor) {
-                EditorApplication.isPlaying = false;
-            } else {
-                Application.Quit();
-            }
+#if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
     }
 }

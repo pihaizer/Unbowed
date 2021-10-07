@@ -4,11 +4,11 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using Unbowed.Gameplay.Characters.Items;
-using Unbowed.UI.Inventory;
+using Unbowed.UI.Gameplay.Inventory;
 using UnityEngine;
 
 namespace Unbowed.UI {
-    [GlobalConfig("Assets/Configs/UI")]
+    [GlobalConfig("Assets/Resources/Configs")]
     public class UIConfig : GlobalConfig<UIConfig> {
         [Title("Colors")]
         public Color defaultSlotColor;
@@ -22,7 +22,8 @@ namespace Unbowed.UI {
         public Color replaceSlotColor;
         [Range(0, 1)] public float replaceBlend;
 
-        [SerializeField] List<RarityColor> equipmentColors;
+        [SerializeField] List<RarityColor> equipmentColors = Enum.GetValues(typeof(EquipmentRarity))
+            .Cast<EquipmentRarity>().Select(rarity => new RarityColor {rarity = rarity}).ToList();
 
         [Title("Prefabs")]
         [AssetsOnly]

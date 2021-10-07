@@ -5,14 +5,14 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Items;
 
-namespace Unbowed.UI.Inventory {
+namespace Unbowed.UI.Gameplay.Inventory {
     public class EquipmentUI : SerializedMonoBehaviour {
         [OdinSerialize] Dictionary<EquipmentSlot, EquipmentSlotUI> _equipments = Enum.GetValues(typeof(EquipmentSlot))
             .Cast<EquipmentSlot>().ToDictionary(slot => slot, slot => (EquipmentSlotUI) null);
 
-        public Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
+        public Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
 
-        public void SetInventory(Gameplay.Characters.Modules.Inventory inventory) {
+        public void SetInventory(Unbowed.Gameplay.Characters.Modules.Inventory inventory) {
             Inventory = inventory;
 
             foreach (var equipment in _equipments) {

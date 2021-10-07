@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Unbowed.UI.Inventory {
+namespace Unbowed.UI.Gameplay.Inventory {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(GridLayoutGroup))]
     public class BagsUI : Menu {
@@ -20,11 +20,11 @@ namespace Unbowed.UI.Inventory {
         [ShowInInspector]
         public List<ItemUI> ItemUIs { get; private set; }
 
-        public Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
+        public Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
 
         public Vector2Int Size { get; private set; }
 
-        public void SetInventory(Gameplay.Characters.Modules.Inventory inventory) {
+        public void SetInventory(Unbowed.Gameplay.Characters.Modules.Inventory inventory) {
             if (Inventory == inventory) return;
             
             if (Inventory != null) {

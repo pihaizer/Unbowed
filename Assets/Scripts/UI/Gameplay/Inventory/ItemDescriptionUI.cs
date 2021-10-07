@@ -1,14 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using TMPro;
 using Unbowed.Gameplay.Characters.Items;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Unbowed.UI.Inventory {
+namespace Unbowed.UI.Gameplay.Inventory {
     public class ItemDescriptionUI : CanvasGroupMenu {
         [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
         [SerializeField, ChildGameObjectsOnly] TMP_Text slot;

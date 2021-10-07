@@ -9,9 +9,7 @@ namespace Unbowed.Gameplay.OnDeath {
         [SerializeField] AnimationClip optionalAnimationDelay;
 
         void Start() {
-            GetComponent<Health>().isDead.Changed += value => {
-                if (value) StartCoroutine(DestroyCoroutine());
-            };
+            GetComponent<Health>().Died += () => StartCoroutine(DestroyCoroutine());
         }
 
         IEnumerator DestroyCoroutine() {

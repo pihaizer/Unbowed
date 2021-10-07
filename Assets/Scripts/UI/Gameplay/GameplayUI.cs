@@ -1,16 +1,14 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Characters;
 using Unbowed.SO;
-using Unbowed.SO.Events;
-using Unbowed.UI.Inventory;
+using Unbowed.UI.Gameplay.Inventory;
 using Unbowed.UI.ItemNameplates;
 using Unbowed.Utility;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Unbowed.UI {
@@ -44,21 +42,13 @@ namespace Unbowed.UI {
 
         [SerializeField] Button inventoryButton;
 
-        [Header("Events")]
-        [SerializeField] EventSO deathEvent;
-
         [Header("Dependencies")]
         [SerializeField] CinemachineVirtualCamera virtualCamera;
 
         CinemachineFramingTransposer _transposer;
         float _currentTransposerTargetValue;
 
-        static Gameplay.Characters.Modules.Inventory PlayerInventory =>
-            GlobalContext.Instance.playerCharacter.inventory;
-
-        IEnumerator Start() {
-            deathEvent.AddListener(OpenDeathScreen);
-
+        void Awake() {
             characterButton.onClick.AddListener(characterMenu.ToggleOpened);
             inventoryButton.onClick.AddListener(inventoryMenu.ToggleOpened);
 
@@ -70,17 +60,25 @@ namespace Unbowed.UI {
             _transposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
             _currentTransposerTargetValue = _transposer.m_ScreenX;
 
-            yield return new WaitUntil(() => GlobalContext.Instance.playerCharacter &&
-                                             GlobalContext.Instance.playerCharacter.IsStarted);
+            ActivePlayer.PlayerChanged += SetInventory;
+            ActivePlayer.Died += OnPlayerDied;
+            inventoryMenu.SetInventory(ActivePlayer.GetInventory());
 
-            inventoryMenu.SetInventory(PlayerInventory);
             leftMenus.IsOpened.Changed += (value) => FloatCameraLeft();
             rightMenus.IsOpened.Changed += (value) => FloatCameraRight();
 
-            GlobalContext.Instance.otherInventoryRequest += OnOtherInventoryRequest;
+            EventsContext.Instance.otherInventoryRequest += OnOtherInventoryRequest;
         }
 
-        void OnOtherInventoryRequest(Gameplay.Characters.Modules.Inventory inventory, bool value) {
+        void OnDestroy() {
+            ActivePlayer.PlayerChanged -= SetInventory;
+            ActivePlayer.Died -= OnPlayerDied;
+            EventsContext.Instance.otherInventoryRequest -= OnOtherInventoryRequest;
+        }
+
+        void SetInventory() => inventoryMenu.SetInventory(ActivePlayer.GetInventory());
+
+        void OnOtherInventoryRequest(Unbowed.Gameplay.Characters.Modules.Inventory inventory, bool value) {
             if (value) {
                 lootedInventoryMenu.SetInventory(inventory);
                 lootedInventoryMenu.Open();
@@ -97,7 +95,7 @@ namespace Unbowed.UI {
             if (Input.GetKeyDown(KeyCode.B)) inventoryMenu.ToggleOpened();
         }
 
-        void OpenDeathScreen() {
+        void OnPlayerDied() {
             deathScreen.gameObject.SetActive(true);
         }
 

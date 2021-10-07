@@ -27,7 +27,7 @@ namespace Unbowed.Gameplay.Characters.Items {
         void Update() {
             if (Input.GetKey(KeyCode.LeftAlt)) {
                 if (!RectUtils.One.Contains(Camera.main.WorldToViewportPoint(transform.position))) return;
-                GlobalContext.Instance.descriptionShowRequest?.Invoke(this, true);
+                EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
             }
 
             if (Input.GetKeyUp(KeyCode.LeftAlt)) OnMouseExit();
@@ -35,21 +35,21 @@ namespace Unbowed.Gameplay.Characters.Items {
 
         void OnDestroy() {
             OnMouseExit();
-            GlobalContext.Instance.descriptionCreateRequest?.Invoke(this, false);
+            EventsContext.Instance.descriptionCreateRequest?.Invoke(this, false);
         }
 
         void OnMouseOver() {
             if (MouseState.Instance.BlockedByUI) return;
-            GlobalContext.Instance.descriptionShowRequest?.Invoke(this, true);
+            EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
         }
 
         void OnMouseExit() {
-            GlobalContext.Instance.descriptionShowRequest?.Invoke(this, false);
+            EventsContext.Instance.descriptionShowRequest?.Invoke(this, false);
         }
 
         public void SetItem(Item item) {
             Item = item;
-            GlobalContext.Instance.descriptionCreateRequest?.Invoke(this, true);
+            EventsContext.Instance.descriptionCreateRequest?.Invoke(this, true);
             _model = Instantiate(item.config.modelPrefab, transform);
             OnPickupError();
         }

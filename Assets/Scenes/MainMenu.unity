@@ -570,6 +570,8 @@ MonoBehaviour:
   newGameButton: {fileID: 1740365827}
   optionsButton: {fileID: 478679799}
   exitButton: {fileID: 943890415}
+  mainMenuSceneConfig: {fileID: 11400000, guid: dfba3a922cb8b8a44a4435ac6d2e39dd, type: 2}
+  gameSceneConfig: {fileID: 11400000, guid: 37ac8dfe0159b6441bbd55587c6c23b3, type: 2}
 --- !u!1 &1088758199
 GameObject:
   m_ObjectHideFlags: 0

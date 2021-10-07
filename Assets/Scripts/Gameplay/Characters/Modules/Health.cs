@@ -6,28 +6,33 @@ using UnityEngine;
 namespace Unbowed.Gameplay.Characters.Modules {
     public class Health : MonoBehaviour {
         public event Action<HealthChangeData> HealthChanged;
-        
+        public event Action Died;
+        public event Action Revived;
+
         [ShowInInspector]
         public int Current { get; private set; }
 
         public int Max { get; private set; }
 
-        [ShowInInspector]
-        public readonly Mutable<bool> isDead = new Mutable<bool>();
+        [NonSerialized, ShowInInspector] public bool isDead;
 
         public void Init(int maxHealth) {
             SetMax(maxHealth);
             SetCurrent(Max, null);
-            isDead.Set(false);
+            isDead = false;
         }
 
         public void Hit(int damage, GameObject source) => SetCurrent(Current - damage, source);
 
-        void Die() => isDead.Set(true);
+        void Die() {
+            isDead = true;
+            Died?.Invoke();
+        }
 
         public void Revive() {
             SetCurrent(Max, null);
-            isDead.Set(false);
+            isDead = false;
+            Revived?.Invoke();
         }
 
         void SetCurrent(int newHealth, GameObject source) {

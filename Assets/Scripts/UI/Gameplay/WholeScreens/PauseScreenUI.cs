@@ -1,14 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using Unbowed.SO;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unbowed.UI {
+namespace Unbowed.UI.Gameplay.WholeScreens {
     public class PauseScreenUI : MonoBehaviour {
         [SerializeField] Button resumeButton;
-        [SerializeField] Button saveAndExitButton;
         [SerializeField] Button optionsButton;
+        [SerializeField] Button toMainMenuButton;
 
-        void Start() {
+        [SerializeField] SceneConfig mainMenu;
+
+        void Awake() {
             resumeButton.onClick.AddListener(Resume);
+            toMainMenuButton.onClick.AddListener(ToMainMenu);
         }
 
         void OnEnable() {
@@ -21,6 +26,12 @@ namespace Unbowed.UI {
 
         void Resume() {
             gameObject.SetActive(false);
+        }
+
+        void ToMainMenu() {
+            SceneDirector.Instance.Load(new SceneChangeRequest(mainMenu) {
+                unloadOther = true, setActive = true, useLoadingScreen = true
+            });
         }
     }
 }

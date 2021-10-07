@@ -1,42 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.SO;
+using Unbowed.UI.Stats;
 using UnityEngine;
 
-namespace Unbowed.UI.Stats {
+namespace Unbowed.UI.Gameplay.Stats {
     public class StatsUI : Menu {
         [OdinSerialize]
-        Dictionary<StatType, StatUI> _statUis =
-            Enum.GetValues(typeof(StatType)).Cast<StatType>()
-                .ToDictionary((type) => type, (type) => (StatUI) null);
+        Dictionary<StatType, StatUI> _statUis = Enum.GetValues(typeof(StatType)).Cast<StatType>()
+            .ToDictionary((type) => type, (type) => (StatUI) null);
 
         protected override void Awake() {
             base.Awake();
-        }
-
-        void OnEnable() {
-            var player = GlobalContext.Instance.playerCharacter;
-            if (player) {
-                player.stats.Updated += UpdateStats;
-                UpdateStats();
-            }
-        }
-
-        void OnDisable() {
-            var player = GlobalContext.Instance.playerCharacter;
-            if (player) {
-                player.stats.Updated -= UpdateStats;
-            }
+            ActivePlayer.StatsUpdated += UpdateStats;
+            ActivePlayer.PlayerChanged += UpdateStats;
+            UpdateStats();
         }
 
         void UpdateStats() {
-            var player = GlobalContext.Instance.playerCharacter;
-            if (!player) return;
-            foreach (var stat in player.stats.Values) {
+            var stats = ActivePlayer.GetStats();
+            if (stats?.Values == null) return;
+            foreach (var stat in stats.Values) {
                 _statUis[stat.Key].SetStat(stat.Value);
             }
         }
@@ -44,9 +31,8 @@ namespace Unbowed.UI.Stats {
 
         [ContextMenu("Refresh dict")]
         void RefreshStatsDict() {
-            _statUis =
-                Enum.GetValues(typeof(StatType)).Cast<StatType>()
-                    .ToDictionary((type) => type, (type) => (StatUI) null);
+            _statUis = Enum.GetValues(typeof(StatType)).Cast<StatType>()
+                .ToDictionary((type) => type, (type) => (StatUI) null);
         }
     }
 }

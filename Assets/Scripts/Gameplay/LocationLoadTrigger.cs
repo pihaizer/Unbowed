@@ -1,12 +1,11 @@
-using Unbowed.SO.Events;
+using Unbowed.SO;
 using Unbowed.Utility;
 using UnityEngine;
 
 namespace Unbowed.Gameplay {
     public class LocationLoadTrigger : MonoBehaviour {
         [SerializeField] Trigger trigger;
-        [SerializeField] SceneLoadRequestEventSO loadRequestEvent;
-        [SerializeField] SceneLoadRequestEventSO.SceneLoadRequestData data;
+        [SerializeField] SceneConfig loadedSceneConfig;
 
         void Start() {
             trigger.Enter += RequestLocationLoad;
@@ -15,7 +14,7 @@ namespace Unbowed.Gameplay {
         void RequestLocationLoad(Collider other) {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
         
-            loadRequestEvent.Invoke(data);
+            SceneDirector.Instance.Load(new SceneChangeRequest(loadedSceneConfig));
         }
     }
 }

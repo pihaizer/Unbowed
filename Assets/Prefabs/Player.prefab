@@ -3005,8 +3005,6 @@ MonoBehaviour:
   characterMovement: {fileID: 8622382516364442156}
   inventory: {fileID: 1768623300848008538}
   characterCommandExecutor: {fileID: 3838825683161514624}
-  diedEventSO: {fileID: 11400000, guid: fb6110682f4b102429f941533142ea97, type: 2}
-  healthChangedEventSO: {fileID: 11400000, guid: 981a27e7ff89d1b46b79efa1af851e03, type: 2}
 --- !u!114 &5208877964504438424
 MonoBehaviour:
   m_ObjectHideFlags: 0

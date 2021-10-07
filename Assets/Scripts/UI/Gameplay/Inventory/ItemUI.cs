@@ -1,13 +1,12 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
-using Unbowed.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Unbowed.UI.Inventory {
+namespace Unbowed.UI.Gameplay.Inventory {
     [RequireComponent(typeof(RectTransform))]
     public class ItemUI : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerExitHandler {
         [SerializeField] float _cellSize = 47.5f;
