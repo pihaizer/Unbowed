@@ -201,8 +201,43 @@ MonoBehaviour:
   animationConfig:
     hitMomentPercent: 0.333
   dropsConfig:
-    dropValue: 10
-    dropAmount: 10
+    hasDrops: 1
+    valueRange: {x: 0, y: 0}
+    amount: {x: 0, y: 0}
+    itemLevel: {x: 3, y: 10}
+    amountCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 1.7692701
+        outSlope: 1.7692701
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.8452051
+        value: 2.4953961
+        inSlope: 4.8588033
+        outSlope: 4.8588033
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.07813309
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 4
+        inSlope: 9.719985
+        outSlope: 9.719985
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     alwaysDrops:
     - config: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
       location:

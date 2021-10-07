@@ -12,25 +12,32 @@ namespace Unbowed.Gameplay.Characters.Configs {
     public class DropsConfig {
         public bool hasDrops = true;
 
-        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 100), GUIColor(nameof(GetValueColor))]
-        public Vector2Int valueRange;
 
-        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 10), GUIColor(nameof(GetAmountColor))]
-        public Vector2Int amount;
+        [ShowIf(nameof(hasDrops)), GUIColor(nameof(GetValueColor))]
+        public AnimationCurve valueCurve;
 
-        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 100), GUIColor(nameof(GetItemLevelColor))]
-        public Vector2Int itemLevel;
+        [ShowIf(nameof(hasDrops)), GUIColor(nameof(GetAmountColor))]
+        public AnimationCurve amountCurve;
+
+        [ShowIf(nameof(hasDrops)), GUIColor(nameof(GetItemLevelColor))]
+        public AnimationCurve itemLevelCurve;
 
         [ShowIf(nameof(hasDrops))]
         public List<Item> alwaysDrops;
 
         Color GetValueColor() => Color.Lerp(Color.white, Color.yellow,
-            (valueRange.x + valueRange.y) / 200f);
+            (valueCurve.Evaluate(0) + valueCurve.Evaluate(1)) / 200f);
         
         Color GetAmountColor() => Color.Lerp(Color.white, Color.green, 
-            (amount.x + amount.y) / 200f);
+            (amountCurve.Evaluate(0) + amountCurve.Evaluate(1)) / 200f);
         
         Color GetItemLevelColor() => Color.Lerp(Color.white, Color.blue,
-            (itemLevel.x + itemLevel.y) / 200f);
+            (itemLevelCurve.Evaluate(0) + itemLevelCurve.Evaluate(1)) / 200f);
+        
+
+        [Button]
+        void SimulateDrops() {
+            
+        }
     }
 }

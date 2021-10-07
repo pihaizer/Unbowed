@@ -27,6 +27,14 @@ MonoBehaviour:
   modelPrefab: {fileID: 6975485617652565827, guid: 4928704ba0da1f04aa534d4ba814b638, type: 3}
   size: {x: 2, y: 3}
   type: 0
+  itemLevel: 1
+  value: 0
   equipment:
     slot: 2
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   specialColor: {r: 0, g: 0, b: 0, a: 0}

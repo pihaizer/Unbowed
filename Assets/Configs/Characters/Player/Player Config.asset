@@ -184,7 +184,7 @@ MonoBehaviour:
       Data: 11
     - Name: $v
       Entry: 4
-      Data: 2
+      Data: 2.5
     - Name: 
       Entry: 8
       Data: 
@@ -202,6 +202,7 @@ MonoBehaviour:
     hitMomentPercent: 0.333
   dropsConfig:
     hasDrops: 0
-    dropValue: 11
-    dropAmount: 13
+    valueRange: {x: 0, y: 0}
+    amount: {x: 0, y: 0}
+    itemLevel: {x: 0, y: 0}
     alwaysDrops: []

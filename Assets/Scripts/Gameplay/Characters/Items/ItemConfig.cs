@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using DG.Tweening.Core.Easing;
+using Sirenix.OdinInspector;
 using Unbowed.SO;
 using UnityEngine;
 

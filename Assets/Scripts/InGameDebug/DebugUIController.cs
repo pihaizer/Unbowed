@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UI.Debug;
+using Unbowed.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +27,10 @@ namespace Unbowed.InGameDebug {
             closeButton.onClick.AddListener(() => gameObject.SetActive(false));
             testErrorButton.onClick.AddListener(() => throw new Exception("Test"));
 
-            // _graphy = Instantiate(graphyPrefab);
-            // DontDestroyOnLoad(_graphy);
-            // _graphy.SetActive(false);
+            _graphy = Instantiate(graphyPrefab);
+            DontDestroyOnLoad(_graphy);
+            _graphy.SetActive(false);
+            switchGraphyButton.onClick.AddListener(_graphy.ToggleActive);
 
             timeScaleSlider.onValueChanged.AddListener((value) => Time.timeScale = value);
 
