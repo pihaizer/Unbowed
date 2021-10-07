@@ -18,6 +18,7 @@ namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(CharacterMovement))]
     [RequireComponent(typeof(Inventory))]
     [RequireComponent(typeof(CharacterCommandExecutor))]
+    [RequireComponent(typeof(DropsModule))]
     [ExecuteAlways]
     public class Character : SerializedMonoBehaviour, ISelectable, IHittable {
         // configs
@@ -34,9 +35,11 @@ namespace Unbowed.Gameplay.Characters {
 
         [HideInInspector]
         public Inventory inventory;
-
         [HideInInspector]
         public CharacterCommandExecutor characterCommandExecutor;
+
+        [HideInInspector]
+        public DropsModule dropsModule;
 
         // runtime values
         public bool IsStarted { get; private set; }
@@ -49,6 +52,7 @@ namespace Unbowed.Gameplay.Characters {
             movement = GetComponent<CharacterMovement>();
             inventory = GetComponent<Inventory>();
             characterCommandExecutor = GetComponent<CharacterCommandExecutor>();
+            dropsModule = GetComponent<DropsModule>();
         }
 
         protected virtual void Start() {
@@ -59,6 +63,7 @@ namespace Unbowed.Gameplay.Characters {
             InitSpeed();
             InitInventory();
             InitCommandExecutor();
+            InitDropsModule();
             IsStarted = true;
         }
 
@@ -68,19 +73,15 @@ namespace Unbowed.Gameplay.Characters {
             health.Revived += OnRevive;
         }
 
-        void InitSpeed() {
-            movement.Init(stats[StatType.MoveSpeed]);
-        }
+        void InitSpeed() => movement.Init(stats[StatType.MoveSpeed]);
 
-        void InitInventory() {
-            inventory.Init();
-        }
+        void InitInventory() => inventory.Init();
 
-        void InitCommandExecutor() {
-            characterCommandExecutor.Init(this);
-        }
+        void InitCommandExecutor() => characterCommandExecutor.Init(this);
 
-        protected virtual void OnDeath() {
+        void InitDropsModule() => dropsModule.Init(config.dropsConfig);
+
+        void OnDeath() {
             characterCommandExecutor.StopMain();
             StopAllCoroutines();
             movement.Stop();

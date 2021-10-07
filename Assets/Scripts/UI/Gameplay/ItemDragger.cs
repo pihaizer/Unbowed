@@ -10,8 +10,6 @@ using UnityEngine.UI;
 
 namespace Unbowed.UI.Gameplay {
     public class ItemDragger : MonoBehaviour {
-        [SerializeField] DroppedItem droppedItemPrefab;
-        
         ItemUI _draggedItemUI;
         RectTransform _dragRect;
         
@@ -123,7 +121,7 @@ namespace Unbowed.UI.Gameplay {
             if (bagsUI == null) {
                 if (EventSystem.current.IsPointerOverGameObject()) return false;
 
-                DropItem();
+                Unbowed.Gameplay.Characters.Modules.Inventory.DropItem(Item);
                 StopDragging();
                 return true;
             }
@@ -147,13 +145,6 @@ namespace Unbowed.UI.Gameplay {
             Destroy(_draggedItemUI.gameObject);
             _draggedItemUI = null;
             _dragRect = null;
-        }
-
-        void DropItem() {
-            if (!ActivePlayer.Exists) return;
-            var droppedItem = Instantiate(droppedItemPrefab);
-            droppedItem.transform.position = ActivePlayer.GetTransform().position + Vector3.up;
-            droppedItem.SetItem(Item);
         }
     }
 }

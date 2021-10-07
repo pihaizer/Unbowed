@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
+using Unbowed.SO;
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
@@ -101,6 +102,13 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public static void RemoveItem(Item item) {
             SetLocation(item, ItemLocation.None);
+        }
+
+        public static void DropItem(Item item) {
+            RemoveItem(item);
+            var droppedItem = Instantiate(ItemsContext.Instance.droppedItemPrefab);
+            droppedItem.transform.position = ActivePlayer.GetTransform().position + Vector3.up;
+            droppedItem.SetItem(item);
         }
 
         static bool RectOverlapsWith(RectInt rect, IEnumerable<Item> items) {

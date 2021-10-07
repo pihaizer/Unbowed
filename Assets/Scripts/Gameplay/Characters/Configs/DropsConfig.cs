@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace Unbowed.Gameplay.Characters.Configs {
     [Serializable]
@@ -11,20 +12,25 @@ namespace Unbowed.Gameplay.Characters.Configs {
     public class DropsConfig {
         public bool hasDrops = true;
 
-        [ShowIf(nameof(hasDrops)), Range(0, 100), GUIColor(nameof(GetValueColor))]
-        public int value;
+        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 100), GUIColor(nameof(GetValueColor))]
+        public Vector2Int valueRange;
 
-        [ShowIf(nameof(hasDrops)), Range(0, 100), GUIColor(nameof(GetAmountColor))]
-        public int amount;
-        
-        [ShowIf(nameof(hasDrops)), Range(0, 100), GUIColor(nameof(GetItemLevelColor))]
-        public int itemLevel;
+        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 10), GUIColor(nameof(GetAmountColor))]
+        public Vector2Int amount;
+
+        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 100), GUIColor(nameof(GetItemLevelColor))]
+        public Vector2Int itemLevel;
 
         [ShowIf(nameof(hasDrops))]
         public List<Item> alwaysDrops;
 
-        Color GetValueColor() => Color.Lerp(Color.white, Color.yellow, value / 100f);
-        Color GetAmountColor() => Color.Lerp(Color.white, Color.green, amount / 100f);
-        Color GetItemLevelColor() => Color.Lerp(Color.white, Color.blue, itemLevel / 100f);
+        Color GetValueColor() => Color.Lerp(Color.white, Color.yellow,
+            (valueRange.x + valueRange.y) / 200f);
+        
+        Color GetAmountColor() => Color.Lerp(Color.white, Color.green, 
+            (amount.x + amount.y) / 200f);
+        
+        Color GetItemLevelColor() => Color.Lerp(Color.white, Color.blue,
+            (itemLevel.x + itemLevel.y) / 200f);
     }
 }
