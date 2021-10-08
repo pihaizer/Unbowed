@@ -1,11 +1,6 @@
-﻿using System;
-using System.Linq;
-using Unbowed.Gameplay.Characters.Configs;
+﻿using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Items;
-using Unbowed.SO;
-using Unbowed.Utility;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Unbowed.Gameplay.Characters.Modules {
     [RequireComponent(typeof(Health))]
@@ -24,17 +19,9 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         void GenerateItems(DropsConfig config) {
             if (!config.hasDrops) return;
-
-            int amount = Mathf.RoundToInt(config.amountCurve.Evaluate(Random.value));
-
-            var itemLevelValidItems = ItemsContext.Instance.allItems
-                .Where(i => i.itemLevel >= config.itemLevelCurve.Evaluate(0) &&
-                            i.itemLevel <= config.itemLevelCurve.Evaluate(1)).ToArray();
-
-            for (int i = 0; i < amount; i++) {
-                int randomIndex = Random.Range(0, itemLevelValidItems.Length);
-                var item = new Item(itemLevelValidItems[randomIndex], ItemLocation.InBag(_inventory, Vector2Int.zero));
-                _inventory.Items.Add(item);
+            var items = config.GenerateItems();
+            foreach (var item in items) {
+                Inventory.SetLocation(item, ItemLocation.InBag(_inventory, Vector2Int.zero));
             }
         }
 

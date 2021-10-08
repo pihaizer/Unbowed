@@ -67,6 +67,14 @@ namespace Unbowed.Utility {
             };
         }
 
+        public static int[] PointsWithin(Vector2Int vector) {
+            int[] values = new int[vector.y - vector.x + 1];
+            for (int i = 0; i < values.Length; i++) {
+                values[i] = vector.x + i;
+            }
+            return values;
+        }
+
         // public static readonly Vector2Int[] Directions = new Vector2Int[4] {
         //     Vector2Int.up,
         //     Vector2Int.down,

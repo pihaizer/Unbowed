@@ -47,7 +47,7 @@ namespace Unbowed.UI.Gameplay {
         }
 
         IEnumerator DragItemCoroutine() {
-            MouseState.Instance.blockedByDraggedItem = true;
+            MouseContext.Instance.blockedByDraggedItem = true;
             var raycastResults = new List<RaycastResult>();
             var cell = new Vector2Int(int.MaxValue, int.MaxValue);
             var pointerEventData = new PointerEventData(EventSystem.current);
@@ -80,7 +80,7 @@ namespace Unbowed.UI.Gameplay {
 
             _draggedItemUI = null;
             if (!mouseAlreadyUp) yield return new WaitUntil(() => Input.GetMouseButtonUp(0));
-            MouseState.Instance.blockedByDraggedItem = false;
+            MouseContext.Instance.blockedByDraggedItem = false;
         }
 
         Vector2Int HandleOnBags(BagsUI bagsUI) {

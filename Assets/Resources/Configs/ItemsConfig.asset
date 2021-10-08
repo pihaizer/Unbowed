@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 515fcc32775b4f89aaf83fc5436df6cb, type: 3}
-  m_Name: ItemsContext
+  m_Name: ItemsConfig
   m_EditorClassIdentifier: 
   droppedItemPrefab: {fileID: 3196568061667994077, guid: 4b8e1070046dd9a4480200a5c922a305, type: 3}
   allItems:

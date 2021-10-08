@@ -37,20 +37,6 @@ namespace Unbowed.Gameplay.Characters.Modules {
             if (removedItem != null) SetLocation(removedItem, ItemLocation.None);
             SetLocation(item, location);
             return true;
-            // if (location.position.x < 0 || location.position.y < 0) return false;
-            // if (location.position.x >= Size.x - item.config.size.x + 1 ||
-            //     location.position.y >= Size.y - item.config.size.y + 1)
-            //     return false;
-            // var overlaps = InBags
-            //     .Where(other => other.OverlapsWith(new RectInt(location.position, item.config.size))).ToList();
-            // if (overlaps.Count > 1) return false;
-            // if (overlaps.Count == 1) {
-            //     removedItem = overlaps.First();
-            //     SetLocation(removedItem, ItemLocation.None);
-            // }
-            //
-            // SetLocation(item, location);
-            // return true;
         }
 
         public bool TryEquipItem(Item item, EquipmentSlot slot, out Item removedItem) {
@@ -106,7 +92,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public static void DropItem(Item item) {
             RemoveItem(item);
-            var droppedItem = Instantiate(ItemsContext.Instance.droppedItemPrefab);
+            var droppedItem = Instantiate(ItemsConfig.Instance.droppedItemPrefab);
             droppedItem.transform.position = ActivePlayer.GetTransform().position + Vector3.up;
             droppedItem.SetItem(item);
         }
@@ -115,7 +101,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             return items.All(it => !it.IsEquipped && !it.OverlapsWith(rect));
         }
 
-        static void SetLocation(Item item, ItemLocation location) {
+        public static void SetLocation(Item item, ItemLocation location) {
             if (item == null) return;
 
             if (item.Inventory != null) {

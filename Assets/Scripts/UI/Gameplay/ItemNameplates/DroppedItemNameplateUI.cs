@@ -16,7 +16,7 @@ namespace Unbowed.UI.ItemNameplates {
             GetComponent<Button>().onClick.AddListener(InvokeItemClicked);
         }
 
-        void InvokeItemClicked() => ItemsContext.Instance.droppedItemClicked?.Invoke(Item);
+        void InvokeItemClicked() => ItemsConfig.Instance.droppedItemClicked?.Invoke(Item);
 
         public DroppedItem Item {
             get => _item;

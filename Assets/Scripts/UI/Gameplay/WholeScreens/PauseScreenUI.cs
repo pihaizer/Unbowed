@@ -29,7 +29,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
         }
 
         void ToMainMenu() {
-            SceneDirector.Instance.Load(new SceneChangeRequest(mainMenu) {
+            ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenu) {
                 unloadOther = true, setActive = true, useLoadingScreen = true
             });
         }

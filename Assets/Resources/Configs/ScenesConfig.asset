@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74a9ad51d6fd4ad48bfafe0b7f43f721, type: 3}
-  m_Name: SceneDirector
+  m_Name: ScenesConfig
   m_EditorClassIdentifier: 
   _allSceneConfigs:
   - {fileID: 11400000, guid: 321043f70ab975c419f566a6e3a2ae74, type: 2}

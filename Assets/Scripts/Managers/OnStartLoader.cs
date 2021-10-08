@@ -7,9 +7,9 @@ namespace Unbowed.Managers {
         [SerializeField] SceneConfig sceneLoaded;
 
         void Awake() {
-            SceneDirector.Instance.Init();
-            if (SceneDirector.Instance.loadedScenes.Count == 0) {
-                SceneDirector.Instance.Load(new SceneChangeRequest(sceneLoaded) {
+            ScenesConfig.Instance.Init();
+            if (ScenesConfig.Instance.loadedScenes.Count == 0) {
+                ScenesConfig.Instance.Load(new SceneChangeRequest(sceneLoaded) {
                     setActive = true, useLoadingScreen = true
                 });
             }

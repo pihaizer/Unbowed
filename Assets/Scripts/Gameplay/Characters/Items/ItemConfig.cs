@@ -1,5 +1,7 @@
-﻿using DG.Tweening.Core.Easing;
+﻿using System;
+using DG.Tweening.Core.Easing;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using Unbowed.SO;
 using UnityEngine;
 
@@ -26,17 +28,18 @@ namespace Unbowed.Gameplay.Characters.Items {
 
         public ItemType type;
 
+        public float dropChanceWeight = 1f;
+
         [Range(1, 100)]
         [GUIColor("@Color.Lerp(Color.white, Color.green, itemLevel / 100f)")]
         public int itemLevel;
 
-        [SerializeField, HideIf(nameof(type), ItemType.Equipment)]
-        int value;
-
         [ShowIf(nameof(type), ItemType.Equipment)]
+        [InlineProperty, HideLabel, BoxGroup]
         public EquipmentConfig equipment;
 
         [ShowIf(nameof(type), ItemType.Usable)]
+        [InlineProperty, HideLabel, BoxGroup]
         public UsableItemConfig usableItem;
 
         [ShowIf(nameof(type), ItemType.Special)]
@@ -47,20 +50,20 @@ namespace Unbowed.Gameplay.Characters.Items {
         public bool IsSpecial => type == ItemType.Special;
 
         void OnEnable() {
-            if (ItemsContext.Instance.allItems.Contains(this)) return;
-            ItemsContext.Instance.allItems.Add(this);
+            if (ItemsConfig.Instance.allItems.Contains(this)) return;
+            ItemsConfig.Instance.allItems.Add(this);
 
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(ItemsContext.Instance);
+            EditorUtility.SetDirty(ItemsConfig.Instance);
 #endif
         }
 
         void OnDestroy() {
-            if (!ItemsContext.Instance.allItems.Contains(this)) return;
-            ItemsContext.Instance.allItems.Remove(this);
+            if (!ItemsConfig.Instance.allItems.Contains(this)) return;
+            ItemsConfig.Instance.allItems.Remove(this);
 
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(ItemsContext.Instance);
+            EditorUtility.SetDirty(ItemsConfig.Instance);
 #endif
         }
     }

@@ -27,14 +27,25 @@ MonoBehaviour:
   modelPrefab: {fileID: 8306180429689506633, guid: a30e05777cfb41e40a6a93715a703256, type: 3}
   size: {x: 2, y: 2}
   type: 0
+  dropChanceWeight: 1
   itemLevel: 1
-  value: 0
   equipment:
     slot: 4
-  curve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+    rarityWeights:
+      weights:
+      - value: 0
+        weight: 0.602
+        normalized: 0.37861633
+      - value: 1
+        weight: 0.708
+        normalized: 0.44528303
+      - value: 2
+        weight: 0.186
+        normalized: 0.116981134
+      - value: 3
+        weight: 0.081
+        normalized: 0.050943397
+      - value: 4
+        weight: 0.013
+        normalized: 0.0081761
   specialColor: {r: 0, g: 0, b: 0, a: 0}

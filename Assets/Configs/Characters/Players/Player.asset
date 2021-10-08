@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90cfd411fcb446ffb3d5077532dfaeb8, type: 3}
-  m_Name: Player Config
+  m_Name: Player
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -112,7 +112,7 @@ MonoBehaviour:
       Data: 5
     - Name: $v
       Entry: 4
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 8
       Data: 
@@ -124,7 +124,7 @@ MonoBehaviour:
       Data: 6
     - Name: $v
       Entry: 4
-      Data: 2
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -136,7 +136,7 @@ MonoBehaviour:
       Data: 7
     - Name: $v
       Entry: 4
-      Data: 1
+      Data: 0.5
     - Name: 
       Entry: 8
       Data: 
@@ -202,7 +202,22 @@ MonoBehaviour:
     hitMomentPercent: 0.333
   dropsConfig:
     hasDrops: 0
-    valueRange: {x: 0, y: 0}
-    amount: {x: 0, y: 0}
-    itemLevel: {x: 0, y: 0}
+    valueCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    amountCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    itemLevelCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
     alwaysDrops: []

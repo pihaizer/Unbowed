@@ -14,7 +14,7 @@ namespace Unbowed.Gameplay {
         void RequestLocationLoad(Collider other) {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
         
-            SceneDirector.Instance.Load(new SceneChangeRequest(loadedSceneConfig));
+            ScenesConfig.Instance.Load(new SceneChangeRequest(loadedSceneConfig));
         }
     }
 }

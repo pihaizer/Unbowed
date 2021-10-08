@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using Unbowed.Gameplay.Characters.Items;
+using Unbowed.SO;
+using Unbowed.Utility;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+using Random = UnityEngine.Random;
 
 namespace Unbowed.Gameplay.Characters.Configs {
     [Serializable]
@@ -12,32 +17,67 @@ namespace Unbowed.Gameplay.Characters.Configs {
     public class DropsConfig {
         public bool hasDrops = true;
 
-
-        [ShowIf(nameof(hasDrops)), GUIColor(nameof(GetValueColor))]
-        public AnimationCurve valueCurve;
-
-        [ShowIf(nameof(hasDrops)), GUIColor(nameof(GetAmountColor))]
-        public AnimationCurve amountCurve;
-
-        [ShowIf(nameof(hasDrops)), GUIColor(nameof(GetItemLevelColor))]
-        public AnimationCurve itemLevelCurve;
+        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 10), GUIColor(nameof(GetAmountColor))]
+        [OnValueChanged("@amountWeights.SetValues(VectorUtility.PointsWithin(amountRange))")]
+        public Vector2Int amountRange;
 
         [ShowIf(nameof(hasDrops))]
-        public List<Item> alwaysDrops;
+        public Weights<int> amountWeights;
 
-        Color GetValueColor() => Color.Lerp(Color.white, Color.yellow,
-            (valueCurve.Evaluate(0) + valueCurve.Evaluate(1)) / 200f);
-        
-        Color GetAmountColor() => Color.Lerp(Color.white, Color.green, 
-            (amountCurve.Evaluate(0) + amountCurve.Evaluate(1)) / 200f);
-        
+        [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 100), GUIColor(nameof(GetItemLevelColor))]
+        public Vector2Int equipmentLevelRange;
+
+        [ShowIf(nameof(hasDrops))]
+        public List<SpecialDrop> specialDrops;
+
+        Color GetAmountColor() => Color.Lerp(Color.white, Color.green,
+            (amountRange.x + amountRange.y) / 20f);
+
         Color GetItemLevelColor() => Color.Lerp(Color.white, Color.blue,
-            (itemLevelCurve.Evaluate(0) + itemLevelCurve.Evaluate(1)) / 200f);
-        
+            (equipmentLevelRange.x + equipmentLevelRange.y) / 200f);
+
+        public List<Item> GenerateItems() {
+            var items = new List<Item>();
+            if (!hasDrops) return items;
+
+            int amount = amountWeights.Random();
+
+            var itemLevelValidItems = ItemsConfig.Instance.allItems
+                .Where(i => i.itemLevel >= equipmentLevelRange.x &&
+                            i.itemLevel <= equipmentLevelRange.y).ToArray();
+            if (itemLevelValidItems.Length == 0) return items;
+
+            for (int i = 0; i < amount; i++) {
+                int randomIndex = Random.Range(0, itemLevelValidItems.Length);
+                var item = new Item(itemLevelValidItems[randomIndex], ItemLocation.None);
+                if (item.IsEquipment) item.rarity = item.config.equipment.rarityWeights.Random();
+                items.Add(item);
+            }
+
+            foreach (var specialDrop in specialDrops) {
+                if (Random.value < specialDrop.chance) {
+                    items.Add(new Item(specialDrop.item));
+                }
+            }
+
+            return items;
+        }
 
         [Button]
-        void SimulateDrops() {
-            
+        void TestAmounts() {
+            for (int i = 0; i < 100; i++) {
+                Debug.Log(amountWeights.Random());
+            }
+        }
+
+        [Serializable]
+        public class SpecialDrop {
+            [HorizontalGroup(0.5f), HideLabel]
+            public Item item;
+
+            [HorizontalGroup(0.5f)]
+            [Range(0, 1)]
+            public float chance = 1;
         }
     }
 }

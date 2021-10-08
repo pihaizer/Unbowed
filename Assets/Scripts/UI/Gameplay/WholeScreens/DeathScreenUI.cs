@@ -31,7 +31,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
         }
 
         void ToMainMenu() {
-            SceneDirector.Instance.Load(new SceneChangeRequest(mainMenuScene)
+            ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenuScene)
                 {setActive = true, unloadOther = true, useLoadingScreen = true});
         }
     }

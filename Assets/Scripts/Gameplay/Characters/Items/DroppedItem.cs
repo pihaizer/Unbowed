@@ -39,7 +39,7 @@ namespace Unbowed.Gameplay.Characters.Items {
         }
 
         void OnMouseOver() {
-            if (MouseState.Instance.BlockedByUI) return;
+            if (MouseContext.Instance.BlockedByUI) return;
             EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
         }
 

@@ -9,7 +9,7 @@ namespace Unbowed.UI {
         int _showLoaderCalls = 0;
 
         void Start() {
-            loadingScreenContent.gameObject.SetActive(SceneDirector.Instance.loadedScenes.Count == 0);
+            loadingScreenContent.gameObject.SetActive(ScenesConfig.Instance.loadedScenes.Count == 0);
             EventsContext.Instance.showLoadingScreen += ShowLoadingScreen;
         }
 

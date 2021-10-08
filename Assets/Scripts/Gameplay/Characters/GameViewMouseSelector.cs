@@ -17,7 +17,7 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void UpdateMouseTargetSO() {
-            var mouseState = MouseState.Instance;
+            var mouseState = MouseContext.Instance;
             mouseState.isOffGameView =
                 !RectUtils.One.Contains(selectionCamera.ScreenToViewportPoint(Input.mousePosition)) ||
                 eventSystem.IsPointerOverGameObject();
@@ -40,7 +40,7 @@ namespace Unbowed.Gameplay.Characters {
 
         bool TrySetTarget(ISelectable selectable) {
             if (selectable == null || !selectable.CanBeSelected()) return false;
-            MouseState.Instance.SetGameViewTarget(selectable);
+            MouseContext.Instance.SetGameViewTarget(selectable);
             return true;
         }
     }

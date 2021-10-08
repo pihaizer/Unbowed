@@ -27,8 +27,10 @@ MonoBehaviour:
   modelPrefab: {fileID: 8118392229364383779, guid: 11bc64bcafdc2fb4d88d69442acd4afe, type: 3}
   size: {x: 1, y: 1}
   type: 1
-  itemLevel: 3
-  value: 3
+  dropChanceWeight: 1
+  itemLevel: 1
   equipment:
     slot: 0
+    rarityWeights:
+      weights: []
   specialColor: {r: 0, g: 0, b: 0, a: 0}

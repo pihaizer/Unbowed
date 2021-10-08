@@ -12,20 +12,20 @@ namespace Unbowed.SO {
         public string sceneName;
 
         void OnEnable() {
-            if (SceneDirector.Instance._allSceneConfigs.Contains(this)) return;
-            SceneDirector.Instance._allSceneConfigs.Add(this);
+            if (ScenesConfig.Instance._allSceneConfigs.Contains(this)) return;
+            ScenesConfig.Instance._allSceneConfigs.Add(this);
             
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(SceneDirector.Instance);
+            EditorUtility.SetDirty(ScenesConfig.Instance);
 #endif
         }
 
         void OnDestroy() {
-            if (!SceneDirector.Instance._allSceneConfigs.Contains(this)) return;
-            SceneDirector.Instance._allSceneConfigs.Remove(this);
+            if (!ScenesConfig.Instance._allSceneConfigs.Contains(this)) return;
+            ScenesConfig.Instance._allSceneConfigs.Remove(this);
             
 #if UNITY_EDITOR
-            EditorUtility.SetDirty(SceneDirector.Instance);
+            EditorUtility.SetDirty(ScenesConfig.Instance);
 #endif
         }
     }

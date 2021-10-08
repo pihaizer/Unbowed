@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Unbowed.SO {
     [GlobalConfig("Assets/Resources/Configs")]
-    public class SceneDirector : GlobalConfig<SceneDirector> {
+    public class ScenesConfig : GlobalConfig<ScenesConfig> {
         public List<SceneConfig> _allSceneConfigs = new List<SceneConfig>();
         
         public readonly List<SceneConfig> loadedScenes = new List<SceneConfig>();

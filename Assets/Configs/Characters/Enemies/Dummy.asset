@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90cfd411fcb446ffb3d5077532dfaeb8, type: 3}
-  m_Name: Dummy Config
+  m_Name: Dummy
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -202,46 +202,17 @@ MonoBehaviour:
     hitMomentPercent: 0.333
   dropsConfig:
     hasDrops: 1
-    valueRange: {x: 0, y: 0}
-    amount: {x: 0, y: 0}
-    itemLevel: {x: 3, y: 10}
-    amountCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 1.7692701
-        outSlope: 1.7692701
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.8452051
-        value: 2.4953961
-        inSlope: 4.8588033
-        outSlope: 4.8588033
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.07813309
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 4
-        inSlope: 9.719985
-        outSlope: 9.719985
-        tangentMode: 34
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    alwaysDrops:
-    - config: {fileID: 11400000, guid: 0ad84203b13c52f4ba1461c9ad591a8d, type: 2}
-      location:
-        inventory: {fileID: 0}
-        isEquipped: 0
-        position: {x: 0, y: 0}
-      rarity: 0
+    amountRange: {x: 0, y: 2}
+    amountWeights:
+      weights:
+      - value: 0
+        weight: 0.46
+        normalized: 0.4380952
+      - value: 1
+        weight: 0.54
+        normalized: 0.5142857
+      - value: 2
+        weight: 0.05
+        normalized: 0.047619045
+    equipmentLevelRange: {x: 0, y: 13}
+    specialDrops: []

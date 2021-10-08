@@ -7,7 +7,7 @@ namespace Unbowed.Gameplay {
         [SerializeField] SceneConfig startingLocationConfig;
 
         void Start() {
-            SceneDirector.Instance.Load(new SceneChangeRequest(startingLocationConfig) {useLoadingScreen = true});
+            ScenesConfig.Instance.Load(new SceneChangeRequest(startingLocationConfig) {useLoadingScreen = true});
         }
     }
 }

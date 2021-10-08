@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Unbowed.Gameplay.Characters.Items {
     [Serializable, InlineProperty]
     public class Item {
-        [Title("$Name")]
+        [Title("@config==null?\"Config not set\":Name")]
         public ItemConfig config;
 
         public ItemLocation location;
@@ -27,6 +27,8 @@ namespace Unbowed.Gameplay.Characters.Items {
         public RectInt Rect => new RectInt(location.position, config.size);
 
         Color EquipmentColor => UIConfig.Instance.GetEquipmentColor(rarity);
+
+        public Item(Item other) : this(other.config, other.location) => rarity = other.rarity;
 
         public Item(ItemConfig config, ItemLocation location) {
             this.config = config;

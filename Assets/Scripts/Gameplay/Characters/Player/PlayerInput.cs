@@ -16,11 +16,11 @@ namespace Unbowed.Gameplay.Characters.Player {
 
         void Awake() {
             _target = GetComponent<PlayerCharacter>();
-            ItemsContext.Instance.droppedItemClicked += OnItemClicked;
+            ItemsConfig.Instance.droppedItemClicked += OnItemClicked;
         }
 
         void OnDestroy() {
-            ItemsContext.Instance.droppedItemClicked -= OnItemClicked;
+            ItemsConfig.Instance.droppedItemClicked -= OnItemClicked;
         }
 
         void OnItemClicked(IInteractable interactable) {
@@ -39,8 +39,8 @@ namespace Unbowed.Gameplay.Characters.Player {
 
         void OnLMB() {
             if (ItemDragger.Instance.IsDragging) return;
-            if (MouseState.Instance.GameViewTarget != null) {
-                switch (MouseState.Instance.GameViewTarget) {
+            if (MouseContext.Instance.GameViewTarget != null) {
+                switch (MouseContext.Instance.GameViewTarget) {
                     case IHittable hittable
                         when hittable.CanBeHit() &&
                              (!(_target.characterCommandExecutor.MainCommand is AttackCommand
@@ -55,7 +55,7 @@ namespace Unbowed.Gameplay.Characters.Player {
                         break;
                 }
             } else {
-                if (MouseState.Instance.BlockedByUI) return;
+                if (MouseContext.Instance.BlockedByUI) return;
                 if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out var hit, 100f,
                     navMeshLayerMask)) {
                     if (NavMesh.SamplePosition(hit.point, out var navMeshHit, maxWalkDistance, 1))

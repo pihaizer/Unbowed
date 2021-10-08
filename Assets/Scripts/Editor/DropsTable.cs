@@ -16,10 +16,6 @@ namespace Unbowed.Editor {
             window.Show();
         }
 
-        protected override void DrawEditor(int index) {
-            base.DrawEditor(index);
-        }
-
         protected override void OnEnable() {
             base.OnEnable();
             drops.Clear();
