@@ -3,7 +3,7 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.UI;
 

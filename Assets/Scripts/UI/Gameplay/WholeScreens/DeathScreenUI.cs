@@ -1,5 +1,3 @@
-using System;
-using Unbowed.Gameplay.Characters.Player;
 using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,9 +24,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
 
         void OnPlayerRevived() => gameObject.SetActive(false);
 
-        void Revive() {
-            ActivePlayer.Revive();
-        }
+        void Revive() => ActivePlayer.Revive();
 
         void ToMainMenu() {
             ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenuScene)

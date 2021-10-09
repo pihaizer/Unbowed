@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Sirenix.Utilities;
 using Unbowed.Gameplay;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 
 namespace Unbowed.SO {
     [GlobalConfig("Assets/Resources/Configs")]

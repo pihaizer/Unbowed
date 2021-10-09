@@ -1,5 +1,5 @@
 ﻿using Unbowed.Gameplay.Characters.Configs;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
@@ -20,9 +20,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
         void GenerateItems(DropsConfig config) {
             if (!config.hasDrops) return;
             var items = config.GenerateItems();
-            foreach (var item in items) {
-                Inventory.SetLocation(item, ItemLocation.InBag(_inventory, Vector2Int.zero));
-            }
+            _inventory.SetItems(items);
         }
 
         void DropItems() {

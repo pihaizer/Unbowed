@@ -1,7 +1,7 @@
 ﻿using System;
 using Sirenix.Utilities;
-using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.Gameplay.Items;
 
 namespace Unbowed.SO {
     [GlobalConfig("Assets/Configs")]

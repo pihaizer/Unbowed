@@ -1,7 +1,6 @@
 ﻿using System;
 using Sirenix.Utilities;
 using Unbowed.Gameplay;
-using Unbowed.Gameplay.Characters.Items;
 using UnityEngine;
 
 namespace Unbowed.SO {

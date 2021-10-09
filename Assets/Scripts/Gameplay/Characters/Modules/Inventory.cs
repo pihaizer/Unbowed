@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         [SerializeField] Vector2Int size;
         [SerializeField] List<Item> defaultItems;
-        
+
         [ShowInInspector, ReadOnly]
         public List<Item> Items { get; private set; }
 
@@ -21,8 +21,25 @@ namespace Unbowed.Gameplay.Characters.Modules {
         public List<Item> InBags => Items.Where(it => !it.location.isEquipped).ToList();
         public Vector2Int Size => size;
 
-        public void Init(List<Item> savedItems = null) {
-            Items = savedItems ?? defaultItems;
+        public void Init() {
+            Items = defaultItems ?? new List<Item>();
+        }
+
+        public void SetItems(List<Item> items = null) {
+            if (Items != null) {
+                foreach (var item in Items) {
+                    item.location = ItemLocation.None;
+                    RemovedItem?.Invoke(item);
+                }
+            }
+
+            Items = items ?? defaultItems;
+            if (Items == null) return;
+
+            foreach (var item in Items) {
+                item.location.inventory = this;
+                AddedItem?.Invoke(item);
+            }
         }
 
         public bool TryAddItemToBags(Item item) {
@@ -85,10 +102,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public static bool CanEquipItem(Item item, EquipmentSlot slot) => item.Slot == slot;
 
-
-        public static void RemoveItem(Item item) {
-            SetLocation(item, ItemLocation.None);
-        }
+        public static void RemoveItem(Item item) => SetLocation(item, ItemLocation.None);
 
         public static void DropItem(Item item) {
             RemoveItem(item);
@@ -97,11 +111,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             droppedItem.SetItem(item);
         }
 
-        static bool RectOverlapsWith(RectInt rect, IEnumerable<Item> items) {
-            return items.All(it => !it.IsEquipped && !it.OverlapsWith(rect));
-        }
-
-        public static void SetLocation(Item item, ItemLocation location) {
+        static void SetLocation(Item item, ItemLocation location) {
             if (item == null) return;
 
             if (item.Inventory != null) {
@@ -114,5 +124,23 @@ namespace Unbowed.Gameplay.Characters.Modules {
             item.Inventory.Items.Add(item);
             item.Inventory.AddedItem?.Invoke(item);
         }
+
+        static bool RectOverlapsWith(RectInt rect, IEnumerable<Item> items) {
+            return items.All(it => !it.IsEquipped && !it.OverlapsWith(rect));
+        }
+
+        void AddItem(Item item) {
+            if (item == null) return;
+            Items.Add(item);
+            item.location.inventory = this;
+            AddedItem?.Invoke(item);
+        }
+
+#if UNITY_EDITOR
+        [Button]
+        void GiveItem(Item item) {
+            TryAddItemToBags(new Item(item));
+        }
+#endif
     }
 }

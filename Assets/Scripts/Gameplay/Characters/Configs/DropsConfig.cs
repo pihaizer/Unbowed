@@ -4,7 +4,7 @@ using System.Linq;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.Utility;
 using UnityEngine;

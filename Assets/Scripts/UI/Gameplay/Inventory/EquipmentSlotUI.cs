@@ -1,5 +1,5 @@
 ﻿using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -14,6 +14,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
         public void Init(Inventory inventory) {
             _inventory = inventory;
+            
+            SetItem(null);
 
             if (inventory.Items.Count > 0) {
                 var equippedItem = inventory.Items.Find((item) => item.Slot == _slot && item.IsEquipped);

@@ -1,6 +1,6 @@
 ﻿using System;
 using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -27,12 +27,15 @@ namespace Unbowed.UI.Gameplay.Inventory {
             Item = item;
             itemDescriptionUI.SetItem(Item);
             _image.color = Item == null ? Color.clear : Color.white;
-            if (Item == null) return;
+            
+            if (Item == null) {
+                _image.sprite = null;
+                return;
+            }
+            
             var size = Item.config.size;
             _rectTransform = GetComponent<RectTransform>();
-            _rectTransform.ForceUpdateRectTransforms();
             _rectTransform.sizeDelta = (Vector2) size * _cellSize + (size - Vector2.one) * _cellSpacing;
-            _rectTransform.ForceUpdateRectTransforms();
             _image.sprite = Item.config.icon;
             SetRaycastReceiverSize(_rectTransform.sizeDelta);
         }

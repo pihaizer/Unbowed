@@ -8,7 +8,7 @@ namespace Unbowed.SO {
     [GlobalConfig("Assets/Resources/Configs")]
     public class ScenesConfig : GlobalConfig<ScenesConfig> {
         public List<SceneConfig> _allSceneConfigs = new List<SceneConfig>();
-        
+
         public readonly List<SceneConfig> loadedScenes = new List<SceneConfig>();
 
         public void Init() {
@@ -19,9 +19,9 @@ namespace Unbowed.SO {
             }
         }
 
-        public void Load(SceneChangeRequest request) {
-            if (loadedScenes.Contains(request.sceneConfig)) return;
-            
+        public AsyncOperation Load(SceneChangeRequest request) {
+            if (loadedScenes.Contains(request.sceneConfig)) return null;
+
             if (request.useLoadingScreen) {
                 EventsContext.Instance.showLoadingScreen?.Invoke(true);
             }
@@ -34,7 +34,8 @@ namespace Unbowed.SO {
 
             loadedScenes.Add(request.sceneConfig);
 
-            SceneManager.LoadSceneAsync(request.sceneConfig.sceneName, LoadSceneMode.Additive).completed += operation => {
+            var operation = SceneManager.LoadSceneAsync(request.sceneConfig.sceneName, LoadSceneMode.Additive);
+            operation.completed += loadOperation => {
                 if (request.setActive) {
                     var scene = SceneManager.GetSceneByName(request.sceneConfig.sceneName);
                     SceneManager.SetActiveScene(scene);
@@ -44,6 +45,7 @@ namespace Unbowed.SO {
                     EventsContext.Instance.showLoadingScreen?.Invoke(false);
                 }
             };
+            return operation;
         }
 
         public void Unload(SceneConfig sceneConfig) {
@@ -62,6 +64,6 @@ namespace Unbowed.SO {
 
         public SceneChangeRequest(SceneConfig config) {
             sceneConfig = config;
-        } 
+        }
     }
 }

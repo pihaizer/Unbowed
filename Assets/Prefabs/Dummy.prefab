@@ -1,5 +1,21 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3938302549650214711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126790878513143129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115fcce2a7a74fb39b9298c4b0ed8a6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 4498325376960812692}
+  animator: {fileID: 126790878505758423}
+  attackAnimation: {fileID: 7400000, guid: dfc15c633f0d98141920018f79a042a6, type: 3}
+  gotHitAnimation: {fileID: 7400000, guid: 81d4af5a5190e3d4d88c97161d881bf3, type: 3}
 --- !u!1 &4498325375448173491
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,13 +72,12 @@ GameObject:
   - component: {fileID: 4498325376960812693}
   - component: {fileID: 4498325376960812692}
   - component: {fileID: 4498325376960812699}
-  - component: {fileID: 4498325376960812694}
   - component: {fileID: 4498325376960812698}
-  - component: {fileID: 4498325376960812689}
   - component: {fileID: 5282695693614217950}
   - component: {fileID: 5208873020895564635}
   - component: {fileID: 2043776207721848958}
   - component: {fileID: 7527860590083313997}
+  - component: {fileID: 8148601903264499172}
   m_Layer: 0
   m_Name: Dummy
   m_TagString: Untagged
@@ -110,9 +125,10 @@ MonoBehaviour:
   characterType: {fileID: 11400000, guid: 4ad3bf4f56a177645a15ac9dedd70c32, type: 2}
   config: {fileID: 11400000, guid: 4ce9f56ad9154a442969b2faeb47103a, type: 2}
   health: {fileID: 5282695693614217950}
-  characterMovement: {fileID: 5208873020895564635}
+  movement: {fileID: 5208873020895564635}
   inventory: {fileID: 2043776207721848958}
   characterCommandExecutor: {fileID: 7527860590083313997}
+  dropsModule: {fileID: 8148601903264499172}
 --- !u!114 &4498325376960812699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,21 +143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brainConfig: {fileID: 11400000, guid: bceaf81a17855ce4ea224d6087406529, type: 2}
   restrictedZone: {fileID: 0}
---- !u!114 &4498325376960812694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4498325376960812697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3664efa9cc204ccbbad5c51766aae9de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionalAnimationDelay: {fileID: 7400000, guid: a749f4485b342b7469956010abf2ab25, type: 3}
-  respawner: {fileID: 0}
-  respawnDelayRange: {x: 2, y: 3}
 --- !u!195 &4498325376960812698
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -164,22 +165,6 @@ NavMeshAgent:
   m_BaseOffset: -0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4498325376960812689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4498325376960812697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115fcce2a7a74fb39b9298c4b0ed8a6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  character: {fileID: 4498325376960812692}
-  animator: {fileID: 126790878505758423}
-  attackAnimation: {fileID: 7400000, guid: dfc15c633f0d98141920018f79a042a6, type: 3}
-  gotHitAnimation: {fileID: 7400000, guid: 81d4af5a5190e3d4d88c97161d881bf3, type: 3}
 --- !u!114 &5282695693614217950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,37 +209,9 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: equipments
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Unbowed.Gameplay.Characters.Items.EquipmentSlot,
-        Assembly-CSharp],[Unbowed.Gameplay.Characters.Items.Item, Assembly-CSharp]],
-        mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Unbowed.Gameplay.Characters.Items.EquipmentSlot,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: inventoryItems
-      Entry: 6
-      Data: 
+    SerializationNodes: []
+  size: {x: 0, y: 0}
+  defaultItems: []
 --- !u!114 &7527860590083313997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +222,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e24bf7a73e9046b0963fa4363e738389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8148601903264499172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498325376960812697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f747e882fa4430996819a50b110687a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &126790878513109943
@@ -768,6 +737,11 @@ PrefabInstance:
       objectReference: {fileID: 22100000, guid: cae0fa9f19e844646a4d3d620efc0509, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+--- !u!1 &126790878513143129 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}
+  m_PrefabInstance: {fileID: 126790878513109943}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &126790878513496441 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400078, guid: 5a35c5f0a89b9654d897ccd7c8f81bd0, type: 3}

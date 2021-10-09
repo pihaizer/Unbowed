@@ -42,6 +42,8 @@ namespace Unbowed.SO {
             PlayerChanged?.Invoke();
         }
 
+        public static Character Get() => Exists ? _player : null;
+
         public static Transform GetTransform() => Exists ? _player.transform : null;
 
         public static Health GetHealth() => Exists ? _player.health : null;

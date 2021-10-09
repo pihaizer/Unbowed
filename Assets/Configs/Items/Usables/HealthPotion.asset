@@ -33,4 +33,6 @@ MonoBehaviour:
     slot: 0
     rarityWeights:
       weights: []
+  usableItem:
+    color: {r: 0.6320754, g: 0, b: 0, a: 0.39215687}
   specialColor: {r: 0, g: 0, b: 0, a: 0}

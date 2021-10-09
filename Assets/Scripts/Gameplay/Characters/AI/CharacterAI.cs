@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Unbowed.Gameplay.Characters.AI.Brains;
 using Unbowed.SO.Brains;
 using UnityEngine;
@@ -20,9 +21,11 @@ namespace Unbowed.Gameplay.Characters.AI {
             }
         }
 
-        void FixedUpdate() {
-            _brain?.Update(Time.fixedDeltaTime);
-        }
+        void FixedUpdate() => _brain?.FixedUpdate();
+
+        void Update() => _brain?.Update();
+
+        void OnDestroy() => _brain?.OnDestroy();
 
         void OnValidate() {
             if (!Application.isPlaying) return;
@@ -31,6 +34,7 @@ namespace Unbowed.Gameplay.Characters.AI {
             if (brainConfig == null) {
                 _brain = null;
             } else if (_brain?.ID != brainConfig.ID) {
+                _brain?.OnDestroy();
                 _brain = brainConfig.Inject(GetComponent<Character>());
             }
         }

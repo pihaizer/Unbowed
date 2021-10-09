@@ -13,15 +13,16 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
     [InlineProperty]
     public sealed class CharacterRuntimeStats : BaseModifiable {
         public event Action Updated;
-        
+
         CharacterStats _baseStats;
 
         [field: OdinSerialize, ReadOnly, DictionaryDrawerSettings(IsReadOnly = true)]
-        public Dictionary<StatType, float> Values { get; } = Enum.GetValues(typeof(StatType))
-            .Cast<StatType>()
-            .ToDictionary(stat => stat, stat => 0f);
+        public Dictionary<StatType, float> Values { get; } =
+            Enum.GetValues(typeof(StatType))
+                .Cast<StatType>()
+                .ToDictionary(stat => stat, stat => 0f);
 
-        CharacterStatsModifier _defaultModifier = new CharacterStatsModifier(0);
+        DefaultStatsModifier _defaultModifier = new DefaultStatsModifier();
 
         public CharacterRuntimeStats(CharacterStats baseStats) {
             SetBaseStats(baseStats);
@@ -43,23 +44,8 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
                 Values[statKey] = _baseStats[statKey];
             }
 
-            UpdateDefaultModifier();
-
             base.Update();
             Updated?.Invoke();
-        }
-
-        void UpdateDefaultModifier() {
-            _defaultModifier.Clear();
-
-            _defaultModifier.Add(StatType.MinDamage, new Modifier<float>(
-                Values[StatType.Strength] / 5, Operations.Add, -1));
-
-            _defaultModifier.Add(StatType.MaxDamage, new Modifier<float>(
-                Values[StatType.Strength] / 4, Operations.Add, -1));
-
-            _defaultModifier.Add(StatType.Health, new Modifier<float>(
-                Values[StatType.Endurance] * 3, Operations.Add, -1));
         }
     }
 }

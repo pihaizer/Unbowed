@@ -202,22 +202,8 @@ MonoBehaviour:
     hitMomentPercent: 0.333
   dropsConfig:
     hasDrops: 0
-    valueCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    amountCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    itemLevelCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    alwaysDrops: []
+    amountRange: {x: 0, y: 0}
+    amountWeights:
+      weights: []
+    equipmentLevelRange: {x: 0, y: 0}
+    specialDrops: []

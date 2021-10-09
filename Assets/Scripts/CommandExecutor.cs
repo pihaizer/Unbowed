@@ -10,7 +10,7 @@ namespace Unbowed {
 
         public Command MainCommand { get; private set; }
         
-        [ShowInInspector, PropertyOrder(1)] 
+        [ShowInInspector, PropertyOrder(1), DisplayAsString] 
         string CurrentCommandString => MainCommand?.ToString();
 
         [ShowInInspector, PropertyOrder(2)]

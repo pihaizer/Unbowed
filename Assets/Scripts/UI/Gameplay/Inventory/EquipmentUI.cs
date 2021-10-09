@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     public class EquipmentUI : SerializedMonoBehaviour {

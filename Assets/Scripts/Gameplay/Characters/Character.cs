@@ -6,7 +6,6 @@ using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Configs.Stats;
-using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
@@ -83,12 +82,14 @@ namespace Unbowed.Gameplay.Characters {
 
         void OnDeath() {
             characterCommandExecutor.StopMain();
+            movement.NavAgent.enabled = false;
             StopAllCoroutines();
             movement.Stop();
         }
 
         protected virtual void OnRevive() {
             gameObject.SetActive(true);
+            movement.NavAgent.enabled = true;
         }
 
         public void Hit(int damage, GameObject source) {

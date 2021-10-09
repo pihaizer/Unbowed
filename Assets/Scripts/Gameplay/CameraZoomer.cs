@@ -28,8 +28,6 @@ namespace Unbowed.Gameplay {
         }
 
         public void Step(bool isUp) {
-            Debug.Log($"Stepping {isUp}");
-
             if (!isUp && currentDistanceIndex == 0 || isUp && currentDistanceIndex == distances.Length - 1) {
                 return;
             }

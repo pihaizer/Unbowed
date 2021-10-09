@@ -33,6 +33,8 @@ namespace Unbowed.Gameplay {
                 speed.RemoveModifier(_runningSpeedModifier);
         }
 
-        public void Stop() => NavAgent.ResetPath();
+        public void Stop() {
+            if (NavAgent.isOnNavMesh) NavAgent.ResetPath();
+        }
     }
 }

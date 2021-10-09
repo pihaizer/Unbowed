@@ -14,8 +14,8 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             body.characterCommandExecutor.StoppedExecuting += OnStoppedExecuting;
         }
 
-        public override void Update(float deltaTime) {
-            base.Update(deltaTime);
+        public override void FixedUpdate() {
+            base.FixedUpdate();
             if (body.health.isDead || body.areActionsBlocked) return;
             if (body.characterCommandExecutor.MainCommand == null) {
                 SelectNewCommand();

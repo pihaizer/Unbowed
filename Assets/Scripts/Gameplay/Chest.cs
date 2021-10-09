@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.SO;
 using UnityEngine;

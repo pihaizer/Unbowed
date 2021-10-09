@@ -1,4 +1,6 @@
-﻿namespace Unbowed.Gameplay.Characters.Configs.Stats {
+﻿using UnityEngine;
+
+namespace Unbowed.Gameplay.Characters.Configs.Stats {
 
     public enum StatType {
         Strength = 0,
@@ -14,4 +16,6 @@
         HitRecoveryTime = 10,
         MoveSpeed = 11,
     }
+
+    // public class StatType : ScriptableObject { }
 }

@@ -13,7 +13,9 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             ID = id;
         }
 
-        public virtual void Update(float deltaTime) { }
+        public virtual void FixedUpdate() { }
+        public virtual void Update() { }
+        public virtual void OnDestroy() {}
 
         public void SetRestrictedZone(ColliderZone zone) => restrictedZone = zone;
 

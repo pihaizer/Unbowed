@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 using Sirenix.OdinInspector;
 using TMPro;
-using Unbowed.Gameplay.Characters.Items;
+using Unbowed.Gameplay.Items;
 using UnityEngine;
 
 namespace Unbowed.UI.Gameplay.Inventory {
