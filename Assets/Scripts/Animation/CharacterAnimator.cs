@@ -51,7 +51,7 @@ namespace Unbowed.Animation {
         void OnAttacking(bool value) {
             if (value) {
                 animator.SetTrigger(Attack);
-                float attackSpeed = attackAnimation.length / character.stats[StatType.AttackTime];
+                float attackSpeed = attackAnimation.length / character.Stats["AttackTime"];
                 animator.SetFloat(AttackSpeed, attackSpeed);
             }
         }
@@ -59,7 +59,7 @@ namespace Unbowed.Animation {
         void OnHitRecovering(bool value) {
             if (value) {
                 animator.SetTrigger(GotHit);
-                float hitRecoverSpeed = gotHitAnimation.length / character.stats[StatType.HitRecoveryTime];
+                float hitRecoverSpeed = gotHitAnimation.length / character.Stats["HitRecoveryTime"];
                 animator.SetFloat(HitRecoverySpeed, hitRecoverSpeed);
             }
         }

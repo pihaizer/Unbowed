@@ -1,4 +1,6 @@
 ﻿using System;
+
+using Unbowed.Gameplay;
 using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +31,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
         }
 
         void ToMainMenu() {
+            FindObjectOfType<GameController>().Save();
             ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenu) {
                 unloadOther = true, setActive = true, useLoadingScreen = true
             });

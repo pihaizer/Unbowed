@@ -31,7 +31,7 @@ namespace Unbowed.Gameplay {
         }
 
         [Button]
-        void Save() {
+        public void Save() {
             var save = new SaveFile();
             var playerSave = CharacterSave.FromCharacter(ActivePlayer.Get());
             save.characters.Add(playerSave);

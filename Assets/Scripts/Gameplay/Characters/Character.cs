@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
+
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
+
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(Health))]
@@ -23,7 +23,6 @@ namespace Unbowed.Gameplay.Characters {
         // configs
         public CharacterTypeSO characterType;
         public CharacterConfig config;
-        public CharacterRuntimeStats stats;
 
         // modules
         [HideInInspector]
@@ -42,6 +41,9 @@ namespace Unbowed.Gameplay.Characters {
 
         // runtime values
         public bool IsStarted { get; private set; }
+        
+        [ShowInInspector]
+        public Stats Stats { get; private set; }
 
         [NonSerialized]
         public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
@@ -54,27 +56,44 @@ namespace Unbowed.Gameplay.Characters {
             dropsModule = GetComponent<DropsModule>();
         }
 
-        protected virtual void Start() {
+        protected void Start() {
             if (!Application.isPlaying) return;
-            stats = new CharacterRuntimeStats(config.baseStats);
+
+            Stats = new Stats(config.stats);
+            Stats.Update();
 
             InitHealth();
             InitSpeed();
             InitInventory();
             InitCommandExecutor();
             InitDropsModule();
+
             IsStarted = true;
         }
 
         void InitHealth() {
-            health.Init(Mathf.FloorToInt(stats[StatType.Endurance]) * 5);
+            health.Init(Mathf.FloorToInt(Stats["health"]));
             health.Died += OnDeath;
             health.Revived += OnRevive;
         }
 
-        void InitSpeed() => movement.Init(stats[StatType.MoveSpeed]);
+        void InitSpeed() => movement.Init(Stats["MoveSpeed"]);
 
-        void InitInventory() => inventory.Init();
+        void InitInventory() {
+            inventory.AddedItem += InventoryOnAddedItem;
+            inventory.RemovedItem += InventoryOnRemovedItem;
+            inventory.Init();
+        }
+
+        void InventoryOnAddedItem(Item item) {
+            if (item.statsModifier == null) return;
+            if (item.IsEquipped) Stats.AddModifier(item.statsModifier);
+        }
+
+        void InventoryOnRemovedItem(Item item) {
+            if (item.statsModifier == null) return;
+            if (item.IsEquipped) Stats.RemoveModifier(item.statsModifier);
+        }
 
         void InitCommandExecutor() => characterCommandExecutor.Init(this);
 
@@ -87,7 +106,7 @@ namespace Unbowed.Gameplay.Characters {
             movement.Stop();
         }
 
-        protected virtual void OnRevive() {
+        protected void OnRevive() {
             gameObject.SetActive(true);
             movement.NavAgent.enabled = true;
         }

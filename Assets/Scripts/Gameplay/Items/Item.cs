@@ -1,5 +1,8 @@
 ﻿using System;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+
+using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.UI;
 using UnityEngine;
@@ -8,12 +11,16 @@ namespace Unbowed.Gameplay.Items {
     [Serializable, InlineProperty]
     public class Item {
         [Title("@config==null?\"Config not set\":Name")]
+        [Required]
         public ItemConfig config;
 
         public ItemLocation location;
 
         [ShowIf(nameof(IsEquipment))]
         public EquipmentRarity rarity;
+
+        [NonSerialized, OdinSerialize]
+        public StatsModifier statsModifier;
 
         public bool IsInBags => !location.isEquipped;
         public bool IsEquipped => location.isEquipped;

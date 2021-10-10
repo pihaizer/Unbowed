@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
+
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using UnityEngine;
@@ -12,24 +14,22 @@ namespace Unbowed.Gameplay.Characters.Modules {
         public event Action<Item> RemovedItem;
 
         [SerializeField] Vector2Int size;
-        [SerializeField] List<Item> defaultItems;
+        [OdinSerialize] List<Item> defaultItems;
 
-        [ShowInInspector, ReadOnly]
+        [ShowInInspector]
         public List<Item> Items { get; private set; }
 
         public List<Item> Equipped => Items.Where(it => it.location.isEquipped).ToList();
         public List<Item> InBags => Items.Where(it => !it.location.isEquipped).ToList();
         public Vector2Int Size => size;
 
-        public void Init() {
-            Items = defaultItems ?? new List<Item>();
-        }
+        public void Init() => SetItems(defaultItems);
 
-        public void SetItems(List<Item> items = null) {
+        public void SetItems(List<Item> items) {
             if (Items != null) {
                 foreach (var item in Items) {
-                    item.location = ItemLocation.None;
                     RemovedItem?.Invoke(item);
+                    item.location = ItemLocation.None;
                 }
             }
 

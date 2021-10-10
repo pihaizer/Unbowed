@@ -1,3 +1,4 @@
+using Unbowed.Gameplay;
 using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
         void Revive() => ActivePlayer.Revive();
 
         void ToMainMenu() {
+            FindObjectOfType<GameController>().Save();
             ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenuScene)
                 {setActive = true, unloadOther = true, useLoadingScreen = true});
         }

@@ -9,6 +9,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
     public class ItemDescriptionUI : CanvasGroupMenu {
         [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
         [SerializeField, ChildGameObjectsOnly] TMP_Text slot;
+        [SerializeField, ChildGameObjectsOnly] TMP_Text modifications;
         [SerializeField, ChildGameObjectsOnly] TMP_Text description;
         [SerializeField] Vector2 screenMaxOffset;
 
@@ -23,6 +24,14 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
             description.gameObject.SetActive(!string.IsNullOrEmpty(item.config.description));
             description.SetText(item.config.description);
+            
+            modifications.gameObject.SetActive(item.statsModifier != null);
+            if (item.statsModifier != null) {
+                modifications.text = "";
+                foreach (var modifier in item.statsModifier.statModifiers) {
+                    modifications.text += modifier.GetDescription() + '\n';
+                }
+            }
 
             slot.gameObject.SetActive(item.IsEquipment);
 

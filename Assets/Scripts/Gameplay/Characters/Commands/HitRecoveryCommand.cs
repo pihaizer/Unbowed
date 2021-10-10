@@ -10,7 +10,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
         
         public override void Start(Character character) {
             _character = character;
-            _remainingTime = _character.stats[StatType.HitRecoveryTime];
+            _remainingTime = _character.Stats["HitRecoveryTime"];
             _character.areActionsBlocked.AddModifier(_actionsBlock);
         }
 

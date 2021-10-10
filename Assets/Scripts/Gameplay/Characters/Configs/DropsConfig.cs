@@ -49,8 +49,7 @@ namespace Unbowed.Gameplay.Characters.Configs {
 
             for (int i = 0; i < amount; i++) {
                 int randomIndex = Random.Range(0, itemLevelValidItems.Length);
-                var item = new Item(itemLevelValidItems[randomIndex], ItemLocation.None);
-                if (item.IsEquipment) item.rarity = item.config.equipment.rarityWeights.Random();
+                var item = itemLevelValidItems[randomIndex].Generate(Random.value);
                 items.Add(item);
             }
 

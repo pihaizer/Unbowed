@@ -88,10 +88,10 @@ namespace Unbowed.Gameplay.Characters.Commands {
         }
 
         IEnumerator AttackCoroutine(IHittable target) {
-            float attackTime = _character.stats[StatType.AttackTime];
+            float attackTime = _character.Stats["AttackTime"];
             var damageRange = new Vector2Int(
-                Mathf.FloorToInt(_character.stats[StatType.MinDamage]),
-                Mathf.FloorToInt(_character.stats[StatType.MaxDamage]));
+                Mathf.FloorToInt(_character.Stats["MinDamage"]),
+                Mathf.FloorToInt(_character.Stats["MaxDamage"]));
             _character.areActionsBlocked.AddModifier(_actionsBlock);
             isAttacking.Set(true);
             _character.transform.LookAt(target.GetGameObject().transform);

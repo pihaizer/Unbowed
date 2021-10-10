@@ -25,7 +25,7 @@ namespace Unbowed.SO {
                 _player.health.HealthChanged -= OnHealthChanged;
                 _player.health.Died -= OnDied;
                 _player.health.Revived -= OnRevived;
-                _player.stats.Updated -= OnStatsUpdated;
+                _player.Stats.Updated -= OnStatsUpdated;
             }
 
             _player = character;
@@ -36,7 +36,7 @@ namespace Unbowed.SO {
                 _player.health.HealthChanged += OnHealthChanged;
                 _player.health.Died += OnDied;
                 _player.health.Revived += OnRevived;
-                _player.stats.Updated += OnStatsUpdated;
+                _player.Stats.Updated += OnStatsUpdated;
             }
 
             PlayerChanged?.Invoke();
@@ -50,7 +50,7 @@ namespace Unbowed.SO {
         
         public static Inventory GetInventory() => Exists ? _player.inventory : null;
 
-        public static CharacterRuntimeStats GetStats() => Exists ? _player.stats : null;
+        public static Stats GetStats() => Exists ? _player.Stats : null;
 
         public static void Revive() {
             if (!Exists) return;
