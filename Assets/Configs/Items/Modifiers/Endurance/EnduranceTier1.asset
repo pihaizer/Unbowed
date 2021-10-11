@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0cb174473db4f4d83ffe4e656299cf6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bdd7ab3368e429bbeaac01323868301, type: 3}
   m_Name: EnduranceTier1
   m_EditorClassIdentifier: 
   serializationData:
@@ -23,4 +23,5 @@ MonoBehaviour:
     SerializationNodes: []
   stat: {fileID: 11400000, guid: 19802505d7b345f47beeaf65dea914b7, type: 2}
   itemLevelRange: {x: 1, y: 10}
-  valueRange: {x: 2, y: 3}
+  valueRange: {x: 2, y: 5}
+  type: 0

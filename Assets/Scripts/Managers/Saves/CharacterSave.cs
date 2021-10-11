@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+
+using Sirenix.Serialization;
+
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Items;
 
@@ -16,7 +19,7 @@ namespace Unbowed.Managers.Saves {
         }
 
         public void ApplyToCharacter(Character character) {
-            character.inventory.SetItems(new List<Item>(items));
+            if (items != null) character.inventory.SetItems(new List<Item>(items));
         }
     }
 }

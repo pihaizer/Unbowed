@@ -3,6 +3,8 @@ using System.Collections;
 using Cinemachine;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+
+using Unbowed.Gameplay;
 using Unbowed.Gameplay.Characters;
 using Unbowed.SO;
 using Unbowed.UI.Gameplay.Inventory;
@@ -61,7 +63,6 @@ namespace Unbowed.UI {
             _currentTransposerTargetValue = _transposer.m_ScreenX;
 
             ActivePlayer.PlayerChanged += SetInventory;
-            ActivePlayer.Died += OnPlayerDied;
             inventoryMenu.SetInventory(ActivePlayer.GetInventory());
 
             leftMenus.IsOpened.Changed += (value) => FloatCameraLeft();
@@ -72,7 +73,6 @@ namespace Unbowed.UI {
 
         void OnDestroy() {
             ActivePlayer.PlayerChanged -= SetInventory;
-            ActivePlayer.Died -= OnPlayerDied;
             EventsContext.Instance.otherInventoryRequest -= OnOtherInventoryRequest;
         }
 
@@ -93,10 +93,6 @@ namespace Unbowed.UI {
             if (Input.GetKeyDown(KeyCode.Escape)) pauseScreen.ToggleActive();
             if (Input.GetKeyDown(KeyCode.C)) characterMenu.ToggleOpened();
             if (Input.GetKeyDown(KeyCode.B)) inventoryMenu.ToggleOpened();
-        }
-
-        void OnPlayerDied() {
-            deathScreen.gameObject.SetActive(true);
         }
 
         void FloatCameraLeft() {

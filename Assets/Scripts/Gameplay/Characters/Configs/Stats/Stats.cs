@@ -34,7 +34,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             if (_modifiers.Contains(modifier)) return;
             _modifiers.Add(modifier);
             foreach (var statModifier in modifier.statModifiers) {
-                this[statModifier.type].AddModifier(statModifier);
+                this[statModifier.statType].AddModifier(statModifier);
             }
             Update();
         }
@@ -42,7 +42,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         public void RemoveModifier(StatsModifier modifier) {
             _modifiers.Remove(modifier);
             foreach (var statModifier in modifier.statModifiers) {
-                this[statModifier.type].RemoveModifier(statModifier);
+                this[statModifier.statType].RemoveModifier(statModifier);
             }
             Update();
         }

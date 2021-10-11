@@ -4881,7 +4881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[0]
@@ -4891,8 +4891,8 @@ PrefabInstance:
         Assembly-CSharp","isEquipped":true,"position":{"$type":"UnityEngine.Vector2Int,
         UnityEngine.CoreModule",0,0}},"rarity":1,"statsModifier":{"$id":2,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatsModifier,
         Assembly-CSharp","statModifiers":{"$id":3,"$type":"System.Collections.Generic.List`1[[Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
-        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":4,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.AddStatModifier,
-        Assembly-CSharp","type":$eref:1,"value":15}]}}}]}'
+        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":4,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
+        Assembly-CSharp","statType":$eref:1,"value":15,"type":0}]}}}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[1]
@@ -4901,8 +4901,8 @@ PrefabInstance:
         Assembly-CSharp","isEquipped":true,"position":{"$type":"UnityEngine.Vector2Int,
         UnityEngine.CoreModule",0,0}},"rarity":1,"statsModifier":{"$id":1,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatsModifier,
         Assembly-CSharp","statModifiers":{"$id":2,"$type":"System.Collections.Generic.List`1[[Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
-        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":3,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.AddStatModifier,
-        Assembly-CSharp","type":$eref:1,"value":15}]}}}'
+        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":3,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
+        Assembly-CSharp","statType":$eref:1,"value":15,"type":0}]}}}'
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[2]
@@ -4943,26 +4943,31 @@ PrefabInstance:
       propertyPath: serializationData.PrefabModifications.Array.data[9]
       value: '"path":"defaultItems.[0].statsModifier","value":{"$id":0,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatsModifier,
         Assembly-CSharp","statModifiers":{"$id":1,"$type":"System.Collections.Generic.List`1[[Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
-        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":2,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.AddStatModifier,
-        Assembly-CSharp","type":$eref:1,"value":15}]}}'
+        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":2,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
+        Assembly-CSharp","statType":$eref:1,"value":15,"type":0}]}}'
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[10]
       value: '"path":"defaultItems.[0].statsModifier.statModifiers","value":{"$id":0,"$type":"System.Collections.Generic.List`1[[Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
-        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":1,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.AddStatModifier,
-        Assembly-CSharp","type":$eref:1,"value":15}]}'
+        Assembly-CSharp]], mscorlib","$rlength":1,"$rcontent":[{"$id":1,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
+        Assembly-CSharp","statType":$eref:1,"value":15,"type":0}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[11]
-      value: '"path":"defaultItems.[0].statsModifier.statModifiers.[0]","value":{"$id":0,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.AddStatModifier,
-        Assembly-CSharp","type":$eref:1,"value":15}'
+      value: '"path":"defaultItems.[0].statsModifier.statModifiers.[0]","value":{"$id":0,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatModifier,
+        Assembly-CSharp","statType":$eref:1,"value":15,"type":0}'
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[12]
-      value: '"path":"defaultItems.[0].statsModifier.statModifiers.[0].type","value":$eref:1'
+      value: '"path":"defaultItems.[0].statsModifier.statModifiers.[0].statType","value":$eref:1'
       objectReference: {fileID: 0}
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[13]
+      value: '"path":"defaultItems.[0].statsModifier.statModifiers.[0].type","value":{"$id":0,"$type":"Unbowed.Gameplay.Characters.Configs.Stats.StatModifierType,
+        Assembly-CSharp",0}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
+      propertyPath: serializationData.PrefabModifications.Array.data[14]
       value: '"path":"defaultItems.[0].statsModifier.statModifiers.[0].value","value":{"$id":0,"$type":"System.Single,
         mscorlib",15}'
       objectReference: {fileID: 0}
@@ -4985,7 +4990,7 @@ PrefabInstance:
     - target: {fileID: 1768623300848008538, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: 3086cb0a865f47648851fa45e590d504, type: 2}
+      objectReference: {fileID: 11400000, guid: 0a3ce19603a1cd4498bbbd1ffb257be1, type: 2}
     - target: {fileID: 1832662039408496385, guid: 964470a3de765434ea1524f0462dae59, type: 3}
       propertyPath: serializationData.Prefab
       value: 

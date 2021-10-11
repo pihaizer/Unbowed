@@ -1,12 +1,15 @@
 using System;
+
 using Sirenix.OdinInspector;
+
 using Unbowed.Utility;
+
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
     public class Health : MonoBehaviour {
         public event Action<HealthChangeData> HealthChanged;
-        public event Action Died;
+        public event Action<DeathData> Died;
         public event Action Revived;
 
         [ShowInInspector]
@@ -22,11 +25,11 @@ namespace Unbowed.Gameplay.Characters.Modules {
             isDead = false;
         }
 
-        public void Hit(int damage, GameObject source) => SetCurrent(Current - damage, source);
+        public void Hit(int damage, Character source) => SetCurrent(Current - damage, source);
 
-        void Die() {
+        void Die(Character killer) {
             isDead = true;
-            Died?.Invoke();
+            Died?.Invoke(new DeathData {killer = killer});
         }
 
         public void Revive() {
@@ -35,7 +38,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             Revived?.Invoke();
         }
 
-        void SetCurrent(int newHealth, GameObject source) {
+        void SetCurrent(int newHealth, Character source) {
             if (newHealth == Current) return;
 
             Current = newHealth;
@@ -44,7 +47,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
             if (Current <= 0) {
                 Current = 0;
-                Die();
+                Die(source);
             }
         }
 

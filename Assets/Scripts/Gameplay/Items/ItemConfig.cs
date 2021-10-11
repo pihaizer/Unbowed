@@ -78,7 +78,10 @@ namespace Unbowed.Gameplay.Items {
                 };
                 
                 for (int i = 0; i < modifiersAmount; i++) {
-                    var modifierConfig = modifiers[UnityEngine.Random.Range(0, modifiers.Length)];
+                    Debug.Log(modifiers.Length.ToString());
+                    int index = UnityEngine.Random.Range(0, modifiers.Length);
+                    Debug.Log(index.ToString());
+                    var modifierConfig = modifiers[index];
                     item.statsModifier.statModifiers.Add(modifierConfig.Get());
                     Debug.Log(modifierConfig);
                     Debug.Log(item.statsModifier.statModifiers.Count);

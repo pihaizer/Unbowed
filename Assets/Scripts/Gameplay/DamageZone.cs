@@ -32,7 +32,7 @@ namespace Unbowed.Gameplay {
     
         void TryHit(IHittable target) {
             if (target.CanBeHit()) {
-                target.Hit(damage, gameObject);
+                target.Hit(damage, null);
             }
         }
     }

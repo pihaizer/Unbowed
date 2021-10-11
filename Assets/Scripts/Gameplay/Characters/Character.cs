@@ -99,7 +99,7 @@ namespace Unbowed.Gameplay.Characters {
 
         void InitDropsModule() => dropsModule.Init(config.dropsConfig);
 
-        void OnDeath() {
+        void OnDeath(DeathData data) {
             characterCommandExecutor.StopMain();
             movement.NavAgent.enabled = false;
             StopAllCoroutines();
@@ -111,7 +111,7 @@ namespace Unbowed.Gameplay.Characters {
             movement.NavAgent.enabled = true;
         }
 
-        public void Hit(int damage, GameObject source) {
+        public void Hit(int damage, Character source) {
             health.Hit(damage, source);
             if (damage >= health.Max * CharacterConstants.StunDamageThreshold) {
                 characterCommandExecutor.ForceExecute(new HitRecoveryCommand());

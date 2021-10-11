@@ -21,7 +21,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
             ActivePlayer.Revived -= OnPlayerRevived;
         }
 
-        void OnPlayerDied() => gameObject.SetActive(true);
+        void OnPlayerDied(DeathData data) => gameObject.SetActive(true);
 
         void OnPlayerRevived() => gameObject.SetActive(false);
 

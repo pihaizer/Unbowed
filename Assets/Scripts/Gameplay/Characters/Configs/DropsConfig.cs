@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using DG.Tweening;
+
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.Utility;
+
 using UnityEngine;
+
 using Random = UnityEngine.Random;
 
 namespace Unbowed.Gameplay.Characters.Configs {
@@ -16,6 +21,9 @@ namespace Unbowed.Gameplay.Characters.Configs {
     [InlineProperty(LabelWidth = 150)]
     public class DropsConfig {
         public bool hasDrops = true;
+
+        [Range(1, 5)]
+        public float magicFind;
 
         [ShowIf(nameof(hasDrops)), MinMaxSlider(0, 10), GUIColor(nameof(GetAmountColor))]
         [OnValueChanged("@amountWeights.SetValues(VectorUtility.PointsWithin(amountRange))")]
@@ -36,7 +44,7 @@ namespace Unbowed.Gameplay.Characters.Configs {
         Color GetItemLevelColor() => Color.Lerp(Color.white, Color.blue,
             (equipmentLevelRange.x + equipmentLevelRange.y) / 200f);
 
-        public List<Item> GenerateItems() {
+        public List<Item> GenerateItems(float bonusMagicFind) {
             var items = new List<Item>();
             if (!hasDrops) return items;
 
@@ -49,7 +57,11 @@ namespace Unbowed.Gameplay.Characters.Configs {
 
             for (int i = 0; i < amount; i++) {
                 int randomIndex = Random.Range(0, itemLevelValidItems.Length);
-                var item = itemLevelValidItems[randomIndex].Generate(Random.value);
+                float randomValue = Random.value;
+                Debug.Log($"Random value {randomValue}");
+                float value = Mathf.Pow(randomValue, 1 / (magicFind + bonusMagicFind));
+                Debug.Log($"Modified value {value}");
+                var item = itemLevelValidItems[randomIndex].Generate(value);
                 items.Add(item);
             }
 

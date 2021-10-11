@@ -10,7 +10,7 @@ namespace Unbowed.SO {
     public static class ActivePlayer {
         public static event Action PlayerChanged;
         public static event Action<HealthChangeData> HealthChanged;
-        public static event Action Died;
+        public static event Action<DeathData> Died;
         public static event Action Revived;
         public static event Action StatsUpdated;
 
@@ -61,7 +61,7 @@ namespace Unbowed.SO {
 
         static void OnHealthChanged(HealthChangeData data) => HealthChanged?.Invoke(data);
 
-        static void OnDied() => Died?.Invoke();
+        static void OnDied(DeathData data) => Died?.Invoke(data);
 
         static void OnRevived() => Revived?.Invoke();
 

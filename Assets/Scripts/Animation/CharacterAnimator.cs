@@ -1,4 +1,5 @@
-﻿using Unbowed.Gameplay.Characters;
+﻿using Unbowed.Gameplay;
+using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using UnityEngine;
@@ -64,7 +65,7 @@ namespace Unbowed.Animation {
             }
         }
 
-        void OnDied() {
+        void OnDied(DeathData data) {
             animator.SetTrigger(Died);
         }
 

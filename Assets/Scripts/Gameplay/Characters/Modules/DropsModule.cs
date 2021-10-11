@@ -1,31 +1,34 @@
-﻿using Unbowed.Gameplay.Characters.Configs;
+﻿using System;
+
+using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Items;
+
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Inventory))]
     public class DropsModule : MonoBehaviour {
-        Inventory _inventory;
         Health _health;
+        DropsConfig _config;
 
         public void Init(DropsConfig config) {
-            _inventory = GetComponent<Inventory>();
+            _config = config;
             _health = GetComponent<Health>();
-            GenerateItems(config);
             _health.Died += DropItems;
-            _health.Revived += () => GenerateItems(config);
         }
 
-        void GenerateItems(DropsConfig config) {
-            if (!config.hasDrops) return;
-            var items = config.GenerateItems();
-            _inventory.SetItems(items);
-        }
-
-        void DropItems() {
-            for (int i = _inventory.Items.Count - 1; i >= 0; i--) {
-                Inventory.DropItem(_inventory.Items[i]);
+        void DropItems(DeathData data) {
+            if (!_config.hasDrops) return;
+            var items = _config.GenerateItems(data.killer ? data.killer.Stats["MagicFind"] : 0f);
+            for (int i = items.Count - 1; i >= 0; i--) {
+                Inventory.DropItem(items[i]);
+                try {
+                    Debug.Log(JsonUtility.ToJson(items[i].statsModifier, true));
+                    Debug.Log(JsonUtility.ToJson(items[i].statsModifier.statModifiers[0], true));
+                } catch (Exception e) {
+                    Console.WriteLine(e);
+                }
             }
         }
     }

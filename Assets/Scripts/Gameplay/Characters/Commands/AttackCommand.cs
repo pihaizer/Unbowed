@@ -96,7 +96,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             isAttacking.Set(true);
             _character.transform.LookAt(target.GetGameObject().transform);
             yield return new WaitForSeconds(attackTime * _character.config.animationConfig.hitMomentPercent);
-            target.Hit(VectorRandom.Range(damageRange), _character.gameObject);
+            target.Hit(VectorRandom.Range(damageRange), _character);
             yield return new WaitForSeconds(attackTime * (1 - _character.config.animationConfig.hitMomentPercent));
             _character.areActionsBlocked.RemoveModifier(_actionsBlock);
             isAttacking.Set(false);

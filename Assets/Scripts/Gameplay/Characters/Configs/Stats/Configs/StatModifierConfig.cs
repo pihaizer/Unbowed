@@ -3,11 +3,17 @@
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Configs.Stats.Configs {
-    public abstract class StatModifierConfig : SerializedScriptableObject {
+    public class StatModifierConfig : SerializedScriptableObject {
         public StatType stat;
         public Vector2Int itemLevelRange;
+        public Vector2 valueRange;
+        public StatModifierType type;
 
-        public abstract StatModifier Get();
+        public StatModifier Get() => new StatModifier {
+            type = type,
+            statType = stat,
+            value = Random.Range(valueRange.x, valueRange.y)
+        };
 
         void OnEnable() {
             if (AllStatModifiers.Instance.statModifierConfigs.Contains(this)) return;

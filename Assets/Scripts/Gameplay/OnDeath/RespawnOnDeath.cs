@@ -15,7 +15,7 @@ namespace Unbowed.Gameplay.OnDeath {
                 Debug.LogWarning("Respawner is not set.");
             }
 
-            GetComponent<Character>().health.Died += () => StartCoroutine(RespawnCoroutine());
+            GetComponent<Character>().health.Died += (data) => StartCoroutine(RespawnCoroutine());
         }
 
         IEnumerator RespawnCoroutine() {

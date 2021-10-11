@@ -19,7 +19,6 @@ namespace Unbowed.Gameplay.Items {
         [ShowIf(nameof(IsEquipment))]
         public EquipmentRarity rarity;
 
-        [NonSerialized, OdinSerialize]
         public StatsModifier statsModifier;
 
         public bool IsInBags => !location.isEquipped;

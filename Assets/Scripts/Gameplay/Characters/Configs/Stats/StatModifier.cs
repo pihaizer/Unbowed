@@ -1,28 +1,31 @@
 ﻿using System;
 
+using UnityEngine;
+
 namespace Unbowed.Gameplay.Characters.Configs.Stats {
     [Serializable]
-    public abstract class StatModifier {
-        public StatType type;
+    public class StatModifier {
+        public StatType statType;
 
-        public abstract void Apply(Stat stat);
-
-        public abstract string GetDescription();
-    }
-
-    [Serializable]
-    public class AddStatModifier : StatModifier {
         public float value;
 
-        public AddStatModifier(StatType type, float value) {
-            this.type = type;
-            this.value = value;
+        public StatModifierType type;
+
+        public void Apply(Stat stat) {
+            if (type == StatModifierType.Add) stat.modifiedValue += value;
         }
 
-        public override void Apply(Stat stat) {
-            stat.modifiedValue += value;
-        }
+        public string GetDescription() {
+            if (type == StatModifierType.Add) {
+                return $"Adds {value} to {statType.name}";
+            }
 
-        public override string GetDescription() => $"Adds {value} to {type.name}";
+            return "";
+        }
+    }
+
+    public enum StatModifierType {
+        Add,
+        Multiply
     }
 }
