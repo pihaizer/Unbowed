@@ -18,7 +18,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             SetItem(null);
 
             if (inventory.Items.Count > 0) {
-                var equippedItem = inventory.Items.Find((item) => item.Slot == _slot && item.IsEquipped);
+                var equippedItem = inventory.Items.Find((item) => item.IsEquipped && item.location.slot == _slot);
                 SetItem(equippedItem);
             }
 

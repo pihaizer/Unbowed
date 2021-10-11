@@ -86,13 +86,13 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InventoryOnAddedItem(Item item) {
-            if (item.statsModifier == null) return;
-            if (item.IsEquipped) Stats.AddModifier(item.statsModifier);
+            if (item.statModifiersContainer == null) return;
+            if (item.IsEquipped) Stats.AddModifier(item.statModifiersContainer);
         }
 
         void InventoryOnRemovedItem(Item item) {
-            if (item.statsModifier == null) return;
-            if (item.IsEquipped) Stats.RemoveModifier(item.statsModifier);
+            if (item.statModifiersContainer == null) return;
+            if (item.IsEquipped) Stats.RemoveModifier(item.statModifiersContainer);
         }
 
         void InitCommandExecutor() => characterCommandExecutor.Init(this);

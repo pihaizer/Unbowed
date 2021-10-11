@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
+
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
@@ -59,9 +61,17 @@ namespace Unbowed.Gameplay.Characters.Modules {
         public bool TryEquipItem(Item item, EquipmentSlot slot, out Item removedItem) {
             removedItem = null;
             if (!CanEquipItem(item, slot)) return false;
-            removedItem = Items.Find(it => it.location.isEquipped && it.Slot == slot);
+            removedItem = Items.Find(it => it.location.slot == slot);
             SetLocation(removedItem, ItemLocation.None);
-            SetLocation(item, ItemLocation.Equipped(this));
+            SetLocation(item, ItemLocation.Equipped(this, slot));
+
+            if (item.config.equipment.type == EquipmentType.TwoHandedWeapon) {
+                var leftHandItem = Items.Find(it => it.location.slot == EquipmentSlot.LeftHand);
+                if (leftHandItem != null) {
+                    if (!TryAddItemToBags(leftHandItem)) DropItem(leftHandItem);
+                }
+            }
+
             return true;
         }
 
@@ -100,7 +110,8 @@ namespace Unbowed.Gameplay.Characters.Modules {
             return false;
         }
 
-        public static bool CanEquipItem(Item item, EquipmentSlot slot) => item.Slot == slot;
+        public static bool CanEquipItem(Item item, EquipmentSlot slot) =>
+            item.IsEquipment && item.config.equipment.Fits(slot);
 
         public static void RemoveItem(Item item) => SetLocation(item, ItemLocation.None);
 

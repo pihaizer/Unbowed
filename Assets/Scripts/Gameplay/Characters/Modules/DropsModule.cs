@@ -24,8 +24,8 @@ namespace Unbowed.Gameplay.Characters.Modules {
             for (int i = items.Count - 1; i >= 0; i--) {
                 Inventory.DropItem(items[i]);
                 try {
-                    Debug.Log(JsonUtility.ToJson(items[i].statsModifier, true));
-                    Debug.Log(JsonUtility.ToJson(items[i].statsModifier.statModifiers[0], true));
+                    Debug.Log(JsonUtility.ToJson(items[i].statModifiersContainer, true));
+                    Debug.Log(JsonUtility.ToJson(items[i].statModifiersContainer.statModifiers[0], true));
                 } catch (Exception e) {
                     Console.WriteLine(e);
                 }

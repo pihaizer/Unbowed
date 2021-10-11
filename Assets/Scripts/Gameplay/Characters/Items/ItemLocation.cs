@@ -1,6 +1,9 @@
 ﻿using System;
+
 using Sirenix.OdinInspector;
+
 using Unbowed.Gameplay.Characters.Modules;
+
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Items {
@@ -8,8 +11,11 @@ namespace Unbowed.Gameplay.Items {
     public struct ItemLocation {
         [NonSerialized]
         public Inventory inventory;
-        
+
         public bool isEquipped;
+
+        [ShowIf(nameof(isEquipped))]
+        public EquipmentSlot slot;
 
         [HideIf(nameof(isEquipped))]
         public Vector2Int position;
@@ -19,8 +25,8 @@ namespace Unbowed.Gameplay.Items {
         public static ItemLocation InBag(Inventory inventory, Vector2Int position) =>
             new ItemLocation(inventory, position);
 
-        public static ItemLocation Equipped(Inventory inventory) =>
-            new ItemLocation(inventory) {isEquipped = true};
+        public static ItemLocation Equipped(Inventory inventory, EquipmentSlot slot) =>
+            new ItemLocation(inventory) {isEquipped = true, slot = slot};
 
         ItemLocation(Inventory inventory, Vector2Int position) : this(inventory) {
             isEquipped = false;
@@ -31,13 +37,14 @@ namespace Unbowed.Gameplay.Items {
             this.inventory = inventory;
             position = -Vector2Int.one;
             isEquipped = false;
+            slot = EquipmentSlot.None;
         }
 
         public override bool Equals(object obj) {
             if (!(obj is ItemLocation location)) return false;
             if (location.inventory != inventory) return false;
             if (location.isEquipped != isEquipped) return false;
-            return location.isEquipped || location.position == position;
+            return location.isEquipped && location.slot == slot || location.position == position;
         }
 
         public static bool operator ==(ItemLocation il1, ItemLocation il2) {
@@ -53,6 +60,7 @@ namespace Unbowed.Gameplay.Items {
                 int hashCode = (inventory != null ? inventory.GetHashCode() : 0);
                 hashCode = (hashCode * 397) ^ isEquipped.GetHashCode();
                 hashCode = (hashCode * 397) ^ position.GetHashCode();
+                hashCode = (hashCode * 397) ^ slot.GetHashCode();
                 return hashCode;
             }
         }

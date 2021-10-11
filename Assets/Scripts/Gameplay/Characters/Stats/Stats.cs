@@ -13,7 +13,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         
         public event Action Updated;
 
-        readonly List<StatsModifier> _modifiers = new List<StatsModifier>();
+        readonly List<StatModifiersContainer> _modifiers = new List<StatModifiersContainer>();
 
         public Stats() {
             stats = new List<Stat>();
@@ -30,7 +30,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             Updated?.Invoke();
         }
 
-        public void AddModifier(StatsModifier modifier) {
+        public void AddModifier(StatModifiersContainer modifier) {
             if (_modifiers.Contains(modifier)) return;
             _modifiers.Add(modifier);
             foreach (var statModifier in modifier.statModifiers) {
@@ -39,7 +39,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             Update();
         }
 
-        public void RemoveModifier(StatsModifier modifier) {
+        public void RemoveModifier(StatModifiersContainer modifier) {
             _modifiers.Remove(modifier);
             foreach (var statModifier in modifier.statModifiers) {
                 this[statModifier.statType].RemoveModifier(statModifier);

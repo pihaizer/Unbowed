@@ -1,9 +1,9 @@
 ﻿namespace Unbowed.Gameplay.Items {
-    public enum EquipmentSlot {
-        None,
-        Head,
+    public enum ArmorType {
         Chest,
+        Hands,
         Feet,
-        Hands
+        Head,
+        Belt
     }
 }

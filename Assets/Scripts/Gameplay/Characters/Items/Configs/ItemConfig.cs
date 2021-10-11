@@ -6,7 +6,9 @@ using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Configs.Stats.Configs;
 using Unbowed.SO;
+
 using UnityEditor;
+
 using UnityEngine;
 
 using Random = System.Random;
@@ -51,45 +53,22 @@ namespace Unbowed.Gameplay.Items {
         [ShowIf(nameof(type), ItemType.Special)]
         public Color specialColor;
 
+
         public bool IsEquipment => type == ItemType.Equipment;
         public bool IsUsable => type == ItemType.Usable;
         public bool IsSpecial => type == ItemType.Special;
+        
 
         public Item Generate(float value) {
             var item = new Item(this, ItemLocation.None);
-            
+
             if (IsEquipment) {
-                item.rarity = equipment.rarityWeights.GetValue(value);
-                item.statsModifier = new StatsModifier();
-                Debug.Log(item);
-                Debug.Log(item.rarity);
-                
-                var modifiers = AllStatModifiers.Instance.statModifierConfigs
-                    .Where(mod => item.config.itemLevel >= mod.itemLevelRange.x &&
-                                  item.config.itemLevel <= mod.itemLevelRange.y).ToArray();
-                
-                int modifiersAmount = item.rarity switch {
-                    EquipmentRarity.Poor => 0,
-                    EquipmentRarity.Normal => 1,
-                    EquipmentRarity.Good => 2,
-                    EquipmentRarity.Rare => 3,
-                    EquipmentRarity.Unique => 4,
-                    _ => throw new ArgumentOutOfRangeException()
-                };
-                
-                for (int i = 0; i < modifiersAmount; i++) {
-                    Debug.Log(modifiers.Length.ToString());
-                    int index = UnityEngine.Random.Range(0, modifiers.Length);
-                    Debug.Log(index.ToString());
-                    var modifierConfig = modifiers[index];
-                    item.statsModifier.statModifiers.Add(modifierConfig.Get());
-                    Debug.Log(modifierConfig);
-                    Debug.Log(item.statsModifier.statModifiers.Count);
-                }
+                equipment.GenerateItemModifiers(item, value);
             }
 
             return item;
         }
+        
 
         void OnEnable() {
             if (ItemsConfig.Instance.allItems.Contains(this)) return;

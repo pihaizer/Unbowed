@@ -25,10 +25,10 @@ namespace Unbowed.UI.Gameplay.Inventory {
             description.gameObject.SetActive(!string.IsNullOrEmpty(item.config.description));
             description.SetText(item.config.description);
             
-            modifications.gameObject.SetActive(item.statsModifier != null);
-            if (item.statsModifier != null) {
+            modifications.gameObject.SetActive(item.statModifiersContainer != null);
+            if (item.statModifiersContainer != null) {
                 modifications.text = "";
-                foreach (var modifier in item.statsModifier.statModifiers) {
+                foreach (var modifier in item.statModifiersContainer.statModifiers) {
                     modifications.text += modifier.GetDescription() + '\n';
                 }
             }
