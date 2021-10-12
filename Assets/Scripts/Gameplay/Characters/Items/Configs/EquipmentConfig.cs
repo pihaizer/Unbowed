@@ -28,6 +28,9 @@ namespace Unbowed.Gameplay.Items {
 
             item.rarity = rarityWeights.GetValue(value);
             item.statModifiersContainer = new StatModifiersContainer();
+            
+            if(type == EquipmentType.Weapon) weaponConfig.GenerateItemModifiers(item);
+            else if(type == EquipmentType.Armor) armorConfig.GenerateItemModifiers(item);
 
             var modifiers = AllStatModifiers.Instance.statModifierConfigs
                 .Where(mod => item.config.itemLevel >= mod.itemLevelRange.x &&

@@ -46,11 +46,11 @@ namespace Unbowed.UI.Gameplay.Inventory {
         }
 
         void InventoryOnAddedItem(Item item) {
-            if (item.Slot == _slot && item.IsEquipped) SetItem(item);
+            if (item.location.slot == _slot && item.IsEquipped) SetItem(item);
         }
 
         void InventoryOnRemovedItem(Item item) {
-            if (item.Slot == _slot && item.IsEquipped) SetItem(null);
+            if (item.location.slot == _slot && item.IsEquipped) SetItem(null);
         }
 
         void OnPointerEnter() {

@@ -310,6 +310,7 @@ MonoBehaviour:
   initScenesConfig: 0
   setActive: 0
   useLoadingScreen: 1
+  ignoreIfHasScenes: 0
 --- !u!4 &1705576520
 Transform:
   m_ObjectHideFlags: 0

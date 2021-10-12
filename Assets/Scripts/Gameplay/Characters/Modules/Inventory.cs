@@ -65,7 +65,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             SetLocation(removedItem, ItemLocation.None);
             SetLocation(item, ItemLocation.Equipped(this, slot));
 
-            if (item.config.equipment.type == EquipmentType.TwoHandedWeapon) {
+            if (item.config.equipment.type == EquipmentType.Weapon && item.config.equipment.weaponConfig.IsTwoHanded) {
                 var leftHandItem = Items.Find(it => it.location.slot == EquipmentSlot.LeftHand);
                 if (leftHandItem != null) {
                     if (!TryAddItemToBags(leftHandItem)) DropItem(leftHandItem);

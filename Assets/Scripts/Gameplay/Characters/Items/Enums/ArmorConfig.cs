@@ -26,6 +26,7 @@ namespace Unbowed.Gameplay.Items {
                 ArmorType.Feet => slot == EquipmentSlot.Feet,
                 ArmorType.Head => slot == EquipmentSlot.Head,
                 ArmorType.Belt => slot == EquipmentSlot.Belt,
+                ArmorType.Shield => slot == EquipmentSlot.LeftHand || slot == EquipmentSlot.RightHand,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }

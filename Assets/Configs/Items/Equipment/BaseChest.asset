@@ -30,7 +30,15 @@ MonoBehaviour:
   dropChanceWeight: 1
   itemLevel: 1
   equipment:
-    slot: 2
+    type: 0
+    armorConfig:
+      type: 0
+      defense: 10
+    weaponConfig:
+      type: 0
+      damageRange: {x: 1, y: 1}
+      attackTime: 1
+      damageRadius: 1.5
     rarityWeights:
       weights:
       - value: 0
@@ -48,4 +56,6 @@ MonoBehaviour:
       - value: 4
         weight: 0.013
         normalized: 0.0081761
+  usableItem:
+    color: {r: 0, g: 0, b: 0, a: 0}
   specialColor: {r: 0, g: 0, b: 0, a: 0}

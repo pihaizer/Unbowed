@@ -4,6 +4,7 @@
         Hands,
         Feet,
         Head,
-        Belt
+        Belt,
+        Shield
     }
 }

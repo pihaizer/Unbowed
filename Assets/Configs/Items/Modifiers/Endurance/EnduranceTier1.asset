@@ -24,4 +24,4 @@ MonoBehaviour:
   stat: {fileID: 11400000, guid: 19802505d7b345f47beeaf65dea914b7, type: 2}
   itemLevelRange: {x: 1, y: 10}
   valueRange: {x: 2, y: 5}
-  type: 0
+  type: 1

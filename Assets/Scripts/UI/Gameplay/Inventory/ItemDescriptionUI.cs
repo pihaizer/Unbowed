@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Sirenix.OdinInspector;
 using TMPro;
 using Unbowed.Gameplay.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     public class ItemDescriptionUI : CanvasGroupMenu {
         [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
-        [SerializeField, ChildGameObjectsOnly] TMP_Text slot;
+        [FormerlySerializedAs("slot"),SerializeField, ChildGameObjectsOnly] TMP_Text equipmentType;
         [SerializeField, ChildGameObjectsOnly] TMP_Text modifications;
         [SerializeField, ChildGameObjectsOnly] TMP_Text description;
         [SerializeField] Vector2 screenMaxOffset;
@@ -33,10 +35,14 @@ namespace Unbowed.UI.Gameplay.Inventory {
                 }
             }
 
-            slot.gameObject.SetActive(item.IsEquipment);
+            equipmentType.gameObject.SetActive(item.IsEquipment);
 
             if (item.IsEquipment) {
-                slot.text = item.Slot.ToString();
+                equipmentType.text = Convert.ToString(item.config.equipment.type switch {
+                    EquipmentType.Armor => item.config.equipment.armorConfig.type,
+                    EquipmentType.Weapon => item.config.equipment.weaponConfig.type,
+                    _ => throw new ArgumentOutOfRangeException()
+                });
             }
         }
 

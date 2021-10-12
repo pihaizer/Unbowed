@@ -23,15 +23,10 @@ namespace Unbowed.Gameplay.Items {
         public static ItemLocation None => new ItemLocation(null);
 
         public static ItemLocation InBag(Inventory inventory, Vector2Int position) =>
-            new ItemLocation(inventory, position);
+            new ItemLocation(inventory) {isEquipped = false, position = position};
 
         public static ItemLocation Equipped(Inventory inventory, EquipmentSlot slot) =>
             new ItemLocation(inventory) {isEquipped = true, slot = slot};
-
-        ItemLocation(Inventory inventory, Vector2Int position) : this(inventory) {
-            isEquipped = false;
-            this.position = position;
-        }
 
         ItemLocation(Inventory inventory) {
             this.inventory = inventory;
