@@ -102,16 +102,16 @@ namespace Unbowed.UI.Gameplay {
 
             var location = ItemLocation.InBag(bagsUI.Inventory, cell);
 
-            if (!bagsUI.Inventory.IsInGrid(new RectInt(cell, Item.config.size))) return cell;
+            if (!bagsUI.Inventory.IsInGrid(new RectInt(cell, Item.Config.size))) return cell;
 
             if (bagsUI.Inventory.CanMoveItemToLocation(Item, location, out var removedItem)) {
                 if (removedItem != null) {
                     bagsUI.SetAreaState(removedItem.location.position, removedItem.Size, CellUI.State.Replace);
                 } else {
-                    bagsUI.SetAreaState(cell, Item.config.size, CellUI.State.Positive);
+                    bagsUI.SetAreaState(cell, Item.Config.size, CellUI.State.Positive);
                 }
             } else {
-                bagsUI.SetAreaState(cell, Item.config.size, CellUI.State.Error);
+                bagsUI.SetAreaState(cell, Item.Config.size, CellUI.State.Error);
             }
 
             return cell;

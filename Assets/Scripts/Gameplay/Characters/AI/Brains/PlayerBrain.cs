@@ -1,4 +1,5 @@
 ﻿using Unbowed.Gameplay.Characters.Commands;
+using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.SO;
 using Unbowed.SO.Brains;
 using Unbowed.UI.Gameplay;

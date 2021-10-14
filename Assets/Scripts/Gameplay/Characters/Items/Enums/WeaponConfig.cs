@@ -27,19 +27,19 @@ namespace Unbowed.Gameplay.Items {
         public void GenerateItemModifiers(Item item) {
             var minDamageModifier = new StatModifier() {
                 type = StatModifierType.Set,
-                statType = AllStatTypes.FindByName("MinDamage"),
+                StatType = AllStatTypes.FindByName("MinDamage"),
                 value = damageRange.x
             };
             
             var maxDamageModifier = new StatModifier() {
                 type = StatModifierType.Set,
-                statType = AllStatTypes.FindByName("MaxDamage"),
+                StatType = AllStatTypes.FindByName("MaxDamage"),
                 value = damageRange.y
             };
             
             var attackTimeModifier = new StatModifier() {
                 type = StatModifierType.Set,
-                statType = AllStatTypes.FindByName("AttackTime"),
+                StatType = AllStatTypes.FindByName("AttackTime"),
                 value = attackTime
             };
             
@@ -49,17 +49,10 @@ namespace Unbowed.Gameplay.Items {
         }
 
         public bool Fits(EquipmentSlot slot) {
-            return type switch {
-                WeaponType.OneHandedSword => slot == EquipmentSlot.LeftHand || slot == EquipmentSlot.RightHand,
-                WeaponType.OneHandedAxe => slot == EquipmentSlot.LeftHand || slot == EquipmentSlot.RightHand,
-                WeaponType.OneHandedMace => slot == EquipmentSlot.LeftHand || slot == EquipmentSlot.RightHand,
-                WeaponType.TwoHandedSword => slot == EquipmentSlot.RightHand,
-                WeaponType.TwoHandedAxe => slot == EquipmentSlot.RightHand,
-                WeaponType.TwoHandedMace => slot == EquipmentSlot.RightHand,
-                WeaponType.Bow => slot == EquipmentSlot.RightHand,
-                WeaponType.Crossbow => slot == EquipmentSlot.RightHand,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+            if (IsOneHanded)
+                return slot == EquipmentSlot.LeftHand || slot == EquipmentSlot.RightHand;
+            else
+                return slot == EquipmentSlot.RightHand;
         }
     }
 }

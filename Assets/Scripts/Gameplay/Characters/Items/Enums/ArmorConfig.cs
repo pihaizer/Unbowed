@@ -12,7 +12,7 @@ namespace Unbowed.Gameplay.Items {
         public void GenerateItemModifiers(Item item) {
             var armorModifier = new StatModifier() {
                 type = StatModifierType.Add,
-                statType = AllStatTypes.FindByName("Defense"),
+                StatType = AllStatTypes.FindByName("Defense"),
                 value = defense
             };
             

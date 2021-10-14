@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sirenix.Utilities;
-using Unbowed.Gameplay;
-using Unbowed.Gameplay.Items;
 
-namespace Unbowed.SO {
-    [GlobalConfig("Assets/Resources/Configs")]
-    public class ItemsConfig : GlobalConfig<ItemsConfig> {
+using Sirenix.Utilities;
+
+using Unbowed.Gameplay.Items;
+using Unbowed.SO;
+
+namespace Unbowed.Gameplay.Characters.Items.Configs {
+    public class ItemsConfig : ConfigSingleton<ItemsConfig> {
         public Action<IInteractable> droppedItemClicked;
         
         public DroppedItem droppedItemPrefab;

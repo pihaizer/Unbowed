@@ -107,7 +107,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             itemUI.Dragged += OnItemDragged;
             ItemUIs.Add(itemUI);
 
-            foreach (var position in new RectInt(item.location.position, item.config.size).allPositionsWithin) {
+            foreach (var position in new RectInt(item.location.position, item.Config.size).allPositionsWithin) {
                 GetCell(position).SetItem(item);
             }
 
@@ -120,7 +120,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             var uiToRemove = ItemUIs.Find(ui => ui.Item == item);
             ItemUIs.Remove(uiToRemove);
             Destroy(uiToRemove.gameObject);
-            var rect = new RectInt(item.location.position, item.config.size);
+            var rect = new RectInt(item.location.position, item.Config.size);
             foreach (var position in rect.allPositionsWithin) {
                 GetCell(position).SetItem(null);
             }
@@ -128,7 +128,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
         void OnItemHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
             if (ItemDragger.Instance.IsDragging) return;
-            SetAreaState(itemUI.Item.location.position, itemUI.Item.config.size,
+            SetAreaState(itemUI.Item.location.position, itemUI.Item.Config.size,
                 value ? CellUI.State.Hover : CellUI.State.Default);
         }
 

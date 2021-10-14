@@ -24,8 +24,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
             itemName.text = item.Name;
             itemName.color = new Color(item.Color.r, item.Color.g, item.Color.b, 1);
 
-            description.gameObject.SetActive(!string.IsNullOrEmpty(item.config.description));
-            description.SetText(item.config.description);
+            description.gameObject.SetActive(!string.IsNullOrEmpty(item.Config.description));
+            description.SetText(item.Config.description);
             
             modifications.gameObject.SetActive(item.statModifiersContainer != null);
             if (item.statModifiersContainer != null) {
@@ -38,9 +38,9 @@ namespace Unbowed.UI.Gameplay.Inventory {
             equipmentType.gameObject.SetActive(item.IsEquipment);
 
             if (item.IsEquipment) {
-                equipmentType.text = Convert.ToString(item.config.equipment.type switch {
-                    EquipmentType.Armor => item.config.equipment.armorConfig.type,
-                    EquipmentType.Weapon => item.config.equipment.weaponConfig.type,
+                equipmentType.text = Convert.ToString(item.Config.equipment.type switch {
+                    EquipmentType.Armor => item.Config.equipment.armorConfig.type,
+                    EquipmentType.Weapon => item.Config.equipment.weaponConfig.type,
                     _ => throw new ArgumentOutOfRangeException()
                 });
             }

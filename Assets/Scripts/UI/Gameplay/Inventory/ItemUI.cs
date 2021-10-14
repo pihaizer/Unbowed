@@ -33,10 +33,10 @@ namespace Unbowed.UI.Gameplay.Inventory {
                 return;
             }
             
-            var size = Item.config.size;
+            var size = Item.Config.size;
             _rectTransform = GetComponent<RectTransform>();
             _rectTransform.sizeDelta = (Vector2) size * _cellSize + (size - Vector2.one) * _cellSpacing;
-            _image.sprite = Item.config.icon;
+            _image.sprite = Item.Config.icon;
             SetRaycastReceiverSize(_rectTransform.sizeDelta);
         }
 

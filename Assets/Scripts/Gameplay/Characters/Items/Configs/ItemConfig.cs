@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Configs.Stats.Configs;
+using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.SO;
 
 using UnityEditor;
@@ -19,7 +20,7 @@ using Random = System.Random;
 
 namespace Unbowed.Gameplay.Items {
     [CreateAssetMenu, InlineEditor]
-    public class ItemConfig : SerializedScriptableObject {
+    public class ItemConfig : ScriptableObject {
         public string displayName;
 
         [MultiLineProperty(4)]
@@ -87,5 +88,7 @@ namespace Unbowed.Gameplay.Items {
             EditorUtility.SetDirty(ItemsConfig.Instance);
 #endif
         }
+        
+        
     }
 }

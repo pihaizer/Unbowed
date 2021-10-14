@@ -28,13 +28,16 @@ namespace Unbowed.Gameplay.Items {
 
             item.rarity = rarityWeights.GetValue(value);
             item.statModifiersContainer = new StatModifiersContainer();
-            
-            if(type == EquipmentType.Weapon) weaponConfig.GenerateItemModifiers(item);
-            else if(type == EquipmentType.Armor) armorConfig.GenerateItemModifiers(item);
+
+            if (type == EquipmentType.Weapon) {
+                weaponConfig.GenerateItemModifiers(item);
+            } else if (type == EquipmentType.Armor) {
+                armorConfig.GenerateItemModifiers(item);
+            }
 
             var modifiers = AllStatModifiers.Instance.statModifierConfigs
-                .Where(mod => item.config.itemLevel >= mod.itemLevelRange.x &&
-                              item.config.itemLevel <= mod.itemLevelRange.y).ToArray();
+                .Where(mod => item.Config.itemLevel >= mod.itemLevelRange.x &&
+                              item.Config.itemLevel <= mod.itemLevelRange.y).ToArray();
 
             int modifiersAmount = item.rarity switch {
                 EquipmentRarity.Poor => 0,
@@ -52,16 +55,16 @@ namespace Unbowed.Gameplay.Items {
             }
         }
 
-        [Button] void ResetWeights() {
-            rarityWeights.SetValues(Enum.GetValues(typeof(EquipmentRarity)).Cast<EquipmentRarity>().ToArray());
-        }
-
         public bool Fits(EquipmentSlot slot) {
             return type switch {
                 EquipmentType.Armor => armorConfig.Fits(slot),
                 EquipmentType.Weapon => weaponConfig.Fits(slot),
                 _ => throw new ArgumentOutOfRangeException()
             };
+        }
+
+        [Button] void ResetWeights() {
+            rarityWeights.SetValues(Enum.GetValues(typeof(EquipmentRarity)).Cast<EquipmentRarity>().ToArray());
         }
     }
 }

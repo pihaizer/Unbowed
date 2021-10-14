@@ -7,6 +7,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 
+using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.Utility;
@@ -58,9 +59,7 @@ namespace Unbowed.Gameplay.Characters.Configs {
             for (int i = 0; i < amount; i++) {
                 int randomIndex = Random.Range(0, itemLevelValidItems.Length);
                 float randomValue = Random.value;
-                Debug.Log($"Random value {randomValue}");
                 float value = Mathf.Pow(randomValue, 1 / (magicFind + bonusMagicFind));
-                Debug.Log($"Modified value {value}");
                 var item = itemLevelValidItems[randomIndex].Generate(value);
                 items.Add(item);
             }
@@ -72,13 +71,6 @@ namespace Unbowed.Gameplay.Characters.Configs {
             }
 
             return items;
-        }
-
-        [Button]
-        void TestAmounts() {
-            for (int i = 0; i < 100; i++) {
-                Debug.Log(amountWeights.Random());
-            }
         }
 
         [Serializable]

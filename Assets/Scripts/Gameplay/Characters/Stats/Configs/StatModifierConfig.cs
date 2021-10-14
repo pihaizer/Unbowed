@@ -11,7 +11,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats.Configs {
 
         public StatModifier Get() => new StatModifier {
             type = type,
-            statType = stat,
+            StatType = stat,
             value = Random.Range(valueRange.x, valueRange.y)
         };
 

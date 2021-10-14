@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using Unbowed.Gameplay;
+using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using UnityEngine;

@@ -23,12 +23,6 @@ namespace Unbowed.Gameplay.Characters.Modules {
             var items = _config.GenerateItems(data.killer ? data.killer.Stats["MagicFind"] : 0f);
             for (int i = items.Count - 1; i >= 0; i--) {
                 Inventory.DropItem(items[i]);
-                try {
-                    Debug.Log(JsonUtility.ToJson(items[i].statModifiersContainer, true));
-                    Debug.Log(JsonUtility.ToJson(items[i].statModifiersContainer.statModifiers[0], true));
-                } catch (Exception e) {
-                    Console.WriteLine(e);
-                }
             }
         }
     }

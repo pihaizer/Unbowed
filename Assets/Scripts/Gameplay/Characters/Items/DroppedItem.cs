@@ -37,7 +37,7 @@ namespace Unbowed.Gameplay.Items {
         public void SetItem(Item item) {
             Item = item;
             EventsContext.Instance.descriptionCreateRequest?.Invoke(this, true);
-            Instantiate(item.config.modelPrefab, transform);
+            Instantiate(item.Config.modelPrefab, transform);
             OnPickupError();
         }
 

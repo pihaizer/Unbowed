@@ -5,18 +5,19 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 
+using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
-    public class Inventory : SerializedMonoBehaviour {
+    public class Inventory : MonoBehaviour {
         public event Action<Item> AddedItem;
         public event Action<Item> RemovedItem;
 
         [SerializeField] Vector2Int size;
-        [OdinSerialize] List<Item> defaultItems;
+        [SerializeField] List<Item> defaultItems;
 
         [ShowInInspector]
         public List<Item> Items { get; private set; }
@@ -62,15 +63,21 @@ namespace Unbowed.Gameplay.Characters.Modules {
             removedItem = null;
             if (!CanEquipItem(item, slot)) return false;
             removedItem = Items.Find(it => it.location.slot == slot);
+            if (removedItem == null && slot == EquipmentSlot.LeftHand) {
+                removedItem = Items.Find(it => it.location.slot == EquipmentSlot.RightHand &&
+                                               it.Config.equipment.weaponConfig.IsTwoHanded);
+            }
+
             SetLocation(removedItem, ItemLocation.None);
             SetLocation(item, ItemLocation.Equipped(this, slot));
 
-            if (item.config.equipment.type == EquipmentType.Weapon && item.config.equipment.weaponConfig.IsTwoHanded) {
-                var leftHandItem = Items.Find(it => it.location.slot == EquipmentSlot.LeftHand);
-                if (leftHandItem != null) {
-                    if (!TryAddItemToBags(leftHandItem)) DropItem(leftHandItem);
-                }
+            Item oddItem = null;
+
+            if (item.Config.equipment.type == EquipmentType.Weapon && item.Config.equipment.weaponConfig.IsTwoHanded) {
+                oddItem = Items.Find(it => it.location.slot == EquipmentSlot.LeftHand);
             }
+
+            if (oddItem != null && !TryAddItemToBags(oddItem)) DropItem(oddItem);
 
             return true;
         }
@@ -81,7 +88,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             var itemRect = new RectInt(location.position, item.Size);
             if (!IsInGrid(itemRect)) return false;
             var overlaps = InBags
-                .Where(other => other.OverlapsWith(new RectInt(location.position, item.config.size))).ToList();
+                .Where(other => other.OverlapsWith(new RectInt(location.position, item.Config.size))).ToList();
             if (overlaps.Count > 1) return false;
             if (overlaps.Count == 1) {
                 removedItem = overlaps.First();
@@ -95,7 +102,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public bool CanAddToBags(Item item, out Vector2Int position) {
             var bagItems = InBags;
-            var itemRect = new RectInt(Vector2Int.zero, item.config.size);
+            var itemRect = new RectInt(Vector2Int.zero, item.Config.size);
 
             for (int i = 0; i < Size.x - itemRect.width + 1; i++) {
                 for (int j = 0; j < Size.y - itemRect.height + 1; j++) {
@@ -111,7 +118,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
         }
 
         public static bool CanEquipItem(Item item, EquipmentSlot slot) =>
-            item.IsEquipment && item.config.equipment.Fits(slot);
+            item.IsEquipment && item.Config.equipment.Fits(slot);
 
         public static void RemoveItem(Item item) => SetLocation(item, ItemLocation.None);
 

@@ -69,7 +69,7 @@ MonoBehaviour:
     SerializationNodes: []
   startOpened: 0
   itemName: {fileID: 5245174456693363239}
-  slot: {fileID: 539527337462454814}
+  equipmentType: {fileID: 539527337462454814}
   modifications: {fileID: 2689136690356055786}
   description: {fileID: 7426015397837843094}
   screenMaxOffset: {x: 20, y: 20}
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
