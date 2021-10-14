@@ -43,7 +43,7 @@ namespace Unbowed.Gameplay.Characters {
         public bool IsStarted { get; private set; }
         
         [ShowInInspector]
-        public Stats Stats { get; private set; }
+        public Configs.Stats.Stats Stats { get; private set; }
 
         [NonSerialized]
         public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
@@ -59,7 +59,7 @@ namespace Unbowed.Gameplay.Characters {
         protected void Start() {
             if (!Application.isPlaying) return;
 
-            Stats = new Stats(config.stats);
+            Stats = new Configs.Stats.Stats(config.stats);
             Stats.Update();
 
             InitHealth();
@@ -86,13 +86,13 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InventoryOnAddedItem(Item item) {
-            if (item.statModifiersContainer == null) return;
-            if (item.IsEquipped) Stats.AddModifier(item.statModifiersContainer);
+            if (item.statEffectorsBundle == null) return;
+            if (item.IsEquipped) Stats.AddModifier(item.statEffectorsBundle);
         }
 
         void InventoryOnRemovedItem(Item item) {
-            if (item.statModifiersContainer == null) return;
-            if (item.IsEquipped) Stats.RemoveModifier(item.statModifiersContainer);
+            if (item.statEffectorsBundle == null) return;
+            if (item.IsEquipped) Stats.RemoveModifier(item.statEffectorsBundle);
         }
 
         void InitCommandExecutor() => characterCommandExecutor.Init(this);

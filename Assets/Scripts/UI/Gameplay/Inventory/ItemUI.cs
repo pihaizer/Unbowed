@@ -45,6 +45,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
         }
 
         public void OnPointerEnter(PointerEventData eventData) {
+            Debug.Log("Enter");
             if (Item != null && !ItemDragger.Instance.IsDragging) itemDescriptionUI.Open();
             IsHoveredChanged?.Invoke(this, true, eventData);
         }
@@ -55,23 +56,9 @@ namespace Unbowed.UI.Gameplay.Inventory {
         }
 
         public void OnPointerExit(PointerEventData eventData) {
+            Debug.Log("Exit");
             itemDescriptionUI.Close();
             IsHoveredChanged?.Invoke(this, false, eventData);
         }
-
-        #region Editor
-
-        [Button]
-        void SetDebugItem(ItemConfig config) {
-            if (config == null) {
-                Debug.LogError("Config was null");
-                return;
-            }
-
-            var item = new Item(config, ItemLocation.None);
-            SetItem(item);
-        }
-
-        #endregion
     }
 }

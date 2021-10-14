@@ -10,13 +10,13 @@ namespace Unbowed.Gameplay.Items {
 
         
         public void GenerateItemModifiers(Item item) {
-            var armorModifier = new StatModifier() {
+            var armorModifier = new StatEffector() {
                 type = StatModifierType.Add,
                 StatType = AllStatTypes.FindByName("Defense"),
                 value = defense
             };
             
-            item.statModifiersContainer.statModifiers.Add(armorModifier);
+            item.statEffectorsBundle.statModifiers.Add(armorModifier);
         }
         
         public bool Fits(EquipmentSlot slot) {

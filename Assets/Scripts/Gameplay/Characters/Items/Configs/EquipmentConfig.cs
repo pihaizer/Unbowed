@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Configs.Stats.Configs;
+using Unbowed.Gameplay.Characters.Stats;
 using Unbowed.Utility;
 
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace Unbowed.Gameplay.Items {
             if (!item.IsEquipment) return;
 
             item.rarity = rarityWeights.GetValue(value);
-            item.statModifiersContainer = new StatModifiersContainer();
+            item.statEffectorsBundle = new StatEffectorsBundle();
 
             if (type == EquipmentType.Weapon) {
                 weaponConfig.GenerateItemModifiers(item);
@@ -51,7 +52,7 @@ namespace Unbowed.Gameplay.Items {
             for (int i = 0; i < modifiersAmount; i++) {
                 int index = UnityEngine.Random.Range(0, modifiers.Length);
                 var modifierConfig = modifiers[index];
-                item.statModifiersContainer.statModifiers.Add(modifierConfig.Get());
+                item.statEffectorsBundle.statModifiers.Add(modifierConfig.Get());
             }
         }
 

@@ -7,6 +7,7 @@ using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.Gameplay.Characters.Stats;
 using Unbowed.UI;
 
 using UnityEngine;
@@ -24,8 +25,8 @@ namespace Unbowed.Gameplay.Items {
         [ShowIf(nameof(IsEquipment))]
         public EquipmentRarity rarity;
 
-        [FormerlySerializedAs("statsModifier")]
-        public StatModifiersContainer statModifiersContainer;
+        [FormerlySerializedAs("statModifiersContainer"),FormerlySerializedAs("statsModifier")]
+        public StatEffectorsBundle statEffectorsBundle;
 
         // Properties
         public Inventory Inventory => location.inventory;

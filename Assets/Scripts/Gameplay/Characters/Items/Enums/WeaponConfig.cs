@@ -25,27 +25,27 @@ namespace Unbowed.Gameplay.Items {
 
 
         public void GenerateItemModifiers(Item item) {
-            var minDamageModifier = new StatModifier() {
+            var minDamageModifier = new StatEffector() {
                 type = StatModifierType.Set,
                 StatType = AllStatTypes.FindByName("MinDamage"),
                 value = damageRange.x
             };
             
-            var maxDamageModifier = new StatModifier() {
+            var maxDamageModifier = new StatEffector() {
                 type = StatModifierType.Set,
                 StatType = AllStatTypes.FindByName("MaxDamage"),
                 value = damageRange.y
             };
             
-            var attackTimeModifier = new StatModifier() {
+            var attackTimeModifier = new StatEffector() {
                 type = StatModifierType.Set,
                 StatType = AllStatTypes.FindByName("AttackTime"),
                 value = attackTime
             };
             
-            item.statModifiersContainer.statModifiers.Add(minDamageModifier);
-            item.statModifiersContainer.statModifiers.Add(maxDamageModifier);
-            item.statModifiersContainer.statModifiers.Add(attackTimeModifier);
+            item.statEffectorsBundle.statModifiers.Add(minDamageModifier);
+            item.statEffectorsBundle.statModifiers.Add(maxDamageModifier);
+            item.statEffectorsBundle.statModifiers.Add(attackTimeModifier);
         }
 
         public bool Fits(EquipmentSlot slot) {

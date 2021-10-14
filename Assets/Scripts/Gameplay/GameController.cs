@@ -37,5 +37,9 @@ namespace Unbowed.Gameplay {
             save.characters.Add(playerSave);
             SaveController.Save(save);
         }
+
+        void OnApplicationQuit() {
+            Save();
+        }
     }
 }

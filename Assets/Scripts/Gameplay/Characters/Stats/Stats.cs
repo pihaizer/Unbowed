@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Sirenix.OdinInspector;
 
+using Unbowed.Gameplay.Characters.Stats;
+
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Configs.Stats {
@@ -13,7 +15,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         
         public event Action Updated;
 
-        readonly List<StatModifiersContainer> _modifiers = new List<StatModifiersContainer>();
+        readonly List<StatEffectorsBundle> _modifiers = new List<StatEffectorsBundle>();
 
         public Stats() {
             stats = new List<Stat>();
@@ -30,7 +32,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             Updated?.Invoke();
         }
 
-        public void AddModifier(StatModifiersContainer modifier) {
+        public void AddModifier(StatEffectorsBundle modifier) {
             if (_modifiers.Contains(modifier)) return;
             _modifiers.Add(modifier);
             foreach (var statModifier in modifier.statModifiers) {
@@ -39,7 +41,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             Update();
         }
 
-        public void RemoveModifier(StatModifiersContainer modifier) {
+        public void RemoveModifier(StatEffectorsBundle modifier) {
             _modifiers.Remove(modifier);
             foreach (var statModifier in modifier.statModifiers) {
                 this[statModifier.StatType].RemoveModifier(statModifier);

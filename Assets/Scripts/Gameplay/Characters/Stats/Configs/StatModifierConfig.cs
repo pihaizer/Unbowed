@@ -9,7 +9,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats.Configs {
         public Vector2 valueRange;
         public StatModifierType type;
 
-        public StatModifier Get() => new StatModifier {
+        public StatEffector Get() => new StatEffector {
             type = type,
             StatType = stat,
             value = Random.Range(valueRange.x, valueRange.y)

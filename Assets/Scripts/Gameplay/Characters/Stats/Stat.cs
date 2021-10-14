@@ -4,7 +4,9 @@ using System.Linq;
 
 using Sirenix.OdinInspector;
 
-namespace Unbowed.Gameplay.Characters.Configs.Stats {
+using Unbowed.Gameplay.Characters.Configs.Stats;
+
+namespace Unbowed.Gameplay.Characters.Stats {
     [Serializable, InlineProperty(LabelWidth = 100)]
     public class Stat {
         [HorizontalGroup(200), HideLabel]
@@ -13,11 +15,11 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         [HorizontalGroup, HideLabel, OnValueChanged("Update")]
         public float baseValue;
 
-        [NonSerialized, ShowInInspector, HorizontalGroup]
-        public float modifiedValue;
+        [NonSerialized]
+        public float value;
 
-        [NonSerialized, ShowInInspector, HorizontalGroup]
-        public List<StatModifier> _modifiers = new List<StatModifier>();
+        [NonSerialized]
+        public List<StatEffector> effectors = new List<StatEffector>();
 
         public Stat(StatType type, float baseValue) {
             this.type = type;
@@ -27,34 +29,34 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
 
         public Stat(Stat other) : this(other.type, other.baseValue) { }
 
-        public void AddModifier(StatModifier modifier) {
-            _modifiers ??= new List<StatModifier>();
-            if (_modifiers.Contains(modifier)) return;
-            _modifiers.Add(modifier);
+        public void AddModifier(StatEffector effector) {
+            effectors ??= new List<StatEffector>();
+            if (effectors.Contains(effector)) return;
+            effectors.Add(effector);
         }
 
-        public void RemoveModifier(StatModifier modifier) {
-            _modifiers?.Remove(modifier);
+        public void RemoveModifier(StatEffector effector) {
+            effectors?.Remove(effector);
         }
 
         public void Update() {
-            modifiedValue = baseValue;
+            value = baseValue;
 
-            if (_modifiers == null) return;
+            if (effectors == null) return;
 
-            foreach (var statModifier in _modifiers.Where(stat => stat.type == StatModifierType.Set)) {
+            foreach (var statModifier in effectors.Where(stat => stat.type == StatModifierType.Set)) {
                 statModifier.Apply(this);
             }
 
-            foreach (var statModifier in _modifiers.Where(stat => stat.type == StatModifierType.Add)) {
+            foreach (var statModifier in effectors.Where(stat => stat.type == StatModifierType.Add)) {
                 statModifier.Apply(this);
             }
 
-            var multiplyModifiers = _modifiers.Where(stat => stat.type == StatModifierType.Multiply).ToList();
+            var multiplyModifiers = effectors.Where(stat => stat.type == StatModifierType.Multiply).ToList();
             // Applying only one, because it applies all multiply modifiers
             if (multiplyModifiers.Any()) multiplyModifiers.First().Apply(this);
         }
 
-        public static implicit operator float(Stat stat) => stat.modifiedValue;
+        public static implicit operator float(Stat stat) => stat.value;
     }
 }

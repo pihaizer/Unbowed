@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using System.Linq;
+
 using Sirenix.OdinInspector;
+
 using TMPro;
+
 using Unbowed.Gameplay.Items;
+
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     public class ItemDescriptionUI : CanvasGroupMenu {
         [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
-        [FormerlySerializedAs("slot"),SerializeField, ChildGameObjectsOnly] TMP_Text equipmentType;
+        [FormerlySerializedAs("slot"), SerializeField, ChildGameObjectsOnly]
+        TMP_Text equipmentType;
         [SerializeField, ChildGameObjectsOnly] TMP_Text modifications;
         [SerializeField, ChildGameObjectsOnly] TMP_Text description;
         [SerializeField] Vector2 screenMaxOffset;
@@ -26,11 +31,11 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
             description.gameObject.SetActive(!string.IsNullOrEmpty(item.Config.description));
             description.SetText(item.Config.description);
-            
-            modifications.gameObject.SetActive(item.statModifiersContainer != null);
-            if (item.statModifiersContainer != null) {
+
+            modifications.gameObject.SetActive(item.statEffectorsBundle != null);
+            if (item.statEffectorsBundle != null) {
                 modifications.text = "";
-                foreach (var modifier in item.statModifiersContainer.statModifiers) {
+                foreach (var modifier in item.statEffectorsBundle.statModifiers) {
                     modifications.text += modifier.GetDescription() + '\n';
                 }
             }
@@ -47,18 +52,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
         }
 
         protected override void SetOpened(bool value) {
-            if (!value) {
-                base.SetOpened(false);
-                return;
-            }
-            
-            StartCoroutine(OpenCoroutine());
-        }
-
-        public IEnumerator OpenCoroutine() {
-            yield return null;
-            UpdatePosition();
-            base.SetOpened(true);
+            if (value) UpdatePosition();
+            base.SetOpened(value);
         }
 
         void UpdatePosition() {

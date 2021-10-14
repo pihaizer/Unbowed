@@ -3,11 +3,13 @@ using System.Linq;
 
 using Sirenix.OdinInspector;
 
+using Unbowed.Gameplay.Characters.Stats;
+
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Configs.Stats {
     [Serializable]
-    public class StatModifier : ISerializationCallbackReceiver {
+    public class StatEffector : ISerializationCallbackReceiver {
         [ShowInInspector]
         public StatType StatType {
             get {
@@ -27,15 +29,15 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         public void Apply(Stat stat) {
             switch (type) {
                 case StatModifierType.Set:
-                    stat.modifiedValue = value;
+                    stat.value = value;
                     break;
                 case StatModifierType.Add:
-                    stat.modifiedValue += value;
+                    stat.value += value;
                     break;
                 case StatModifierType.Multiply: {
-                    float modifiersSum = stat._modifiers
+                    float modifiersSum = stat.effectors
                         .Sum(m => m.type == StatModifierType.Multiply ? m.value : 0);
-                    stat.modifiedValue *= 1 + modifiersSum;
+                    stat.value *= 1 + modifiersSum;
                     break;
                 }
                 default:
