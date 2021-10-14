@@ -13,7 +13,8 @@ namespace Unbowed.Gameplay.Items {
             var armorModifier = new StatEffector() {
                 type = StatModifierType.Add,
                 StatType = AllStatTypes.FindByName("Defense"),
-                value = defense
+                value = defense,
+                isPrimary = true
             };
             
             item.statEffectorsBundle.statModifiers.Add(armorModifier);

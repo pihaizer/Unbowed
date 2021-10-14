@@ -23,5 +23,8 @@ MonoBehaviour:
     SerializationNodes: []
   stat: {fileID: 11400000, guid: 201faa650f2e4ff498e644ac40f472db, type: 2}
   itemLevelRange: {x: 1, y: 10}
-  valueRange: {x: 2, y: 5}
+  isInteger: 1
+  integerValueRange: {x: 2, y: 4}
+  floatValueRange: {x: 0, y: 0}
+  roundToDigit: 0
   type: 1

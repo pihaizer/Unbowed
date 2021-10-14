@@ -22,6 +22,8 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
 
         public float value;
 
+        public bool isPrimary;
+
         public StatModifierType type;
 
         StatType _statType;

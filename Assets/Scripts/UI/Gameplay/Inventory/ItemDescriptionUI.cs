@@ -16,7 +16,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
         [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
         [FormerlySerializedAs("slot"), SerializeField, ChildGameObjectsOnly]
         TMP_Text equipmentType;
-        [SerializeField, ChildGameObjectsOnly] TMP_Text modifications;
+        [SerializeField, ChildGameObjectsOnly] TMP_Text primaryEffectorsText;
+        [SerializeField, ChildGameObjectsOnly] TMP_Text secondaryEffectorsText;
         [SerializeField, ChildGameObjectsOnly] TMP_Text description;
         [SerializeField] Vector2 screenMaxOffset;
 
@@ -32,11 +33,14 @@ namespace Unbowed.UI.Gameplay.Inventory {
             description.gameObject.SetActive(!string.IsNullOrEmpty(item.Config.description));
             description.SetText(item.Config.description);
 
-            modifications.gameObject.SetActive(item.statEffectorsBundle != null);
+            primaryEffectorsText.text = "";
+            secondaryEffectorsText.text = "";
             if (item.statEffectorsBundle != null) {
-                modifications.text = "";
                 foreach (var modifier in item.statEffectorsBundle.statModifiers) {
-                    modifications.text += modifier.GetDescription() + '\n';
+                    if (modifier.isPrimary)
+                        primaryEffectorsText.text += modifier.GetDescription() + '\n';
+                    else
+                        secondaryEffectorsText.text += modifier.GetDescription() + '\n';
                 }
             }
 

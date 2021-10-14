@@ -28,19 +28,22 @@ namespace Unbowed.Gameplay.Items {
             var minDamageModifier = new StatEffector() {
                 type = StatModifierType.Set,
                 StatType = AllStatTypes.FindByName("MinDamage"),
-                value = damageRange.x
+                value = damageRange.x,
+                isPrimary = true
             };
             
             var maxDamageModifier = new StatEffector() {
                 type = StatModifierType.Set,
                 StatType = AllStatTypes.FindByName("MaxDamage"),
-                value = damageRange.y
+                value = damageRange.y,
+                isPrimary = true
             };
             
             var attackTimeModifier = new StatEffector() {
                 type = StatModifierType.Set,
                 StatType = AllStatTypes.FindByName("AttackTime"),
-                value = attackTime
+                value = attackTime,
+                isPrimary = true
             };
             
             item.statEffectorsBundle.statModifiers.Add(minDamageModifier);
