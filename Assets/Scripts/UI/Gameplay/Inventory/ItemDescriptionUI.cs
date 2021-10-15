@@ -11,6 +11,8 @@ using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.UI.Gameplay.Inventory {
     public class ItemDescriptionUI : CanvasGroupMenu {
         [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
@@ -36,6 +38,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             primaryEffectorsText.text = "";
             secondaryEffectorsText.text = "";
             if (item.statEffectorsBundle != null) {
+               
                 foreach (var modifier in item.statEffectorsBundle.statModifiers) {
                     if (modifier.isPrimary)
                         primaryEffectorsText.text += modifier.GetDescription() + '\n';
@@ -44,14 +47,10 @@ namespace Unbowed.UI.Gameplay.Inventory {
                 }
             }
 
-            equipmentType.gameObject.SetActive(item.IsEquipment);
+            equipmentType.gameObject.SetActive(item.IsEquipment());
 
-            if (item.IsEquipment) {
-                equipmentType.text = Convert.ToString(item.Config.equipment.type switch {
-                    EquipmentType.Armor => item.Config.equipment.armorConfig.type,
-                    EquipmentType.Weapon => item.Config.equipment.weaponConfig.type,
-                    _ => throw new ArgumentOutOfRangeException()
-                });
+            if (item.IsEquipment(out var equipmentConfig)) {
+                equipmentType.text = equipmentConfig.type.ToString();
             }
         }
 

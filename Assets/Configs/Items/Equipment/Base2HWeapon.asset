@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6d9913d38d4052957b926e75725807, type: 3}
   m_Name: Base2HWeapon
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   displayName: Great axe
   description: 
   icon: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
@@ -30,15 +21,20 @@ MonoBehaviour:
   dropChanceWeight: 1
   itemLevel: 1
   equipment:
-    type: 1
-    armorConfig:
+    type: 4
+    primaryStats:
+    - statTypeName: MinDamage
+      value: 3
+      isPrimary: 1
       type: 0
-      defense: 0
-    weaponConfig:
-      type: 4
-      damageRange: {x: 5, y: 10}
-      attackTime: 1
-      damageRadius: 1.5
+    - statTypeName: MaxDamage
+      value: 8
+      isPrimary: 1
+      type: 0
+    - statTypeName: AttackTime
+      value: 1.2
+      isPrimary: 1
+      type: 0
     rarityWeights:
       weights:
       - value: 0

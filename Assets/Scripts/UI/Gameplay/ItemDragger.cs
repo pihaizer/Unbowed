@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.UI.Gameplay {
     public class ItemDragger : MonoBehaviour {
         ItemUI _draggedItemUI;

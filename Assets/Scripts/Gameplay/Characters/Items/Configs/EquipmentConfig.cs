@@ -6,34 +6,25 @@ using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Configs.Stats.Configs;
 using Unbowed.Gameplay.Characters.Stats;
+using Unbowed.Gameplay.Items;
 using Unbowed.Utility;
 
-using UnityEngine;
-
-namespace Unbowed.Gameplay.Items {
+namespace Unbowed.Gameplay.Characters.Items.Configs {
     [Serializable]
-    public class EquipmentConfig {
+    public partial class EquipmentConfig {
         public EquipmentType type;
 
-        [ShowIf(nameof(type), EquipmentType.Armor)]
-        public ArmorConfig armorConfig;
-
-        [ShowIf(nameof(type), EquipmentType.Weapon)]
-        public WeaponConfig weaponConfig;
+        public StatEffector[] primaryStats;
 
         public Weights<EquipmentRarity> rarityWeights;
 
 
         public void GenerateItemModifiers(Item item, float value) {
-            if (!item.IsEquipment) return;
-
             item.rarity = rarityWeights.GetValue(value);
             item.statEffectorsBundle = new StatEffectorsBundle();
 
-            if (type == EquipmentType.Weapon) {
-                weaponConfig.GenerateItemModifiers(item);
-            } else if (type == EquipmentType.Armor) {
-                armorConfig.GenerateItemModifiers(item);
+            foreach (var statEffector in primaryStats) {
+                item.statEffectorsBundle.statModifiers.Add(new StatEffector(statEffector));
             }
 
             var modifiers = AllStatModifiers.Instance.statModifierConfigs
@@ -55,15 +46,7 @@ namespace Unbowed.Gameplay.Items {
                 item.statEffectorsBundle.statModifiers.Add(modifierConfig.Get());
             }
         }
-
-        public bool Fits(EquipmentSlot slot) {
-            return type switch {
-                EquipmentType.Armor => armorConfig.Fits(slot),
-                EquipmentType.Weapon => weaponConfig.Fits(slot),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
-
+        
         [Button] void ResetWeights() {
             rarityWeights.SetValues(Enum.GetValues(typeof(EquipmentRarity)).Cast<EquipmentRarity>().ToArray());
         }

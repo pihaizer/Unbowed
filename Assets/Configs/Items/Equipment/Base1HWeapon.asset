@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6d9913d38d4052957b926e75725807, type: 3}
   m_Name: Base1HWeapon
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   displayName: Sword
   description: 
   icon: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
@@ -30,15 +21,20 @@ MonoBehaviour:
   dropChanceWeight: 1
   itemLevel: 1
   equipment:
-    type: 1
-    armorConfig:
+    type: 0
+    primaryStats:
+    - statTypeName: MinDamage
+      value: 2
+      isPrimary: 1
       type: 0
-      defense: 0
-    weaponConfig:
+    - statTypeName: MaxDamage
+      value: 6
+      isPrimary: 1
       type: 0
-      damageRange: {x: 2, y: 6}
-      attackTime: 0.8
-      damageRadius: 1.5
+    - statTypeName: AttackTime
+      value: 0.8
+      isPrimary: 1
+      type: 0
     rarityWeights:
       weights:
       - value: 0

@@ -7,6 +7,8 @@ using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.UI.Gameplay.Inventory {
     public class CellUI : MonoBehaviour {
         [SerializeField, ChildGameObjectsOnly] Image _background;

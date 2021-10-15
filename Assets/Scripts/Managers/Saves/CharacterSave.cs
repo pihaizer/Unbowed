@@ -6,6 +6,8 @@ using Sirenix.Serialization;
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Items;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.Managers.Saves {
     [Serializable]
     public class CharacterSave {

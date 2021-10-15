@@ -1,6 +1,21 @@
 ﻿namespace Unbowed.Gameplay.Items {
     public enum EquipmentType {
-        Armor,
-        Weapon
+        // Weapons
+        OneHandedSword,
+        OneHandedAxe,
+        OneHandedMace,
+        TwoHandedSword,
+        TwoHandedAxe,
+        TwoHandedMace,
+        Bow,
+        Crossbow,
+        
+        // Armor
+        Chest,
+        Hands,
+        Feet,
+        Head,
+        Belt,
+        Shield
     }
 }

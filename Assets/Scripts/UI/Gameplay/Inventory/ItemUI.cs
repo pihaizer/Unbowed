@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.UI.Gameplay.Inventory {
     [RequireComponent(typeof(RectTransform))]
     public class ItemUI : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerExitHandler {

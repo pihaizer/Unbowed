@@ -12,6 +12,8 @@ using Unbowed.Utility.Modifiers;
 
 using UnityEngine;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(CharacterMovement))]

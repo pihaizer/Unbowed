@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.UI.Gameplay.Inventory {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(GridLayoutGroup))]

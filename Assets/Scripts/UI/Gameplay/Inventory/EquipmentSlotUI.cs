@@ -3,6 +3,8 @@ using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.UI.Gameplay.Inventory {
     using Inventory = Unbowed.Gameplay.Characters.Modules.Inventory;
 

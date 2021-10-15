@@ -14,6 +14,7 @@ using Unbowed.Utility;
 
 using UnityEngine;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
 using Random = UnityEngine.Random;
 
 namespace Unbowed.Gameplay.Characters.Configs {

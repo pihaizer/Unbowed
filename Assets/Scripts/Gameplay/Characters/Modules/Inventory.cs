@@ -11,6 +11,8 @@ using Unbowed.SO;
 
 using UnityEngine;
 
+using Item = Unbowed.Gameplay.Characters.Items.Item;
+
 namespace Unbowed.Gameplay.Characters.Modules {
     public class Inventory : MonoBehaviour {
         public event Action<Item> AddedItem;
@@ -65,7 +67,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             removedItem = Items.Find(it => it.location.slot == slot);
             if (removedItem == null && slot == EquipmentSlot.LeftHand) {
                 removedItem = Items.Find(it => it.location.slot == EquipmentSlot.RightHand &&
-                                               it.Config.equipment.weaponConfig.IsTwoHanded);
+                                               it.Config.equipment.IsTwoHanded);
             }
 
             SetLocation(removedItem, ItemLocation.None);
@@ -73,7 +75,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
             Item oddItem = null;
 
-            if (item.Config.equipment.type == EquipmentType.Weapon && item.Config.equipment.weaponConfig.IsTwoHanded) {
+            if (item.Config.equipment.IsTwoHanded) {
                 oddItem = Items.Find(it => it.location.slot == EquipmentSlot.LeftHand);
             }
 
@@ -118,7 +120,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
         }
 
         public static bool CanEquipItem(Item item, EquipmentSlot slot) =>
-            item.IsEquipment && item.Config.equipment.Fits(slot);
+            item.IsEquipment(out var equipmentConfig) && equipmentConfig.Fits(slot);
 
         public static void RemoveItem(Item item) => SetLocation(item, ItemLocation.None);
 

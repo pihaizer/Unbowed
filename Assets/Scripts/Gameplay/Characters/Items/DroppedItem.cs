@@ -9,7 +9,7 @@ namespace Unbowed.Gameplay.Items {
         [SerializeField, Range(0, 20f)] float throwForce = 1f;
         [SerializeField, MinMaxSlider(0, 20f)] Vector2 throwTorqueRange;
 
-        public Item Item { get; private set; }
+        public Characters.Items.Item Item { get; private set; }
 
         void Update() {
             if (Input.GetKey(KeyCode.LeftAlt)) {
@@ -34,7 +34,7 @@ namespace Unbowed.Gameplay.Items {
             EventsContext.Instance.descriptionShowRequest?.Invoke(this, false);
         }
 
-        public void SetItem(Item item) {
+        public void SetItem(Characters.Items.Item item) {
             Item = item;
             EventsContext.Instance.descriptionCreateRequest?.Invoke(this, true);
             Instantiate(item.Config.modelPrefab, transform);

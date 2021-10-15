@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Unbowed.Gameplay.Characters.Configs.Stats {
     [Serializable]
     public class StatEffector : ISerializationCallbackReceiver {
-        [ShowInInspector]
+        [ShowInInspector, Required]
         public StatType StatType {
             get {
                 if (!_statType) _statType = AllStatTypes.FindByName(statTypeName);
@@ -18,6 +18,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             }
             set => _statType = value;
         }
+
         [SerializeField, HideInInspector] string statTypeName;
 
         public float value;
@@ -27,6 +28,15 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         public StatModifierType type;
 
         StatType _statType;
+
+        public StatEffector(StatEffector other) {
+            StatType = other.StatType;
+            value = other.value;
+            isPrimary = other.isPrimary;
+            type = other.type;
+        }
+
+        public StatEffector() { }
 
         public void Apply(Stat stat) {
             switch (type) {
@@ -50,14 +60,16 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         public string GetDescription() {
             return type switch {
                 StatModifierType.Set => $"{StatType.name} {value}",
-                StatModifierType.Add => $"Adds {value} to {StatType.name}",
-                StatModifierType.Multiply => $"Adds {100 * value}% to {value}",
+                StatModifierType.Add when isPrimary => $"{StatType.name} {value}",
+                StatModifierType.Add when !isPrimary => $"Adds {value} to {StatType.name}",
+                StatModifierType.Multiply when isPrimary => $"{StatType.name} {value * 100}%",
+                StatModifierType.Multiply when !isPrimary => $"Adds {100 * value}% to {value}",
                 _ => "Errored property!"
             };
         }
 
         public void OnBeforeSerialize() {
-            statTypeName = _statType.name;
+            if(_statType) statTypeName = _statType.name;
         }
 
         public void OnAfterDeserialize() { }

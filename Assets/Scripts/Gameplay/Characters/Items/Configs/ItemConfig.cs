@@ -1,24 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using Sirenix.OdinInspector;
 
-using Sirenix.OdinInspector;
-
-using Unbowed.Gameplay.Characters.Configs.Stats;
-using Unbowed.Gameplay.Characters.Configs.Stats.Configs;
-using Unbowed.Gameplay.Characters.Items.Configs;
-using Unbowed.SO;
+using Unbowed.Gameplay.Items;
 
 using UnityEditor;
 
 using UnityEngine;
 
-using Random = System.Random;
-
 #if UNITY_EDITOR
 
 #endif
 
-namespace Unbowed.Gameplay.Items {
+namespace Unbowed.Gameplay.Characters.Items.Configs {
     [CreateAssetMenu, InlineEditor]
     public class ItemConfig : ScriptableObject {
         public string displayName;
@@ -55,21 +47,27 @@ namespace Unbowed.Gameplay.Items {
         public Color specialColor;
 
 
-        public bool IsEquipment => type == ItemType.Equipment;
         public bool IsUsable => type == ItemType.Usable;
         public bool IsSpecial => type == ItemType.Special;
-        
+
 
         public Item Generate(float value) {
             var item = new Item(this, ItemLocation.None);
 
-            if (IsEquipment) {
-                equipment.GenerateItemModifiers(item, value);
-            }
+            if (IsEquipment()) equipment.GenerateItemModifiers(item, value);
 
             return item;
         }
-        
+
+        public bool IsEquipment() => type == ItemType.Equipment;
+
+        public bool IsEquipment(out EquipmentConfig equipmentConfig) {
+            equipmentConfig = null;
+            if (type != ItemType.Equipment) return false;
+            equipmentConfig = equipment;
+            return true;
+        }
+
 
         void OnEnable() {
             if (ItemsConfig.Instance.allItems.Contains(this)) return;
@@ -88,7 +86,5 @@ namespace Unbowed.Gameplay.Items {
             EditorUtility.SetDirty(ItemsConfig.Instance);
 #endif
         }
-        
-        
     }
 }
