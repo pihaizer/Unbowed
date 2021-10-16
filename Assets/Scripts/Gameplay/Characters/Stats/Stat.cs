@@ -5,6 +5,7 @@ using System.Linq;
 using Sirenix.OdinInspector;
 
 using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Gameplay.Characters.Stats.Configs;
 
 namespace Unbowed.Gameplay.Characters.Stats {
     [Serializable, InlineProperty(LabelWidth = 100)]

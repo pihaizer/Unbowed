@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Sirenix.OdinInspector;
-
-using Unbowed.Gameplay.Characters.Stats;
-
 using UnityEngine;
 
-namespace Unbowed.Gameplay.Characters.Configs.Stats {
+namespace Unbowed.Gameplay.Characters.Stats {
     [Serializable]
     public class Stats {
         [SerializeField] 
@@ -36,7 +32,7 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
             if (_modifiers.Contains(modifier)) return;
             _modifiers.Add(modifier);
             foreach (var statModifier in modifier.statModifiers) {
-                this[statModifier.StatType].AddModifier(statModifier);
+                this[statModifier.statType].AddModifier(statModifier);
             }
             Update();
         }
@@ -44,31 +40,16 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
         public void RemoveModifier(StatEffectorsBundle modifier) {
             _modifiers.Remove(modifier);
             foreach (var statModifier in modifier.statModifiers) {
-                this[statModifier.StatType].RemoveModifier(statModifier);
+                this[statModifier.statType].RemoveModifier(statModifier);
             }
             Update();
-        }
-
-        public Stat this[string statName] {
-            get {
-                var stat = stats.Find(s => s.type.name.Equals(statName, StringComparison.OrdinalIgnoreCase));
-                if (stat == null) {
-                    var type = AllStatTypes.FindByName(statName);
-                    if (!type) return null;
-                    stat = new Stat(type, type.defaultValue);
-                    stats.Add(stat);
-                }
-
-                return stat;
-            }
         }
 
         public Stat this[StatType type] {
             get {
                 var stat = stats.Find(s => s.type == type);
                 if (stat == null) {
-                    if (!type) return null;
-                    stat = new Stat(type, type.defaultValue);
+                    stat = new Stat(type, StatsDefaultValues.Get(type));
                     stats.Add(stat);
                 }
 

@@ -1,6 +1,8 @@
 ﻿using System;
 
 using Unbowed.Gameplay.Characters.Configs;
+using Unbowed.Gameplay.Characters.Stats;
+using Unbowed.Gameplay.Characters.Stats.Configs;
 using Unbowed.Gameplay.Items;
 
 using UnityEngine;
@@ -20,7 +22,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         void DropItems(DeathData data) {
             if (!_config.hasDrops) return;
-            var items = _config.GenerateItems(data.killer ? data.killer.Stats["MagicFind"] : 0f);
+            var items = _config.GenerateItems(data.killer ? data.killer.Stats[StatType.MagicFind] : 0f);
             for (int i = items.Count - 1; i >= 0; i--) {
                 Inventory.DropItem(items[i]);
             }

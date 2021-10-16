@@ -23,15 +23,15 @@ MonoBehaviour:
   equipment:
     type: 4
     primaryStats:
-    - statTypeName: MinDamage
+    - statType: 14
       value: 3
       isPrimary: 1
       type: 0
-    - statTypeName: MaxDamage
+    - statType: 15
       value: 8
       isPrimary: 1
       type: 0
-    - statTypeName: AttackTime
+    - statType: 16
       value: 1.2
       isPrimary: 1
       type: 0

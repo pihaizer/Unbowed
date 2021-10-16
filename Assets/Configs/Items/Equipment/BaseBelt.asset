@@ -23,7 +23,7 @@ MonoBehaviour:
   equipment:
     type: 12
     primaryStats:
-    - statTypeName: Defense
+    - statType: 11
       value: 5
       isPrimary: 1
       type: 1

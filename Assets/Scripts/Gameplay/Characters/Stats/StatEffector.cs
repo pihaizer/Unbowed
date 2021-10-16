@@ -4,22 +4,15 @@ using System.Linq;
 using Sirenix.OdinInspector;
 
 using Unbowed.Gameplay.Characters.Stats;
+using Unbowed.Gameplay.Characters.Stats.Configs;
 
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Configs.Stats {
     [Serializable]
-    public class StatEffector : ISerializationCallbackReceiver {
+    public class StatEffector {
         [ShowInInspector, Required]
-        public StatType StatType {
-            get {
-                if (!_statType) _statType = AllStatTypes.FindByName(statTypeName);
-                return _statType;
-            }
-            set => _statType = value;
-        }
-
-        [SerializeField, HideInInspector] string statTypeName;
+        public StatType statType;
 
         public float value;
 
@@ -27,10 +20,8 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
 
         public StatModifierType type;
 
-        StatType _statType;
-
         public StatEffector(StatEffector other) {
-            StatType = other.StatType;
+            statType = other.statType;
             value = other.value;
             isPrimary = other.isPrimary;
             type = other.type;
@@ -59,20 +50,14 @@ namespace Unbowed.Gameplay.Characters.Configs.Stats {
 
         public string GetDescription() {
             return type switch {
-                StatModifierType.Set => $"{StatType.name} {value}",
-                StatModifierType.Add when isPrimary => $"{StatType.name} {value}",
-                StatModifierType.Add when !isPrimary => $"Adds {value} to {StatType.name}",
-                StatModifierType.Multiply when isPrimary => $"{StatType.name} {value * 100}%",
+                StatModifierType.Set => $"{statType} {value}",
+                StatModifierType.Add when isPrimary => $"{statType} {value}",
+                StatModifierType.Add when !isPrimary => $"Adds {value} to {statType}",
+                StatModifierType.Multiply when isPrimary => $"{statType} {value * 100}%",
                 StatModifierType.Multiply when !isPrimary => $"Adds {100 * value}% to {value}",
                 _ => "Errored property!"
             };
         }
-
-        public void OnBeforeSerialize() {
-            if(_statType) statTypeName = _statType.name;
-        }
-
-        public void OnAfterDeserialize() { }
     }
 
     public enum StatModifierType {

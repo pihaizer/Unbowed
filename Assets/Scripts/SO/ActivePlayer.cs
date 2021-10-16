@@ -4,6 +4,8 @@ using Unbowed.Gameplay;
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.Gameplay.Characters.Stats;
+
 using UnityEngine;
 
 namespace Unbowed.SO {

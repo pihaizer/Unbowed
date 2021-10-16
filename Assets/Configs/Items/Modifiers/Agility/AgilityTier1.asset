@@ -21,10 +21,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  stat: {fileID: 11400000, guid: 853fed22a4c730349a6cdf480308f7d5, type: 2}
-  itemLevelRange: {x: 1, y: 10}
+  stat: 1
+  type: 1
   isInteger: 1
   integerValueRange: {x: 2, y: 4}
   floatValueRange: {x: 0, y: 0}
   roundToDigit: 0
-  type: 1
+  itemLevelRange: {x: 1, y: 10}

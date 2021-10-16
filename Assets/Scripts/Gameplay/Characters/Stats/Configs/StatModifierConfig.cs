@@ -29,7 +29,7 @@ namespace Unbowed.Gameplay.Characters.Stats.Configs {
 
         public StatEffector Get(bool isPrimary = false) => new StatEffector {
             type = type,
-            StatType = stat,
+            statType = stat,
             value = isInteger
                 ? VectorRandom.Range(integerValueRange)
                 : (float) Math.Round(VectorRandom.Range(floatValueRange), roundToDigit),

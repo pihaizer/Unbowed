@@ -6,7 +6,7 @@ namespace Unbowed.Gameplay.Characters.Configs {
     [CreateAssetMenu]
     public class CharacterConfig : SerializedScriptableObject {
         [HideLabel, InlineProperty]
-        public Stats.Stats stats = new Stats.Stats();
+        public Characters.Stats.Stats stats = new Characters.Stats.Stats();
 
         public CharacterDistances distances;
 

@@ -6,6 +6,8 @@ using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.Gameplay.Characters.Stats;
+using Unbowed.Gameplay.Characters.Stats.Configs;
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
@@ -45,7 +47,7 @@ namespace Unbowed.Gameplay.Characters {
         public bool IsStarted { get; private set; }
         
         [ShowInInspector]
-        public Configs.Stats.Stats Stats { get; private set; }
+        public Stats.Stats Stats { get; private set; }
 
         [NonSerialized]
         public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
@@ -61,7 +63,7 @@ namespace Unbowed.Gameplay.Characters {
         protected void Start() {
             if (!Application.isPlaying) return;
 
-            Stats = new Configs.Stats.Stats(config.stats);
+            Stats = new Stats.Stats(config.stats);
             Stats.Update();
 
             InitHealth();
@@ -74,12 +76,12 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         void InitHealth() {
-            health.Init(Mathf.FloorToInt(Stats["health"]));
+            health.Init(Mathf.FloorToInt(Stats[StatType.Health]));
             health.Died += OnDeath;
             health.Revived += OnRevive;
         }
 
-        void InitSpeed() => movement.Init(Stats["MoveSpeed"]);
+        void InitSpeed() => movement.Init(Stats[StatType.MoveSpeed]);
 
         void InitInventory() {
             inventory.AddedItem += InventoryOnAddedItem;

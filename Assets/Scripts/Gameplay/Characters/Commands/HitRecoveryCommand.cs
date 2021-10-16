@@ -1,4 +1,5 @@
 ﻿using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Gameplay.Characters.Stats;
 using Unbowed.Utility.Modifiers;
 
 namespace Unbowed.Gameplay.Characters.Commands {
@@ -10,7 +11,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
         
         public override void Start(Character character) {
             _character = character;
-            _remainingTime = _character.Stats["HitRecoveryTime"];
+            _remainingTime = _character.Stats[StatType.HitRecoveryTime];
             _character.areActionsBlocked.AddModifier(_actionsBlock);
         }
 

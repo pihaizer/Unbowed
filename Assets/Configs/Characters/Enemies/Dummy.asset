@@ -23,12 +23,8 @@ MonoBehaviour:
     SerializationNodes: []
   stats:
     stats:
-    - type: {fileID: 11400000, guid: 3086cb0a865f47648851fa45e590d504, type: 2}
+    - type: 10
       baseValue: 5
-    - type: {fileID: 11400000, guid: 6a5e1756ea650a742917b54497d8f377, type: 2}
-      baseValue: 1
-    - type: {fileID: 11400000, guid: e9df255a8953a0e4eb374e90fd567ab9, type: 2}
-      baseValue: 0.7
   distances: {fileID: 11400000, guid: 38340cb7be5e4ad45a8a440d3e03af03, type: 2}
   animationConfig:
     hitMomentPercent: 0.333

@@ -2,6 +2,8 @@
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Gameplay.Characters.Stats;
+
 using UnityEngine;
 
 namespace Unbowed.Animation {
@@ -52,7 +54,7 @@ namespace Unbowed.Animation {
         void OnAttacking(bool value) {
             if (value) {
                 animator.SetTrigger(Attack);
-                float attackSpeed = attackAnimation.length / character.Stats["AttackTime"];
+                float attackSpeed = attackAnimation.length / character.Stats[StatType.AttackTime];
                 animator.SetFloat(AttackSpeed, attackSpeed);
             }
         }
@@ -60,7 +62,7 @@ namespace Unbowed.Animation {
         void OnHitRecovering(bool value) {
             if (value) {
                 animator.SetTrigger(GotHit);
-                float hitRecoverSpeed = gotHitAnimation.length / character.Stats["HitRecoveryTime"];
+                float hitRecoverSpeed = gotHitAnimation.length / character.Stats[StatType.HitRecoveryTime];
                 animator.SetFloat(HitRecoverySpeed, hitRecoverSpeed);
             }
         }
