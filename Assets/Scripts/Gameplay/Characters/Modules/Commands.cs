@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
-    public class CharacterCommandExecutor : CommandExecutor {
+    public class Commands : CommandExecutor {
         public Character Parent { get; private set; }
 
         public void Init(Character parent) {

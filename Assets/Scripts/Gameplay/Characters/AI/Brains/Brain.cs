@@ -20,14 +20,14 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
         public void SetRestrictedZone(ColliderZone zone) => restrictedZone = zone;
 
         protected void MoveToPoint(Vector3 point, float maxTime = float.MaxValue) {
-            body.characterCommandExecutor.Execute(new MoveCommand(point, maxTime));
+            body.commands.Execute(new MoveCommand(point, maxTime));
         }
 
         protected void Attack(IHittable hittable, float maxTime = float.MaxValue) =>
-            body.characterCommandExecutor.Execute(new AttackCommand(hittable, maxTime));
+            body.commands.Execute(new AttackCommand(hittable, maxTime));
 
         protected void Idle(float time) =>
-            body.characterCommandExecutor.Execute(new IdleCommand(time));
+            body.commands.Execute(new IdleCommand(time));
 
         protected bool IsMovePositionValid(Vector3 position) =>
             restrictedZone == null || restrictedZone.Contains(position);

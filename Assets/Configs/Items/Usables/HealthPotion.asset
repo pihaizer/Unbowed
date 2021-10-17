@@ -12,16 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6d9913d38d4052957b926e75725807, type: 3}
   m_Name: HealthPotion
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  displayName: Lesser Health Potion
+  displayName: Minor Health Potion
   description: 
   icon: {fileID: 21300000, guid: e52ea25af699fd445b7046374f81a5b9, type: 3}
   modelPrefab: {fileID: 8118392229364383779, guid: 11bc64bcafdc2fb4d88d69442acd4afe, type: 3}
@@ -30,9 +21,11 @@ MonoBehaviour:
   dropChanceWeight: 1
   itemLevel: 1
   equipment:
-    slot: 0
+    type: 0
+    primaryStats: []
     rarityWeights:
       weights: []
   usableItem:
     color: {r: 0.6320754, g: 0, b: 0, a: 0.39215687}
+    appliedEffect: {fileID: 11400000, guid: 4ca22297d6b16794b9ce8483f9b04613, type: 2}
   specialColor: {r: 0, g: 0, b: 0, a: 0}

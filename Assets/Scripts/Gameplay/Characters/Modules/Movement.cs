@@ -1,10 +1,11 @@
 ﻿using Unbowed.Utility.Modifiers;
+
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Unbowed.Gameplay {
+namespace Unbowed.Gameplay.Characters.Modules {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class CharacterMovement : MonoBehaviour {
+    public class Movement : MonoBehaviour {
         public ModifiableParameter<float> speed;
 
         float runningSpeedMultiplier = 2f;

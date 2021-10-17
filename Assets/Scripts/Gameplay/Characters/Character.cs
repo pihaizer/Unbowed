@@ -2,13 +2,11 @@
 
 using Sirenix.OdinInspector;
 
+using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
-using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.Gameplay.Characters.Stats;
-using Unbowed.Gameplay.Characters.Stats.Configs;
-using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
 
@@ -17,11 +15,12 @@ using UnityEngine;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.Gameplay.Characters {
-    [RequireComponent(typeof(Health))]
-    [RequireComponent(typeof(CharacterMovement))]
-    [RequireComponent(typeof(Inventory))]
-    [RequireComponent(typeof(CharacterCommandExecutor))]
-    [RequireComponent(typeof(DropsModule))]
+    [RequireComponent(typeof(Modules.Health))]
+    [RequireComponent(typeof(Modules.Effects))]
+    [RequireComponent(typeof(Modules.Movement))]
+    [RequireComponent(typeof(Modules.Inventory))]
+    [RequireComponent(typeof(Modules.Commands))]
+    [RequireComponent(typeof(Modules.Drops))]
     [ExecuteAlways]
     public class Character : SerializedMonoBehaviour, ISelectable, IHittable {
         // configs
@@ -30,18 +29,22 @@ namespace Unbowed.Gameplay.Characters {
 
         // modules
         [HideInInspector]
-        public Health health;
+        public Modules.Health health;
 
         [HideInInspector]
-        public CharacterMovement movement;
+        public Modules.Effects effects;
 
         [HideInInspector]
-        public Inventory inventory;
-        [HideInInspector]
-        public CharacterCommandExecutor characterCommandExecutor;
+        public Modules.Movement movement;
 
         [HideInInspector]
-        public DropsModule dropsModule;
+        public Modules.Inventory inventory;
+        
+        [HideInInspector]
+        public Modules.Commands commands;
+
+        [HideInInspector]
+        public Modules.Drops drops;
 
         // runtime values
         public bool IsStarted { get; private set; }
@@ -53,11 +56,12 @@ namespace Unbowed.Gameplay.Characters {
         public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
 
         void OnEnable() {
-            health = GetComponent<Health>();
-            movement = GetComponent<CharacterMovement>();
-            inventory = GetComponent<Inventory>();
-            characterCommandExecutor = GetComponent<CharacterCommandExecutor>();
-            dropsModule = GetComponent<DropsModule>();
+            health = GetComponent<Modules.Health>();
+            movement = GetComponent<Modules.Movement>();
+            inventory = GetComponent<Modules.Inventory>();
+            commands = GetComponent<Modules.Commands>();
+            drops = GetComponent<Modules.Drops>();
+            effects = GetComponent<Modules.Effects>();
         }
 
         protected void Start() {
@@ -73,6 +77,20 @@ namespace Unbowed.Gameplay.Characters {
             InitDropsModule();
 
             IsStarted = true;
+        }
+
+        public void Hit(int damage, Character source) {
+            health.Hit(damage, source);
+            if (damage >= health.Max * CharacterConstants.StunDamageThreshold) {
+                commands.ForceExecute(new HitRecoveryCommand());
+            }
+        }
+
+        public bool TryUseItem(Item item) {
+            if (!item.IsUsable) return false;
+            item.Config.usableItem.appliedEffect.Build().Apply(this);
+            Inventory.RemoveItem(item);
+            return true;
         }
 
         void InitHealth() {
@@ -99,27 +117,20 @@ namespace Unbowed.Gameplay.Characters {
             if (item.IsEquipped) Stats.RemoveModifier(item.statEffectorsBundle);
         }
 
-        void InitCommandExecutor() => characterCommandExecutor.Init(this);
+        void InitCommandExecutor() => commands.Init(this);
 
-        void InitDropsModule() => dropsModule.Init(config.dropsConfig);
+        void InitDropsModule() => drops.Init(config.dropsConfig);
 
         void OnDeath(DeathData data) {
-            characterCommandExecutor.StopMain();
+            commands.StopMain();
             movement.NavAgent.enabled = false;
             StopAllCoroutines();
             movement.Stop();
         }
 
-        protected void OnRevive() {
+        void OnRevive() {
             gameObject.SetActive(true);
             movement.NavAgent.enabled = true;
-        }
-
-        public void Hit(int damage, Character source) {
-            health.Hit(damage, source);
-            if (damage >= health.Max * CharacterConstants.StunDamageThreshold) {
-                characterCommandExecutor.ForceExecute(new HitRecoveryCommand());
-            }
         }
 
         public bool CanBeHit() => !health.isDead;

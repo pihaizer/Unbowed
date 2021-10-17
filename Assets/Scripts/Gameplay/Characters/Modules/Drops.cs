@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Unbowed.Gameplay.Characters.Modules {
     [RequireComponent(typeof(Health))]
     [RequireComponent(typeof(Inventory))]
-    public class DropsModule : MonoBehaviour {
+    public class Drops : MonoBehaviour {
         Health _health;
         DropsConfig _config;
 

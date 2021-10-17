@@ -25,6 +25,8 @@ namespace Unbowed.Gameplay.Characters.Modules {
             isDead = false;
         }
 
+        public void Heal(int amount) => SetCurrent(Current + amount, null);
+
         public void Hit(int damage, Character source) => SetCurrent(Current - damage, source);
 
         void Die(Character killer) {
@@ -42,11 +44,15 @@ namespace Unbowed.Gameplay.Characters.Modules {
             if (newHealth == Current) return;
 
             Current = newHealth;
+            if (Current > Max) {
+                Current = Max;
+            } else if (Current < 0) {
+                Current = 0;
+            }
 
             HealthChanged?.Invoke(new HealthChangeData(this, source));
 
-            if (Current <= 0) {
-                Current = 0;
+            if (Current == 0) {
                 Die(source);
             }
         }

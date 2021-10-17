@@ -25,9 +25,9 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
 
         void OnItemClicked(IInteractable interactable) {
             if (ItemDragger.Instance.IsDragging) return;
-            if (!(_body.characterCommandExecutor.MainCommand is InteractCommand interactCommand) ||
+            if (!(_body.commands.MainCommand is InteractCommand interactCommand) ||
                 interactCommand.Target != interactable) {
-                _body.characterCommandExecutor.Execute(new InteractCommand(interactable));
+                _body.commands.Execute(new InteractCommand(interactable));
             }
         }
 
@@ -44,15 +44,15 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
                 switch (MouseContext.Instance.GameViewTarget) {
                     case IHittable hittable
                         when hittable.CanBeHit() &&
-                             (!(_body.characterCommandExecutor.MainCommand is AttackCommand
+                             (!(_body.commands.MainCommand is AttackCommand
                                   attackCommand) ||
                               attackCommand.Target != hittable):
-                        _body.characterCommandExecutor.Execute(new AttackCommand(hittable));
+                        _body.commands.Execute(new AttackCommand(hittable));
                         break;
                     case IInteractable interactable
-                        when !(_body.characterCommandExecutor.MainCommand is InteractCommand interactCommand) ||
+                        when !(_body.commands.MainCommand is InteractCommand interactCommand) ||
                              interactCommand.Target != interactable:
-                        _body.characterCommandExecutor.Execute(new InteractCommand(interactable));
+                        _body.commands.Execute(new InteractCommand(interactable));
                         break;
                 }
             } else {
@@ -61,7 +61,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
                     _config.navMeshLayerMask))
                     return;
                 if (NavMesh.SamplePosition(hit.point, out var navMeshHit, _config.maxWalkDistance, 1))
-                    _body.characterCommandExecutor.Execute(new MoveCommand(navMeshHit.position));
+                    _body.commands.Execute(new MoveCommand(navMeshHit.position));
             }
         }
     }

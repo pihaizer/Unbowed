@@ -11,13 +11,13 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
 
         public BasicBrain(BasicBrainConfigSO config, Character body, int id) : base(body, id) {
             _config = config;
-            body.characterCommandExecutor.StoppedExecuting += OnStoppedExecuting;
+            body.commands.StoppedExecuting += OnStoppedExecuting;
         }
 
         public override void FixedUpdate() {
             base.FixedUpdate();
             if (body.health.isDead || body.areActionsBlocked) return;
-            if (body.characterCommandExecutor.MainCommand == null) {
+            if (body.commands.MainCommand == null) {
                 SelectNewCommand();
             }
         }

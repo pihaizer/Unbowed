@@ -1,6 +1,8 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Items;
+using Unbowed.SO;
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -52,6 +54,9 @@ namespace Unbowed.UI.Gameplay.Inventory {
         }
 
         public void OnPointerDown(PointerEventData eventData) {
+            if (eventData.button == PointerEventData.InputButton.Right) {
+                ActivePlayer.Get().TryUseItem(Item);
+            }
             if (eventData.button != PointerEventData.InputButton.Left) return;
             Dragged?.Invoke(this, eventData);
         }

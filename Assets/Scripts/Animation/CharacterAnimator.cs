@@ -22,8 +22,8 @@ namespace Unbowed.Animation {
         static readonly int HitRecoverySpeed = Animator.StringToHash("hitRecoverySpeed");
 
         void Start() {
-            character.characterCommandExecutor.StartedExecuting += CharacterOnStartedExecuting;
-            character.characterCommandExecutor.StoppedExecuting += CharacterOnStoppedExecuting;
+            character.commands.StartedExecuting += CharacterOnStartedExecuting;
+            character.commands.StoppedExecuting += CharacterOnStoppedExecuting;
             character.health.Died += OnDied;
             character.health.Revived += OnRevived;
         }
