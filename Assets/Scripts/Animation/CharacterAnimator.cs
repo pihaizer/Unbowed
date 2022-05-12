@@ -8,34 +8,35 @@ using UnityEngine;
 
 namespace Unbowed.Animation {
     public class CharacterAnimator : MonoBehaviour {
-        [SerializeField] Character character;
-        [SerializeField] Animator animator;
-        [SerializeField] AnimationClip attackAnimation;
-        [SerializeField] AnimationClip gotHitAnimation;
+        [SerializeField] private Character character;
+        [SerializeField] private Animator animator;
+        [SerializeField] private AnimationClip attackAnimation;
+        [SerializeField] private AnimationClip gotHitAnimation;
+        [SerializeField] private GameObject ragdollGameobject;
 
-        static readonly int RelativeSpeed = Animator.StringToHash("relativeSpeed");
-        static readonly int Attack = Animator.StringToHash("attack");
-        static readonly int GotHit = Animator.StringToHash("gotHit");
-        static readonly int Died = Animator.StringToHash("died");
-        static readonly int Revived = Animator.StringToHash("revived");
-        static readonly int AttackSpeed = Animator.StringToHash("attackSpeed");
-        static readonly int HitRecoverySpeed = Animator.StringToHash("hitRecoverySpeed");
+        private static readonly int RelativeSpeed = Animator.StringToHash("relativeSpeed");
+        private static readonly int Attack = Animator.StringToHash("attack");
+        private static readonly int GotHit = Animator.StringToHash("gotHit");
+        private static readonly int Died = Animator.StringToHash("died");
+        private static readonly int Revived = Animator.StringToHash("revived");
+        private static readonly int AttackSpeed = Animator.StringToHash("attackSpeed");
+        private static readonly int HitRecoverySpeed = Animator.StringToHash("hitRecoverySpeed");
 
-        void Start() {
+        private void Start() {
             character.commands.StartedExecuting += CharacterOnStartedExecuting;
             character.commands.StoppedExecuting += CharacterOnStoppedExecuting;
             character.health.Died += OnDied;
             character.health.Revived += OnRevived;
         }
 
-        void Update() {
+        private void Update() {
             float relativeSpeed = character.movement.NavAgent.hasPath
                 ? character.movement.speed.ModifiedValue / character.movement.speed.BaseValue
                 : 0;
             animator.SetFloat(RelativeSpeed, relativeSpeed, 0.1f, Time.deltaTime);
         }
 
-        void CharacterOnStartedExecuting(Command command) {
+        private void CharacterOnStartedExecuting(Command command) {
             if (command is AttackCommand attackCommand) {
                 attackCommand.isAttacking.Changed += OnAttacking;
             } else if (command is HitRecoveryCommand) {
@@ -43,7 +44,7 @@ namespace Unbowed.Animation {
             }
         }
 
-        void CharacterOnStoppedExecuting(Command command) {
+        private void CharacterOnStoppedExecuting(Command command) {
             if (command is AttackCommand attackCommand) {
                 attackCommand.isAttacking.Changed -= OnAttacking;
             } else if (command is HitRecoveryCommand) {
@@ -51,7 +52,7 @@ namespace Unbowed.Animation {
             }
         }
 
-        void OnAttacking(bool value) {
+        private void OnAttacking(bool value) {
             if (value) {
                 animator.SetTrigger(Attack);
                 float attackSpeed = attackAnimation.length / character.Stats[StatType.AttackTime];
@@ -59,7 +60,7 @@ namespace Unbowed.Animation {
             }
         }
 
-        void OnHitRecovering(bool value) {
+        private void OnHitRecovering(bool value) {
             if (value) {
                 animator.SetTrigger(GotHit);
                 float hitRecoverSpeed = gotHitAnimation.length / character.Stats[StatType.HitRecoveryTime];
@@ -67,11 +68,15 @@ namespace Unbowed.Animation {
             }
         }
 
-        void OnDied(DeathData data) {
-            animator.SetTrigger(Died);
+        private void OnDied(DeathData data)
+        {
+            animator.enabled = false;
+            ragdollGameobject.SetActive(true);
         }
 
-        void OnRevived() {
+        private void OnRevived() {
+            ragdollGameobject.SetActive(false);
+            animator.enabled = true;
             animator.ResetTrigger(GotHit);
             animator.ResetTrigger(Died);
             animator.SetTrigger(Revived);
