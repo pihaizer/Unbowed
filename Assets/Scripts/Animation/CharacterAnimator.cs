@@ -27,6 +27,8 @@ namespace Unbowed.Animation {
             character.commands.StoppedExecuting += CharacterOnStoppedExecuting;
             character.health.Died += OnDied;
             character.health.Revived += OnRevived;
+
+            SetRagdollActive(false);
         }
 
         private void Update() {
@@ -71,11 +73,20 @@ namespace Unbowed.Animation {
         private void OnDied(DeathData data)
         {
             animator.enabled = false;
-            ragdollGameobject.SetActive(true);
+            SetRagdollActive(true);
+        }
+
+        private void SetRagdollActive(bool value)
+        {
+            foreach (Rigidbody rigidbody in ragdollGameobject.GetComponentsInChildren<Rigidbody>())
+            {
+                rigidbody.detectCollisions = value;
+                rigidbody.isKinematic = !value;
+            }
         }
 
         private void OnRevived() {
-            ragdollGameobject.SetActive(false);
+            SetRagdollActive(false);
             animator.enabled = true;
             animator.ResetTrigger(GotHit);
             animator.ResetTrigger(Died);

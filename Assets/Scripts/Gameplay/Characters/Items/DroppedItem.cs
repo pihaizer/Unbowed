@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.SO;
 using Unbowed.Utility;
@@ -37,8 +38,10 @@ namespace Unbowed.Gameplay.Items {
         public void SetItem(Characters.Items.Item item) {
             Item = item;
             EventsContext.Instance.descriptionCreateRequest?.Invoke(this, true);
-            Instantiate(item.Config.modelPrefab, transform);
-            OnPickupError();
+            Instantiate(item.Config.modelPrefab != null ? 
+                item.Config.modelPrefab : 
+                ItemsConfig.Instance.defaultItemModelPrefab, transform);
+            ThrowItemModelUpwards();
         }
 
         public void Interact(GameObject source) {
@@ -46,12 +49,12 @@ namespace Unbowed.Gameplay.Items {
             if (inventory.TryAddItemToBags(Item)) {
                 Destroy(gameObject);
             } else {
-                OnPickupError();
+                ThrowItemModelUpwards();
             }
         }
 
         [Button]
-        void OnPickupError() {
+        private void ThrowItemModelUpwards() {
             if (!TryGetComponent(out Rigidbody rb)) return;
             rb.AddForce(Vector3.up * throwForce, ForceMode.Impulse);
             rb.AddTorque(new Vector3(VectorRandom.Range(throwTorqueRange),

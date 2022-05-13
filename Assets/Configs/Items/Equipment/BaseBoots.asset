@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Booties
   description: 
   icon: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
-  modelPrefab: {fileID: 4685631388005389049, guid: 02374d3353fa19744ae649f7a7281d50, type: 3}
+  modelPrefab: {fileID: -3939151208903460125, guid: 02374d3353fa19744ae649f7a7281d50, type: 3}
   size: {x: 2, y: 2}
   type: 0
   dropChanceWeight: 1
@@ -46,4 +46,5 @@ MonoBehaviour:
         normalized: 0.0081761
   usableItem:
     color: {r: 0, g: 0, b: 0, a: 0}
+    appliedEffect: {fileID: 0}
   specialColor: {r: 0, g: 0, b: 0, a: 0}
