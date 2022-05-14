@@ -15,8 +15,8 @@ namespace Unbowed.Utility.Modifiers {
         public Operation Operate { get; }
 
         public delegate T Operation(T t1, T t2);
-        
-        T _value;
+
+        private T _value;
 
         public Modifier(T value, Operation operation, int priority = 0) {
             _value = value;
@@ -30,7 +30,7 @@ namespace Unbowed.Utility.Modifiers {
             }
         }
 
-        void SetValue(T value) {
+        private void SetValue(T value) {
             if (_value.Equals(value)) return;
             _value = value;
             Changed?.Invoke(value);

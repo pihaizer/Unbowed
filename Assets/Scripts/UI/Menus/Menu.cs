@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Unbowed.UI {
     public class Menu : SerializedMonoBehaviour {
-        [SerializeField] bool startOpened;
+        [SerializeField] private bool startOpened;
 
         public Mutable<bool> IsOpened { get; } = new Mutable<bool>();
 

@@ -7,12 +7,12 @@ using UnityEngine;
 namespace Unbowed.Gameplay.Characters.AI {
     [RequireComponent(typeof(Character))]
     public class CharacterAI : MonoBehaviour {
-        [SerializeField] BrainConfigSO brainConfig;
-        [SerializeField] ColliderZone restrictedZone;
+        [SerializeField] private BrainConfigSO brainConfig;
+        [SerializeField] private ColliderZone restrictedZone;
 
-        Brain _brain;
+        private Brain _brain;
 
-        IEnumerator Start() {
+        private IEnumerator Start() {
             var character = GetComponent<Character>();
             yield return new WaitUntil(() => character.IsStarted);
             if (brainConfig) {
@@ -21,13 +21,13 @@ namespace Unbowed.Gameplay.Characters.AI {
             }
         }
 
-        void FixedUpdate() => _brain?.FixedUpdate();
+        private void FixedUpdate() => _brain?.FixedUpdate();
 
-        void Update() => _brain?.Update();
+        private void Update() => _brain?.Update();
 
-        void OnDestroy() => _brain?.OnDestroy();
+        private void OnDestroy() => _brain?.OnDestroy();
 
-        void OnValidate() {
+        private void OnValidate() {
             if (!Application.isPlaying) return;
             var character = GetComponent<Character>();
             if (!character.IsStarted) return;

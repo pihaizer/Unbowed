@@ -5,6 +5,7 @@ using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
+using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.Gameplay.Characters.Stats;
 using Unbowed.SO;
@@ -55,7 +56,7 @@ namespace Unbowed.Gameplay.Characters {
         [NonSerialized]
         public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
 
-        void OnEnable() {
+        private void OnEnable() {
             health = GetComponent<Modules.Health>();
             movement = GetComponent<Modules.Movement>();
             inventory = GetComponent<Modules.Inventory>();
@@ -87,48 +88,48 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         public bool TryUseItem(Item item) {
-            if (!item.IsUsable) return false;
-            item.Config.usableItem.appliedEffect.Build().Apply(this);
+            if (item is not UsableItem usableItem) return false;
+            usableItem.Config.appliedEffect.Build().Apply(this);
             Inventory.RemoveItem(item);
             return true;
         }
 
-        void InitHealth() {
+        private void InitHealth() {
             health.Init(Mathf.FloorToInt(Stats[StatType.Health]));
             health.Died += OnDeath;
             health.Revived += OnRevive;
         }
 
-        void InitSpeed() => movement.Init(Stats[StatType.MoveSpeed]);
+        private void InitSpeed() => movement.Init(Stats[StatType.MoveSpeed]);
 
-        void InitInventory() {
+        private void InitInventory() {
             inventory.AddedItem += InventoryOnAddedItem;
             inventory.RemovedItem += InventoryOnRemovedItem;
             inventory.Init();
         }
 
-        void InventoryOnAddedItem(Item item) {
-            if (item.statEffectorsBundle == null) return;
-            if (item.IsEquipped) Stats.AddModifier(item.statEffectorsBundle);
+        private void InventoryOnAddedItem(Item item) {
+            if (item is not Equipment equipment) return;
+            if (equipment.IsEquipped) Stats.AddModifier(equipment.Stats);
         }
 
-        void InventoryOnRemovedItem(Item item) {
-            if (item.statEffectorsBundle == null) return;
-            if (item.IsEquipped) Stats.RemoveModifier(item.statEffectorsBundle);
+        private void InventoryOnRemovedItem(Item item) {
+            if (item is not Equipment equipment) return;
+            if (equipment.IsEquipped) Stats.RemoveModifier(equipment.Stats);
         }
 
-        void InitCommandExecutor() => commands.Init(this);
+        private void InitCommandExecutor() => commands.Init(this);
 
-        void InitDropsModule() => drops.Init(config.dropsConfig);
+        private void InitDropsModule() => drops.Init(config.dropsConfig);
 
-        void OnDeath(DeathData data) {
+        private void OnDeath(DeathData data) {
             commands.StopMain();
             movement.NavAgent.enabled = false;
             StopAllCoroutines();
             movement.Stop();
         }
 
-        void OnRevive() {
+        private void OnRevive() {
             gameObject.SetActive(true);
             movement.NavAgent.enabled = true;
         }

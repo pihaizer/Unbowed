@@ -6,12 +6,11 @@ using UnityEngine;
 namespace Unbowed.Gameplay.Characters.Stats {
     [Serializable]
     public class Stats {
-        [SerializeField] 
-        List<Stat> stats;
+        [SerializeField] private List<Stat> stats;
         
         public event Action Updated;
 
-        readonly List<StatEffectorsBundle> _modifiers = new List<StatEffectorsBundle>();
+        private readonly List<StatEffectorsBundle> _modifiers = new List<StatEffectorsBundle>();
 
         public Stats() {
             stats = new List<Stat>();
@@ -31,7 +30,7 @@ namespace Unbowed.Gameplay.Characters.Stats {
         public void AddModifier(StatEffectorsBundle modifier) {
             if (_modifiers.Contains(modifier)) return;
             _modifiers.Add(modifier);
-            foreach (var statModifier in modifier.statModifiers) {
+            foreach (var statModifier in modifier.statEffectors) {
                 this[statModifier.statType].AddModifier(statModifier);
             }
             Update();
@@ -39,7 +38,7 @@ namespace Unbowed.Gameplay.Characters.Stats {
 
         public void RemoveModifier(StatEffectorsBundle modifier) {
             _modifiers.Remove(modifier);
-            foreach (var statModifier in modifier.statModifiers) {
+            foreach (var statModifier in modifier.statEffectors) {
                 this[statModifier.statType].RemoveModifier(statModifier);
             }
             Update();

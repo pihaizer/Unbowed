@@ -3,10 +3,10 @@ using UnityEngine.AI;
 
 namespace Unbowed.Gameplay.Characters.Commands {
     public class MoveCommand : CharacterCommand {
-        readonly Vector3 _newMoveTarget;
-        readonly float _maxTime;
-        Character _character;
-        float _startTime;
+        private readonly Vector3 _newMoveTarget;
+        private readonly float _maxTime;
+        private Character _character;
+        private float _startTime;
 
         public MoveCommand(Vector3 newMoveTarget, float maxTime = float.MaxValue) {
             _newMoveTarget = newMoveTarget;

@@ -5,13 +5,13 @@ using UnityEngine;
 namespace Unbowed.Gameplay {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class CameraZoomer : MonoBehaviour {
-        [SerializeField] float[] distances;
-        [SerializeField] float zoomTime = 0.75f;
-        [SerializeField] int currentDistanceIndex;
+        [SerializeField] private float[] distances;
+        [SerializeField] private float zoomTime = 0.75f;
+        [SerializeField] private int currentDistanceIndex;
 
-        CinemachineFramingTransposer _transposer;
+        private CinemachineFramingTransposer _transposer;
 
-        void Start() {
+        private void Start() {
             if (distances.Length == 0) {
                 Debug.LogError($"{gameObject} doesn't have anything to select.");
                 enabled = false;
@@ -22,7 +22,7 @@ namespace Unbowed.Gameplay {
             _transposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
         }
 
-        void Update() {
+        private void Update() {
             if (Input.GetKeyDown(KeyCode.RightBracket)) Step(true);
             else if (Input.GetKeyDown(KeyCode.LeftBracket)) Step(false);
         }

@@ -13,14 +13,15 @@ using Item = Unbowed.Gameplay.Characters.Items.Item;
 namespace Unbowed.UI.Gameplay.Inventory {
     [RequireComponent(typeof(RectTransform))]
     public class ItemUI : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerExitHandler {
-        [SerializeField] float _cellSize = 47.5f;
-        [SerializeField] float _cellSpacing = 2f;
-        [SerializeField] Image _image;
-        [SerializeField] RectTransform _raycastReceiver;
-        [FormerlySerializedAs("_descriptionUI"),SerializeField, ChildGameObjectsOnly] ItemDescriptionUI itemDescriptionUI;
+        [SerializeField] private float _cellSize = 47.5f;
+        [SerializeField] private float _cellSpacing = 2f;
+        [SerializeField] private Image _image;
+        [SerializeField] private RectTransform _raycastReceiver;
+        [FormerlySerializedAs("_descriptionUI"),SerializeField, ChildGameObjectsOnly]
+        private ItemDescriptionUI itemDescriptionUI;
 
-        RectTransform _rectTransform;
-        Canvas _canvas;
+        private RectTransform _rectTransform;
+        private Canvas _canvas;
 
         public event Action<ItemUI, bool, PointerEventData> IsHoveredChanged;
         public event Action<ItemUI, PointerEventData> Dragged;

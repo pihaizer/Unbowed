@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Unbowed.InGameDebug {
     public class DebugUICanvas : MonoBehaviour {
-        static DebugUICanvas Instance { get; set; }
+        private static DebugUICanvas Instance { get; set; }
 
-        DebugUIController _debugUIController;
+        private DebugUIController _debugUIController;
 
-        void Start() {
+        private void Start() {
             if (Instance != null && Instance != this) {
                 Destroy(gameObject);
                 return;
@@ -27,7 +27,7 @@ namespace Unbowed.InGameDebug {
             DontDestroyOnLoad(gameObject);
         }
 
-        void Update() {
+        private void Update() {
             if (Input.GetKeyDown(KeyCode.F12)) _debugUIController.gameObject.ToggleActive();
         }
     }

@@ -29,7 +29,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public void Hit(int damage, Character source) => SetCurrent(Current - damage, source);
 
-        void Die(Character killer) {
+        private void Die(Character killer) {
             isDead = true;
             Died?.Invoke(new DeathData {killer = killer});
         }
@@ -40,7 +40,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             Revived?.Invoke();
         }
 
-        void SetCurrent(int newHealth, Character source) {
+        private void SetCurrent(int newHealth, Character source) {
             if (newHealth == Current) return;
 
             Current = newHealth;
@@ -57,7 +57,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
             }
         }
 
-        void SetMax(int newMaxHealth) {
+        private void SetMax(int newMaxHealth) {
             if (newMaxHealth == Max) return;
             Max = newMaxHealth;
             if (Current > Max) Current = Max;

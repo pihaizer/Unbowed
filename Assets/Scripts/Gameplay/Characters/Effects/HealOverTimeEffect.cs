@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Effects {
     public class HealOverTimeEffect : Effect {
-        readonly HealOverTimeConfig _config;
-        float _timeSinceLastHeal;
+        private readonly HealOverTimeConfig _config;
+        private float _timeSinceLastHeal;
         
         public HealOverTimeEffect(int id, HealOverTimeConfig config) : base(id) => _config = config;
 

@@ -21,7 +21,7 @@ namespace Unbowed.InGameDebug {
         public GameObject graphyPrefab;
         public VerticalLayoutGroup consoleLayoutGroup;
         public TMP_Text consoleTextExampleMessage;
-        GameObject _graphy;
+        private GameObject _graphy;
 
         public void Init() {
             closeButton.onClick.AddListener(() => gameObject.SetActive(false));
@@ -40,7 +40,7 @@ namespace Unbowed.InGameDebug {
             consoleTextExampleMessage.gameObject.SetActive(false);
         }
 
-        void LogToConsole(string logString, string stackTrace, LogType type) {
+        private void LogToConsole(string logString, string stackTrace, LogType type) {
             if (consoleLayoutGroup == null) return;
             var newMessage = Instantiate(consoleTextExampleMessage, consoleLayoutGroup.transform, false);
             newMessage.gameObject.SetActive(true);

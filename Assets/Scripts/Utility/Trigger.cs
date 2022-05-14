@@ -8,10 +8,10 @@ namespace Unbowed.Utility {
         public event Action<Collider> Stay;
         public event Action<Collider> Exit;
 
-        void OnTriggerEnter(Collider other) => Enter?.Invoke(other);
+        private void OnTriggerEnter(Collider other) => Enter?.Invoke(other);
 
-        void OnTriggerStay(Collider other) => Stay?.Invoke(other);
+        private void OnTriggerStay(Collider other) => Stay?.Invoke(other);
 
-        void OnTriggerExit(Collider other) => Exit?.Invoke(other);
+        private void OnTriggerExit(Collider other) => Exit?.Invoke(other);
     }
 }

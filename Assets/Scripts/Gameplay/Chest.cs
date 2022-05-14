@@ -7,18 +7,18 @@ using UnityEngine;
 namespace Unbowed.Gameplay {
     [RequireComponent(typeof(Inventory))]
     public class Chest : MonoBehaviour, ISelectable, IInteractable {
-        [SerializeField] float maxDistance = 3f;
+        [SerializeField] private float maxDistance = 3f;
 
-        Inventory _inventory;
-        bool _isOpened = true;
-        GameObject _opener;
+        private Inventory _inventory;
+        private bool _isOpened = true;
+        private GameObject _opener;
 
-        void Start() {
+        private void Start() {
             _inventory = GetComponent<Inventory>();
             _inventory.Init();
         }
 
-        void Update() {
+        private void Update() {
             if (!_isOpened) return;
             
             if (_opener == null) {

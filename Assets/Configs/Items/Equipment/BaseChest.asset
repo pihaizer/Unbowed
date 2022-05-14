@@ -9,42 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b6d9913d38d4052957b926e75725807, type: 3}
+  m_Script: {fileID: 11500000, guid: ef32be4497a44ef28264942bdfbc737e, type: 3}
   m_Name: BaseChest
   m_EditorClassIdentifier: 
-  displayName: Chest
+  displayName: 
   description: 
-  icon: {fileID: 21300000, guid: 6fc27c9d7fc2d9448af6851bf935e6d2, type: 3}
-  modelPrefab: {fileID: -7642057981061368651, guid: 4928704ba0da1f04aa534d4ba814b638, type: 3}
-  size: {x: 2, y: 3}
-  type: 0
-  dropChanceWeight: 1
-  itemLevel: 1
-  equipment:
-    type: 8
-    primaryStats:
-    - statType: 11
-      value: 10
-      isPrimary: 1
-      type: 1
-    rarityWeights:
-      weights:
-      - value: 0
-        weight: 0.602
-        normalized: 0.37861633
-      - value: 1
-        weight: 0.708
-        normalized: 0.44528303
-      - value: 2
-        weight: 0.186
-        normalized: 0.116981134
-      - value: 3
-        weight: 0.081
-        normalized: 0.050943397
-      - value: 4
-        weight: 0.013
-        normalized: 0.0081761
-  usableItem:
-    color: {r: 0, g: 0, b: 0, a: 0}
-    appliedEffect: {fileID: 0}
-  specialColor: {r: 0, g: 0, b: 0, a: 0}
+  icon: {fileID: 0}
+  modelPrefab: {fileID: 0}
+  size: {x: 0, y: 0}
+  itemLevel: 0
+  primaryStats: []
+  rarityWeights:
+    weights: []
+  ArmorType: 0

@@ -25,7 +25,7 @@ namespace Unbowed.Gameplay {
             return closest;
         }
 
-        bool IsPointWithinCollider(Collider collider, Vector3 point) => 
+        private bool IsPointWithinCollider(Collider collider, Vector3 point) => 
             (collider.ClosestPoint(point) - point).sqrMagnitude < Mathf.Epsilon * Mathf.Epsilon;
     }
 }

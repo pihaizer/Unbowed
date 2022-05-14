@@ -4,20 +4,20 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay {
     public class DamageZone : MonoBehaviour {
-        [SerializeField] int damage = 1;
-        [SerializeField] float radius = 3f;
-        [SerializeField] float timeBetweenAttacks = 1f;
-        Coroutine _hitCoroutine;
+        [SerializeField] private int damage = 1;
+        [SerializeField] private float radius = 3f;
+        [SerializeField] private float timeBetweenAttacks = 1f;
+        private Coroutine _hitCoroutine;
 
-        void OnEnable() {
+        private void OnEnable() {
             _hitCoroutine = StartCoroutine(HitCoroutine());
         }
 
-        void OnDisable() {
+        private void OnDisable() {
             StopCoroutine(_hitCoroutine);
         }
 
-        IEnumerator HitCoroutine() {
+        private IEnumerator HitCoroutine() {
             while (true) {
                 yield return new WaitForSeconds(timeBetweenAttacks);
                 var colliders = Physics.OverlapSphere(transform.position, radius);
@@ -29,8 +29,8 @@ namespace Unbowed.Gameplay {
                 }
             }
         }
-    
-        void TryHit(IHittable target) {
+
+        private void TryHit(IHittable target) {
             if (target.CanBeHit()) {
                 target.Hit(damage, null);
             }

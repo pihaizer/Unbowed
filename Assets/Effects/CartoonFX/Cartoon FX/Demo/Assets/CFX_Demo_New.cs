@@ -35,8 +35,8 @@ public class CFX_Demo_New : MonoBehaviour
 	private List<GameObject> onScreenParticles = new List<GameObject>();
 	
 	//-------------------------------------------------------------
-	
-	void Awake()
+
+	private void Awake()
 	{
 		List<GameObject> particleExampleList = new List<GameObject>();
 		int nbChild = this.transform.childCount;
@@ -55,8 +55,8 @@ public class CFX_Demo_New : MonoBehaviour
 		
 		UpdateUI();
 	}
-	
-	void Update()
+
+	private void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.LeftArrow))
 		{
@@ -193,8 +193,8 @@ public class CFX_Demo_New : MonoBehaviour
 		
 		return particles;
 	}
-	
-	IEnumerator CheckForDeletedParticles()
+
+	private IEnumerator CheckForDeletedParticles()
 	{
 		while(true)
 		{

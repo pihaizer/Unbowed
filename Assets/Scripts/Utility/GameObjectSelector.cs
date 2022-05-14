@@ -2,11 +2,11 @@
 
 namespace Unbowed.Utility {
     public class GameObjectSelector : MonoBehaviour {
-        [SerializeField] GameObject[] objects;
+        [SerializeField] private GameObject[] objects;
 
-        int currentObjectIndex = -1;
+        private int currentObjectIndex = -1;
 
-        void Start() {
+        private void Start() {
             if (objects.Length == 0) {
                 Debug.LogError($"{gameObject} doesn't have anything to select.");
                 enabled = false;

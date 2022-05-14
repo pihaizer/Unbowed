@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Unbowed.Utility.WaitFor {
     public class WaitForOptionalAnimation : CustomYieldInstruction {
-        readonly AnimationClip _clip;
-        readonly float _startTime;
+        private readonly AnimationClip _clip;
+        private readonly float _startTime;
 
         public override bool keepWaiting => _clip != null && (Time.time - _startTime) < _clip.length;
 

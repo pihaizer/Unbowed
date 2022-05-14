@@ -12,7 +12,7 @@ namespace Unbowed.Utility {
     public class Weights<T> {
         [SerializeField]
         [TableList(AlwaysExpanded = true, IsReadOnly = true, HideToolbar = true)]
-        List<Weight<T>> weights;
+        private List<Weight<T>> weights;
 
         public void SetValues(T[] values) {
             weights.SetLength(values.Length);
@@ -38,7 +38,7 @@ namespace Unbowed.Utility {
         }
 
         [Button]
-        void UpdateNormalizedValues() {
+        private void UpdateNormalizedValues() {
             float weightSum = weights.Sum(w => w.weight);
             for (int i = 0; i < weights.Count; i++) {
                 var weight = weights[i];
@@ -48,7 +48,7 @@ namespace Unbowed.Utility {
         }
 
         [Serializable]
-        struct Weight<K> {
+        private struct Weight<K> {
             [DisplayAsString, TableColumnWidth(15)]
             public K value;
 
@@ -59,7 +59,7 @@ namespace Unbowed.Utility {
             public float normalized;
 
             [ShowInInspector, DisplayAsString, VerticalGroup("Normalized"), TableColumnWidth(40), HideLabel]
-            float NormalizedPercent => normalized * 100f;
+            private float NormalizedPercent => normalized * 100f;
         }
     }
 }

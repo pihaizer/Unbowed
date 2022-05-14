@@ -7,7 +7,7 @@ using Unbowed.Gameplay.Items;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     public class EquipmentUI : SerializedMonoBehaviour {
-        [OdinSerialize] Dictionary<EquipmentSlot, EquipmentSlotUI> _equipments = Enum.GetValues(typeof(EquipmentSlot))
+        [OdinSerialize] private Dictionary<EquipmentSlot, EquipmentSlotUI> _equipments = Enum.GetValues(typeof(EquipmentSlot))
             .Cast<EquipmentSlot>().ToDictionary(slot => slot, slot => (EquipmentSlotUI) null);
 
         public Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; private set; }

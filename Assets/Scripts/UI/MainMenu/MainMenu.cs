@@ -7,33 +7,29 @@ using UnityEngine.UI;
 
 namespace Unbowed.UI.MainMenu {
     public class MainMenu : MonoBehaviour {
-        [SerializeField, ChildGameObjectsOnly]
-        Button newGameButton;
+        [SerializeField, ChildGameObjectsOnly] private Button newGameButton;
 
-        [SerializeField, ChildGameObjectsOnly]
-        Button optionsButton;
+        [SerializeField, ChildGameObjectsOnly] private Button optionsButton;
 
-        [SerializeField, ChildGameObjectsOnly]
-        Button exitButton;
+        [SerializeField, ChildGameObjectsOnly] private Button exitButton;
 
-        [SerializeField]
-        SceneConfig gameSceneConfig;
+        [SerializeField] private SceneConfig gameSceneConfig;
 
-        void Awake() {
+        private void Awake() {
             newGameButton.onClick.AddListener(StartNewGame);
             optionsButton.onClick.AddListener(OpenOptions);
             exitButton.onClick.AddListener(Exit);
         }
 
-        void StartNewGame() {
+        private void StartNewGame() {
             ScenesConfig.Instance.Load(new SceneChangeRequest(gameSceneConfig) {
                 useLoadingScreen = true, setActive = true, unloadOther = true
             });
         }
 
-        void OpenOptions() { }
+        private void OpenOptions() { }
 
-        void Exit() {
+        private void Exit() {
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #else

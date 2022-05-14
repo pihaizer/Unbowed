@@ -11,23 +11,23 @@ using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     public class CellUI : MonoBehaviour {
-        [SerializeField, ChildGameObjectsOnly] Image _background;
+        [SerializeField, ChildGameObjectsOnly] private Image _background;
 
         public Item Item { get; private set; }
 
-        TweenerCore<Color, Color, ColorOptions> _tweener;
-        State _state;
+        private TweenerCore<Color, Color, ColorOptions> _tweener;
+        private State _state;
 
         public void Init() {
             SetItem(null);
             _background.color = GetColor();
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             _tweener.Kill();
         }
 
-        void Update() => UpdateColor();
+        private void Update() => UpdateColor();
 
         public virtual void SetItem(Item item) {
             Item = item;
@@ -40,14 +40,14 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
         public void ResetState() => SetState(State.Default);
 
-        void UpdateColor() {
+        private void UpdateColor() {
             var color = GetColor();
             _background.color = color;
             // _tweener.Kill();
             // _tweener = _background.DOColor(color, UIConfig.Instance.itemsAnimationTime);
         }
 
-        Color GetColor() {
+        private Color GetColor() {
             var color = Item?.Color ?? UIConfig.Instance.defaultSlotColor;
 
             color = _state switch {

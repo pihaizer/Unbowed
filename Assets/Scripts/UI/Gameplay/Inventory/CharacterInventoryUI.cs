@@ -4,12 +4,12 @@ using UnityEngine;
 namespace Unbowed.UI.Gameplay.Inventory {
     public class CharacterInventoryUI : Menu {
         [SerializeField, Required, ChildGameObjectsOnly]
-        BagsUI bagsUI;
+        private BagsUI bagsUI;
 
         [SerializeField, Required, ChildGameObjectsOnly]
-        EquipmentUI equipmentUI;
+        private EquipmentUI equipmentUI;
 
-        Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; set; }
+        private Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; set; }
 
         public void SetInventory(Unbowed.Gameplay.Characters.Modules.Inventory inventory) {
             Inventory = inventory;

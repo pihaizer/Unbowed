@@ -1,30 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
 using Unbowed.UI.Gameplay.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using Zenject;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.UI.Gameplay {
     public class ItemDragger : MonoBehaviour {
-        ItemUI _draggedItemUI;
-        RectTransform _dragRect;
+        private ItemUI _draggedItemUI;
+        private RectTransform _dragRect;
         
         public static ItemDragger Instance { get; private set; }
 
         public Item Item { get; private set; }
         public bool IsDragging => Item != null;
 
-        void Awake() {
+        [Inject] private ItemsDropper _itemsDropper;
+
+        private void Awake() {
             Instance = this;
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             if (Instance == this) Instance = null;
         }
 
@@ -48,7 +51,7 @@ namespace Unbowed.UI.Gameplay {
             StartCoroutine(DragItemCoroutine());
         }
 
-        IEnumerator DragItemCoroutine() {
+        private IEnumerator DragItemCoroutine() {
             MouseContext.Instance.blockedByDraggedItem = true;
             var raycastResults = new List<RaycastResult>();
             var cell = new Vector2Int(int.MaxValue, int.MaxValue);
@@ -85,7 +88,7 @@ namespace Unbowed.UI.Gameplay {
             MouseContext.Instance.blockedByDraggedItem = false;
         }
 
-        Vector2Int HandleOnBags(BagsUI bagsUI) {
+        private Vector2Int HandleOnBags(BagsUI bagsUI) {
             var bagsRect = bagsUI.GetComponent<RectTransform>();
             var bagsSize = bagsRect.sizeDelta;
             var bagsPivot = bagsRect.pivot;
@@ -119,11 +122,11 @@ namespace Unbowed.UI.Gameplay {
             return cell;
         }
 
-        bool TryPlaceItem(BagsUI bagsUI, Vector2Int cell) {
+        private bool TryPlaceItem(BagsUI bagsUI, Vector2Int cell) {
             if (bagsUI == null) {
                 if (EventSystem.current.IsPointerOverGameObject()) return false;
 
-                Unbowed.Gameplay.Characters.Modules.Inventory.DropItem(Item);
+                _itemsDropper.DropItem(Item, ActivePlayer.GetTransform());
                 StopDragging();
                 return true;
             }
@@ -142,7 +145,7 @@ namespace Unbowed.UI.Gameplay {
             return true;
         }
 
-        void StopDragging() {
+        private void StopDragging() {
             Item = null;
             Destroy(_draggedItemUI.gameObject);
             _draggedItemUI = null;

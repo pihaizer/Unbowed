@@ -6,17 +6,17 @@ using UnityEngine.InputSystem;
 
 namespace Unbowed.Gameplay.Characters {
     public class GameViewMouseSelector : MonoBehaviour {
-        [SerializeField] LayerMask selectionMask;
-        [SerializeField] Camera selectionCamera;
-        [SerializeField] EventSystem eventSystem;
+        [SerializeField] private LayerMask selectionMask;
+        [SerializeField] private Camera selectionCamera;
+        [SerializeField] private EventSystem eventSystem;
 
-        readonly RaycastHit[] _hits = new RaycastHit[5];
+        private readonly RaycastHit[] _hits = new RaycastHit[5];
 
-        void Update() {
+        private void Update() {
             UpdateMouseTargetSO();
         }
 
-        void UpdateMouseTargetSO() {
+        private void UpdateMouseTargetSO() {
             var mouseState = MouseContext.Instance;
             mouseState.isOffGameView =
                 !RectUtils.One.Contains(selectionCamera.ScreenToViewportPoint(Input.mousePosition)) ||
@@ -38,7 +38,7 @@ namespace Unbowed.Gameplay.Characters {
             mouseState.SetGameViewTarget(null);
         }
 
-        bool TrySetTarget(ISelectable selectable) {
+        private bool TrySetTarget(ISelectable selectable) {
             if (selectable == null || !selectable.CanBeSelected()) return false;
             MouseContext.Instance.SetGameViewTarget(selectable);
             return true;

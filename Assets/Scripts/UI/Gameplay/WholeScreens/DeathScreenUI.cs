@@ -5,29 +5,29 @@ using UnityEngine.UI;
 
 namespace Unbowed.UI.Gameplay.WholeScreens {
     public class DeathScreenUI : MonoBehaviour {
-        [SerializeField] Button reviveButton;
-        [SerializeField] Button toMainMenuButton;
-        [SerializeField] SceneConfig mainMenuScene;
+        [SerializeField] private Button reviveButton;
+        [SerializeField] private Button toMainMenuButton;
+        [SerializeField] private SceneConfig mainMenuScene;
 
-        void Awake() {
+        private void Awake() {
             ActivePlayer.Died += OnPlayerDied;
             ActivePlayer.Revived += OnPlayerRevived;
             reviveButton.onClick.AddListener(Revive);
             toMainMenuButton.onClick.AddListener(ToMainMenu);
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             ActivePlayer.Died -= OnPlayerDied;
             ActivePlayer.Revived -= OnPlayerRevived;
         }
 
-        void OnPlayerDied(DeathData data) => gameObject.SetActive(true);
+        private void OnPlayerDied(DeathData data) => gameObject.SetActive(true);
 
-        void OnPlayerRevived() => gameObject.SetActive(false);
+        private void OnPlayerRevived() => gameObject.SetActive(false);
 
-        void Revive() => ActivePlayer.Revive();
+        private void Revive() => ActivePlayer.Revive();
 
-        void ToMainMenu() {
+        private void ToMainMenu() {
             FindObjectOfType<GameController>().Save();
             ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenuScene)
                 {setActive = true, unloadOther = true, useLoadingScreen = true});

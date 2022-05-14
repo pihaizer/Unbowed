@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Unbowed.UI.Gameplay {
     public class PlayerHealthBarUI : HealthBarUI {
-        void Start() {
+        private void Start() {
             ActivePlayer.HealthChanged += OnHealthChanged;
             var health = ActivePlayer.GetHealth();
             if (health != null) SetHealthPercent((float) health.Current / health.Max);
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             ActivePlayer.HealthChanged -= OnHealthChanged;
         }
     }

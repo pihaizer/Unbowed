@@ -6,8 +6,8 @@ using UnityEngine.AI;
 
 namespace Unbowed.Gameplay.Characters.AI.Brains {
     public class BasicBrain : Brain {
-        readonly BasicBrainConfigSO _config;
-        Command _previousCommand;
+        private readonly BasicBrainConfigSO _config;
+        private Command _previousCommand;
 
         public BasicBrain(BasicBrainConfigSO config, Character body, int id) : base(body, id) {
             _config = config;
@@ -22,11 +22,11 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             }
         }
 
-        void OnStoppedExecuting(Command characterCommand) {
+        private void OnStoppedExecuting(Command characterCommand) {
             _previousCommand = characterCommand;
         }
 
-        void SelectNewCommand() {
+        private void SelectNewCommand() {
             if (!(_previousCommand is AttackCommand && !_previousCommand.Result) &&
                 SeesWantedCharacter(out var wantedCharacter)) {
                 Attack(wantedCharacter);
@@ -37,7 +37,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             }
         }
 
-        bool SeesWantedCharacter(out Character character) {
+        private bool SeesWantedCharacter(out Character character) {
             character = null;
 
             var hits = Physics.OverlapSphere(body.transform.position, _config.playerAggroRange);
@@ -52,11 +52,11 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             return character;
         }
 
-        bool IsWanted(Character character) {
+        private bool IsWanted(Character character) {
             return character != body && character.CanBeHit() && _config.targetTypes.Contains(character.characterType);
         }
 
-        bool Sees(Character other) {
+        private bool Sees(Character other) {
             var thisHead = body.transform.position + Vector3.up * (body.movement.NavAgent.height + body.movement.NavAgent.baseOffset);
             var otherHead = other.transform.position + Vector3.up * (other.movement.NavAgent.height + other.movement.NavAgent.baseOffset);
             bool sees = !Physics.Raycast(thisHead, otherHead - thisHead,
@@ -65,7 +65,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             return sees;
         }
 
-        bool CanGoTo(Character character) {
+        private bool CanGoTo(Character character) {
             var path = new NavMeshPath();
             
             if (NavMesh.CalculatePath(body.transform.position,
@@ -76,7 +76,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             return false;
         }
 
-        void MoveToRandomPoint() {
+        private void MoveToRandomPoint() {
             for (int i = 0; i < 10; i++) {
                 var direction2d = Random.insideUnitCircle.normalized * VectorRandom.Range(_config.newPointsRadiusRange);
                 var direction = new Vector3(direction2d.x, 0, direction2d.y);

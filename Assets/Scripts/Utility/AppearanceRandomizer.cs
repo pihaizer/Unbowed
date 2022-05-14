@@ -9,7 +9,7 @@ namespace Unbowed.Utility {
     {
         public List<ObjectsWeight> objects;
 
-        void Start() {
+        private void Start() {
             if (!Application.isPlaying) {
                 objects[0].gameObject.SetActive(true);
                 return;

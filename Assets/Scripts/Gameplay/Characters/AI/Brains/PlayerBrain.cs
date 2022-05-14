@@ -1,33 +1,37 @@
 ﻿using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Items.Configs;
+using Unbowed.Gameplay.Signals;
 using Unbowed.SO;
 using Unbowed.SO.Brains;
 using Unbowed.UI.Gameplay;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace Unbowed.Gameplay.Characters.AI.Brains {
     public class PlayerBrain : Brain {
-        readonly Character _body;
-        readonly PlayerBrainConfigSO _config;
-
-        public PlayerBrain(PlayerBrainConfigSO config, Character body, int id) : base(body, id) {
+        private readonly Character _body;
+        private readonly PlayerBrainConfigSO _config;
+        private readonly SignalBus _bus;
+        
+        public PlayerBrain(PlayerBrainConfigSO config, Character body, SignalBus bus, int id) : base(body, id) {
             _body = body;
             _config = config;
-            ItemsConfig.Instance.droppedItemClicked += OnItemClicked;
+            _bus = bus;
+            _bus.Subscribe<DroppedItemClickedSignal>(OnItemClicked);
             ActivePlayer.SetPlayer(_body);
         }
 
         public override void OnDestroy() {
-            ItemsConfig.Instance.droppedItemClicked -= OnItemClicked;
             if (ActivePlayer.Get() == _body) ActivePlayer.SetPlayer(null);
+            _bus.Unsubscribe<DroppedItemClickedSignal>(OnItemClicked);
         }
 
-        void OnItemClicked(IInteractable interactable) {
+        private void OnItemClicked(DroppedItemClickedSignal signal) {
             if (ItemDragger.Instance.IsDragging) return;
             if (!(_body.commands.MainCommand is InteractCommand interactCommand) ||
-                interactCommand.Target != interactable) {
-                _body.commands.Execute(new InteractCommand(interactable));
+                interactCommand.Target != signal.Interactable) {
+                _body.commands.Execute(new InteractCommand(signal.Interactable));
             }
         }
 
@@ -38,7 +42,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             if (Input.GetMouseButton(0)) OnLMB();
         }
 
-        void OnLMB() {
+        private void OnLMB() {
             if (ItemDragger.Instance.IsDragging) return;
             if (MouseContext.Instance.GameViewTarget != null) {
                 switch (MouseContext.Instance.GameViewTarget) {

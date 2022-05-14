@@ -22,7 +22,7 @@ namespace Unbowed.UI {
         public Color replaceSlotColor;
         [Range(0, 1)] public float replaceBlend;
 
-        [SerializeField] List<RarityColor> equipmentColors = Enum.GetValues(typeof(EquipmentRarity))
+        [SerializeField] private List<RarityColor> equipmentColors = Enum.GetValues(typeof(EquipmentRarity))
             .Cast<EquipmentRarity>().Select(rarity => new RarityColor {rarity = rarity}).ToList();
 
         [Title("Prefabs")]
@@ -33,7 +33,7 @@ namespace Unbowed.UI {
             equipmentColors.FirstOrDefault(rc => rc.rarity == rarity).color;
 
         [Serializable, InlineProperty]
-        struct RarityColor {
+        private struct RarityColor {
             [HorizontalGroup, HideLabel]
             public EquipmentRarity rarity;
 

@@ -7,29 +7,29 @@ using UnityEngine;
 
 namespace Unbowed.UI.ItemNameplates {
     public class DroppedItemsContainerUI : MonoBehaviour {
-        [SerializeField, ChildGameObjectsOnly] DroppedItemNameplateUI reference;
+        [SerializeField, ChildGameObjectsOnly] private DroppedItemNameplateUI reference;
 
-        readonly Dictionary<DroppedItem, DroppedItemNameplateUI> _shownItems =
+        private readonly Dictionary<DroppedItem, DroppedItemNameplateUI> _shownItems =
             new Dictionary<DroppedItem, DroppedItemNameplateUI>();
 
-        void Awake() {
+        private void Awake() {
             reference.gameObject.SetActive(false);
             EventsContext.Instance.descriptionCreateRequest += RequestCreateItem;
             EventsContext.Instance.descriptionShowRequest += RequestShowItem;
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             EventsContext.Instance.descriptionCreateRequest -= RequestCreateItem;
             EventsContext.Instance.descriptionShowRequest -= RequestShowItem;
         }
 
-        void Update() {
+        private void Update() {
             foreach (var item in _shownItems) {
                 item.Value.transform.position = Camera.main.WorldToScreenPoint(item.Key.transform.position);
             }
         }
 
-        void RequestShowItem(DroppedItem item, bool value) {
+        private void RequestShowItem(DroppedItem item, bool value) {
             if (!_shownItems.ContainsKey(item)) {
                 if (value)
                     RequestCreateItem(item, true);
@@ -40,7 +40,7 @@ namespace Unbowed.UI.ItemNameplates {
             _shownItems[item].gameObject.SetActive(value);
         }
 
-        void RequestCreateItem(DroppedItem item, bool value) {
+        private void RequestCreateItem(DroppedItem item, bool value) {
             if (_shownItems.ContainsKey(item) && !value) {
                 Destroy(_shownItems[item].gameObject);
                 _shownItems.Remove(item);

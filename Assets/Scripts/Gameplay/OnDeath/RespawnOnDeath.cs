@@ -6,11 +6,11 @@ using UnityEngine;
 namespace Unbowed.Gameplay.OnDeath {
     [RequireComponent(typeof(Character))]
     public class RespawnOnDeath : MonoBehaviour {
-        [SerializeField] AnimationClip optionalAnimationDelay;
-        [SerializeField] Respawner respawner;
-        [SerializeField] Vector2 respawnDelayRange;
+        [SerializeField] private AnimationClip optionalAnimationDelay;
+        [SerializeField] private Respawner respawner;
+        [SerializeField] private Vector2 respawnDelayRange;
 
-        void Start() {
+        private void Start() {
             if (respawner == null) {
                 Debug.LogWarning("Respawner is not set.");
             }
@@ -18,7 +18,7 @@ namespace Unbowed.Gameplay.OnDeath {
             GetComponent<Character>().health.Died += (data) => StartCoroutine(RespawnCoroutine());
         }
 
-        IEnumerator RespawnCoroutine() {
+        private IEnumerator RespawnCoroutine() {
             yield return new WaitForOptionalAnimation(optionalAnimationDelay);
             gameObject.SetActive(false);
             if (respawner != null) {

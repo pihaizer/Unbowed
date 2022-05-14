@@ -11,8 +11,8 @@ namespace Unbowed.Utility.Modifiers {
 
         public event Action<T> Changed;
 
-        T _baseValue;
-        T _modifiedValue;
+        private T _baseValue;
+        private T _modifiedValue;
 
         public ModifiableParameter(T baseValue = default) {
             _baseValue = baseValue;
@@ -39,12 +39,12 @@ namespace Unbowed.Utility.Modifiers {
             _modifiedValue = modifier.Operate(_modifiedValue, modifier.Value);
         }
 
-        void SetBaseValue(T value) {
+        private void SetBaseValue(T value) {
             _baseValue = value;
             Update();
         }
 
-        void OnModifierChange(T newValue) => Update();
+        private void OnModifierChange(T newValue) => Update();
 
         protected override void Update() {
             var oldValue = _modifiedValue;

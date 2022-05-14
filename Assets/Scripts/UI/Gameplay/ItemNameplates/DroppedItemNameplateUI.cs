@@ -3,30 +3,39 @@ using TMPro;
 using Unbowed.Gameplay;
 using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Items;
+using Unbowed.Gameplay.Signals;
 using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject;
 
-namespace Unbowed.UI.ItemNameplates {
+namespace Unbowed.UI.ItemNameplates
+{
     [RequireComponent(typeof(Button))]
-    public class DroppedItemNameplateUI : MonoBehaviour {
-        [SerializeField] TMP_Text text;
+    public class DroppedItemNameplateUI : MonoBehaviour
+    {
+        [SerializeField] private TMP_Text text;
 
-        void Awake() {
+        [Inject] private SignalBus _bus;
+
+        private void Awake()
+        {
             GetComponent<Button>().onClick.AddListener(InvokeItemClicked);
         }
 
-        void InvokeItemClicked() => ItemsConfig.Instance.droppedItemClicked?.Invoke(Item);
+        private void InvokeItemClicked() => _bus.Fire(new DroppedItemClickedSignal(Item));
 
-        public DroppedItem Item {
+        public DroppedItem Item
+        {
             get => _item;
             set => SetItem(value);
         }
 
-        DroppedItem _item;
+        private DroppedItem _item;
 
-        void SetItem(DroppedItem item) {
+        private void SetItem(DroppedItem item)
+        {
             _item = item;
             text.text = item.Item.Name;
             text.color = new Color(item.Item.Color.r, item.Item.Color.g, item.Item.Color.b, 1);

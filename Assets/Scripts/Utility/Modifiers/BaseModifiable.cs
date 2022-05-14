@@ -2,7 +2,7 @@
 
 namespace Unbowed.Utility.Modifiers {
     public abstract class BaseModifiable {
-        readonly List<BaseModifier> _modifiers;
+        private readonly List<BaseModifier> _modifiers;
 
         protected BaseModifiable() {
             _modifiers = new List<BaseModifier>();

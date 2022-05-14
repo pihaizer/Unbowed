@@ -12,13 +12,13 @@ public class CFX_AutoStopLoopedEffect : MonoBehaviour
 {
 	public float effectDuration = 2.5f;
 	private float d;
-	
-	void OnEnable()
+
+	private void OnEnable()
 	{
 		d = effectDuration;
 	}
-	
-	void Update()
+
+	private void Update()
 	{
 		if(d > 0)
 		{

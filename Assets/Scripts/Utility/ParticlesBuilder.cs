@@ -2,8 +2,8 @@
 
 namespace Unbowed.Utility {
     public class ParticlesBuilder {
-        readonly ParticleSystem _particleSystem;
-        Vector3 _spawnPosition;
+        private readonly ParticleSystem _particleSystem;
+        private Vector3 _spawnPosition;
     
         public ParticlesBuilder(ParticleSystem particleSystem) {
             _particleSystem = particleSystem;

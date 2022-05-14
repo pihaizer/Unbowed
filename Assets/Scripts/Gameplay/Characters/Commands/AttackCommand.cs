@@ -11,11 +11,11 @@ namespace Unbowed.Gameplay.Characters.Commands {
         public readonly Mutable<bool> isAttacking = new Mutable<bool>();
 
         public IHittable Target { get; }
-        readonly float _maxTime;
-        Character _character;
-        IEnumerator _coroutine;
-        readonly Modifier<bool> _actionsBlock = new Modifier<bool>(true, Operations.Or);
-        float _startTime;
+        private readonly float _maxTime;
+        private Character _character;
+        private IEnumerator _coroutine;
+        private readonly Modifier<bool> _actionsBlock = new Modifier<bool>(true, Operations.Or);
+        private float _startTime;
 
 
         public AttackCommand(IHittable target, float maxTime = float.MaxValue) {
@@ -51,7 +51,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             base.Stop(result);
         }
 
-        void GoToTarget(IHittable target) {
+        private void GoToTarget(IHittable target) {
             var path = new NavMeshPath();
             var newMoveTarget = target.GetGameObject().transform.position;
 
@@ -72,7 +72,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             }
         }
 
-        bool TryAttack(IHittable target) {
+        private bool TryAttack(IHittable target) {
             if (!IsWithinAttackRange(target)) return false;
 
             _character.movement.NavAgent.ResetPath();
@@ -81,14 +81,14 @@ namespace Unbowed.Gameplay.Characters.Commands {
             return true;
         }
 
-        bool IsWithinAttackRange(IHittable target) {
+        private bool IsWithinAttackRange(IHittable target) {
             if (target == null || target.GetGameObject() == null) return false;
 
             return (target.GetGameObject().transform.position - _character.transform.position).sqrMagnitude <
                    Mathf.Pow(_character.config.distances.attackRadius, 2);
         }
 
-        IEnumerator AttackCoroutine(IHittable target) {
+        private IEnumerator AttackCoroutine(IHittable target) {
             float attackTime = _character.Stats[StatType.AttackTime];
             var damageRange = new Vector2Int(
                 Mathf.FloorToInt(_character.Stats[StatType.MinDamage]),

@@ -1,4 +1,4 @@
-﻿namespace Unbowed.Gameplay.Items {
+﻿namespace Unbowed.Gameplay.Characters.Items.Enums {
     public enum EquipmentType {
         // Weapons
         OneHandedSword,

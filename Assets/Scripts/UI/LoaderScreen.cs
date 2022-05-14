@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace Unbowed.UI {
     public class LoaderScreen : MonoBehaviour {
-        [SerializeField] GameObject loadingScreenContent;
+        [SerializeField] private GameObject loadingScreenContent;
 
-        int _showLoaderCalls = 0;
+        private int _showLoaderCalls = 0;
 
-        void Start() {
+        private void Start() {
             loadingScreenContent.gameObject.SetActive(ScenesConfig.Instance.loadedScenes.Count == 0);
             EventsContext.Instance.showLoadingScreen += ShowLoadingScreen;
         }
 
-        void ShowLoadingScreen(bool value) {
+        private void ShowLoadingScreen(bool value) {
             _showLoaderCalls += value ? 1 : -1;
             loadingScreenContent.SetActive(_showLoaderCalls > 0);
         }

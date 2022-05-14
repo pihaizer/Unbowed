@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Unbowed.UI.Gameplay.Stats {
     public class StatsUI : Menu {
-        [SerializeField] List<StatUI> statUis = new List<StatUI>();
+        [SerializeField] private List<StatUI> statUis = new List<StatUI>();
 
         protected override void Awake() {
             base.Awake();
@@ -18,7 +18,7 @@ namespace Unbowed.UI.Gameplay.Stats {
             UpdateStats();
         }
 
-        void UpdateStats() {
+        private void UpdateStats() {
             var stats = ActivePlayer.GetStats();
             if (stats == null) return;
             foreach (var stat in statUis) {

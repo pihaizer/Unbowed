@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace Unbowed.Managers {
     public class OnStartLoader : MonoBehaviour {
-        [SerializeField] SceneConfig sceneLoaded;
-        [SerializeField] bool initScenesConfig;
-        [SerializeField] bool setActive;
-        [SerializeField] bool useLoadingScreen;
-        [SerializeField] bool ignoreIfHasScenes;
+        [SerializeField] private SceneConfig sceneLoaded;
+        [SerializeField] private bool initScenesConfig;
+        [SerializeField] private bool setActive;
+        [SerializeField] private bool useLoadingScreen;
+        [SerializeField] private bool ignoreIfHasScenes;
 
-        void Awake() {
+        private void Awake() {
             if (initScenesConfig) ScenesConfig.Instance.Init();
             
             if (!ScenesConfig.Instance.loadedScenes.Contains(sceneLoaded) &&

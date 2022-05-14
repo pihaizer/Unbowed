@@ -10,36 +10,34 @@ namespace Unbowed.Gameplay.Items {
     [Serializable]
     public struct ItemLocation {
         [NonSerialized]
-        public Inventory inventory;
+        public Inventory Inventory;
 
-        public bool isEquipped;
+        public bool IsEquipped => slot != EquipmentSlot.None;
 
-        [ShowIf(nameof(isEquipped))]
         public EquipmentSlot slot;
 
-        [HideIf(nameof(isEquipped))]
+        [HideIf(nameof(IsEquipped))]
         public Vector2Int position;
 
-        public static ItemLocation None => new ItemLocation(null);
+        public static ItemLocation None => new(null);
 
-        public static ItemLocation InBag(Inventory inventory, Vector2Int position) =>
-            new ItemLocation(inventory) {isEquipped = false, position = position};
+        public static ItemLocation InBag(Inventory inventory, Vector2Int position) => 
+            new(inventory) {slot = EquipmentSlot.None, position = position};
 
-        public static ItemLocation Equipped(Inventory inventory, EquipmentSlot slot) =>
-            new ItemLocation(inventory) {isEquipped = true, slot = slot};
+        public static ItemLocation Equipped(Inventory inventory, EquipmentSlot slot) => 
+            new(inventory) {slot = slot};
 
-        ItemLocation(Inventory inventory) {
-            this.inventory = inventory;
+        private ItemLocation(Inventory inventory) {
+            Inventory = inventory;
             position = -Vector2Int.one;
-            isEquipped = false;
             slot = EquipmentSlot.None;
         }
 
         public override bool Equals(object obj) {
-            if (!(obj is ItemLocation location)) return false;
-            if (location.inventory != inventory) return false;
-            if (location.isEquipped != isEquipped) return false;
-            return location.isEquipped && location.slot == slot || location.position == position;
+            if (obj is not ItemLocation location) return false;
+            if (location.Inventory != Inventory) return false;
+            if (location.IsEquipped != IsEquipped) return false;
+            return location.IsEquipped && location.slot == slot || location.position == position;
         }
 
         public static bool operator ==(ItemLocation il1, ItemLocation il2) {
@@ -52,8 +50,8 @@ namespace Unbowed.Gameplay.Items {
 
         public override int GetHashCode() {
             unchecked {
-                int hashCode = (inventory != null ? inventory.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ isEquipped.GetHashCode();
+                int hashCode = (Inventory != null ? Inventory.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ IsEquipped.GetHashCode();
                 hashCode = (hashCode * 397) ^ position.GetHashCode();
                 hashCode = (hashCode * 397) ^ slot.GetHashCode();
                 return hashCode;

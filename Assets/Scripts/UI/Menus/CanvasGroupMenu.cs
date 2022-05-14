@@ -3,7 +3,7 @@
 namespace Unbowed.UI {
     [RequireComponent(typeof(CanvasGroup))]
     public class CanvasGroupMenu : Menu {
-        CanvasGroup _canvasGroup;
+        private CanvasGroup _canvasGroup;
         
         protected override void Awake() {
             _canvasGroup = GetComponent<CanvasGroup>();

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unbowed.UI {
     public class MenuContainer : Menu {
-        [SerializeField] Menu[] menus;
+        [SerializeField] private Menu[] menus;
 
         protected override void Awake() {
             base.Awake();
@@ -12,7 +12,7 @@ namespace Unbowed.UI {
             }
         }
 
-        void IsOpenedOnChanged(Menu changedMenu, bool value) {
+        private void IsOpenedOnChanged(Menu changedMenu, bool value) {
             if (!value) {
                 Close();
                 return;

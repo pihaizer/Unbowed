@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Unbowed.Gameplay.OnDeath {
     [RequireComponent(typeof(Health))]
     public class DestroyOnDeath : MonoBehaviour {
-        [SerializeField] AnimationClip optionalAnimationDelay;
+        [SerializeField] private AnimationClip optionalAnimationDelay;
 
-        void Start() {
+        private void Start() {
             GetComponent<Health>().Died += (data) => StartCoroutine(DestroyCoroutine());
         }
 
-        IEnumerator DestroyCoroutine() {
+        private IEnumerator DestroyCoroutine() {
             yield return new WaitForOptionalAnimation(optionalAnimationDelay);
             Destroy(gameObject);
         }

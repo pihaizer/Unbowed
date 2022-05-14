@@ -8,9 +8,9 @@ namespace Unbowed.Gameplay.Characters.Modules {
     public class Movement : MonoBehaviour {
         public ModifiableParameter<float> speed;
 
-        float runningSpeedMultiplier = 2f;
-        bool _isRunning;
-        Modifier<float> _runningSpeedModifier;
+        private float runningSpeedMultiplier = 2f;
+        private bool _isRunning;
+        private Modifier<float> _runningSpeedModifier;
 
         public float Speed => speed;
         public NavMeshAgent NavAgent { get; private set; }
@@ -25,7 +25,7 @@ namespace Unbowed.Gameplay.Characters.Modules {
 
         public void ToggleRunning() => SetRunning(!_isRunning);
 
-        void SetRunning(bool value) {
+        private void SetRunning(bool value) {
             if (_isRunning == value) return;
             _isRunning = value;
             if (_isRunning)

@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,18 +10,18 @@ namespace Unbowed.UI.Gameplay.Inventory {
     using Inventory = Unbowed.Gameplay.Characters.Modules.Inventory;
 
     public class EquipmentSlotUI : CellUI {
-        [SerializeField, ChildGameObjectsOnly] ItemUI _itemUI;
-        [SerializeField] EquipmentSlot _slot;
+        [SerializeField, ChildGameObjectsOnly] private ItemUI _itemUI;
+        [SerializeField] private EquipmentSlot _slot;
 
-        Inventory _inventory;
+        private Inventory _inventory;
 
         public void Init(Inventory inventory) {
             _inventory = inventory;
             
             SetItem(null);
 
-            if (inventory.Items.Count > 0) {
-                var equippedItem = inventory.Items.Find((item) => item.IsEquipped && item.location.slot == _slot);
+            if (inventory.Items is {Count: > 0}) {
+                Item equippedItem = inventory.Items.Find(item => item is Equipment {IsEquipped:true} && item.location.slot == _slot);
                 SetItem(equippedItem);
             }
 
@@ -30,14 +31,14 @@ namespace Unbowed.UI.Gameplay.Inventory {
             _inventory.RemovedItem += InventoryOnRemovedItem;
         }
 
-        void ItemUIOnIsHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
+        private void ItemUIOnIsHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
             if (value)
                 OnPointerEnter();
             else
                 OnPointerExit();
         }
 
-        void ItemUIOnDragged(ItemUI itemUI, PointerEventData data) {
+        private void ItemUIOnDragged(ItemUI itemUI, PointerEventData data) {
             OnPointerClick();
         }
 
@@ -47,30 +48,30 @@ namespace Unbowed.UI.Gameplay.Inventory {
             _itemUI.SetRaycastReceiverSize(GetComponent<RectTransform>().sizeDelta);
         }
 
-        void InventoryOnAddedItem(Item item) {
-            if (item.location.slot == _slot && item.IsEquipped) SetItem(item);
+        private void InventoryOnAddedItem(Item item) {
+            if (item.location.slot == _slot) SetItem(item);
         }
 
-        void InventoryOnRemovedItem(Item item) {
-            if (item.location.slot == _slot && item.IsEquipped) SetItem(null);
+        private void InventoryOnRemovedItem(Item item) {
+            if (item.location.slot == _slot) SetItem(null);
         }
 
-        void OnPointerEnter() {
+        private void OnPointerEnter() {
             if (!_inventory) return;
             if (!ItemDragger.Instance.IsDragging) {
                 if (Item != null) SetState(State.Hover);
                 return;
             }
 
-            var item = ItemDragger.Instance.Item;
-            if (Inventory.CanEquipItem(item, _slot)) {
+            Item item = ItemDragger.Instance.Item;
+            if (item is Equipment equipment && Inventory.CanEquipItem(equipment, _slot)) {
                 SetState(State.Positive);
             } else {
                 SetState(State.Error);
             }
         }
 
-        void OnPointerClick() {
+        private void OnPointerClick() {
             if (!_inventory) return;
             if (ItemDragger.Instance.IsDragging) {
                 var newItem = ItemDragger.Instance.Item;
@@ -83,7 +84,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             }
         }
 
-        void OnPointerExit() {
+        private void OnPointerExit() {
             if (!_inventory) return;
             ResetState();
         }

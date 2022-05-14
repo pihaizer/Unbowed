@@ -4,10 +4,10 @@ using Unbowed.Utility.Modifiers;
 
 namespace Unbowed.Gameplay.Characters.Commands {
     public class HitRecoveryCommand : CharacterCommand {
-        Character _character;
-        float _remainingTime;
-        
-        readonly Modifier<bool> _actionsBlock = new Modifier<bool>(true, Operations.Or);
+        private Character _character;
+        private float _remainingTime;
+
+        private readonly Modifier<bool> _actionsBlock = new Modifier<bool>(true, Operations.Or);
         
         public override void Start(Character character) {
             _character = character;

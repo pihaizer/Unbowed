@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay {
     public class LocationLoadTrigger : MonoBehaviour {
-        [SerializeField] Trigger trigger;
-        [SerializeField] SceneConfig loadedSceneConfig;
+        [SerializeField] private Trigger trigger;
+        [SerializeField] private SceneConfig loadedSceneConfig;
 
-        void Start() {
+        private void Start() {
             trigger.Enter += RequestLocationLoad;
         }
 
-        void RequestLocationLoad(Collider other) {
+        private void RequestLocationLoad(Collider other) {
             if (other.gameObject.layer != LayerMask.NameToLayer("Player")) return;
         
             ScenesConfig.Instance.Load(new SceneChangeRequest(loadedSceneConfig));

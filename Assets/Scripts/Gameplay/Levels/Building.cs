@@ -5,34 +5,34 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay.Levels {
     public class Building : MonoBehaviour {
-        [SerializeField] Trigger[] triggers;
-        [SerializeField] MeshRenderer[] roofs;
-        [SerializeField] MeshRenderer[] walls;
-        [SerializeField] Material defaultMaterial;
-        [SerializeField] Material transparentMaterial;
+        [SerializeField] private Trigger[] triggers;
+        [SerializeField] private MeshRenderer[] roofs;
+        [SerializeField] private MeshRenderer[] walls;
+        [SerializeField] private Material defaultMaterial;
+        [SerializeField] private Material transparentMaterial;
 
-        int _triggersCount;
+        private int _triggersCount;
 
-        void Start() {
+        private void Start() {
             foreach (var trigger in triggers) {
                 trigger.Enter += TriggerOnEnter;
                 trigger.Exit += TriggerOnExit;
             }
         }
 
-        void TriggerOnEnter(Collider obj) {
+        private void TriggerOnEnter(Collider obj) {
             if (obj.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             _triggersCount++;
             if (_triggersCount == 1) OnPlayerInsideChanged(true);
         }
 
-        void TriggerOnExit(Collider obj) {
+        private void TriggerOnExit(Collider obj) {
             if (obj.gameObject.layer != LayerMask.NameToLayer("Player")) return;
             _triggersCount = Mathf.Clamp(_triggersCount - 1, 0, Int32.MaxValue);
             if (_triggersCount == 0) OnPlayerInsideChanged(false);
         }
 
-        void OnPlayerInsideChanged(bool value) {
+        private void OnPlayerInsideChanged(bool value) {
             Debug.Log($"Player in {gameObject}: {value}");
 
             foreach (var roof in roofs) {

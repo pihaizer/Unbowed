@@ -17,40 +17,46 @@ namespace Unbowed.UI {
     [RequireComponent(typeof(Canvas))]
     public class GameplayUI : MonoBehaviour {
         [Header("Values")]
-        [SerializeField] float screenAnimationTime;
+        [SerializeField]
+        private float screenAnimationTime;
 
         [Header("Whole screens")]
-        [SerializeField] DroppedItemsContainerUI droppedItemsContainerUI;
+        [SerializeField]
+        private DroppedItemsContainerUI droppedItemsContainerUI;
 
-        [SerializeField] GameObject pauseScreen;
+        [SerializeField] private GameObject pauseScreen;
 
-        [SerializeField] GameObject deathScreen;
+        [SerializeField] private GameObject deathScreen;
 
         [Header("PartialScreens")]
         [Title("Left")]
-        [SerializeField] MenuContainer leftMenus;
+        [SerializeField]
+        private MenuContainer leftMenus;
 
-        [SerializeField] Menu characterMenu;
+        [SerializeField] private Menu characterMenu;
 
-        [SerializeField] BagsUI lootedInventoryMenu;
+        [SerializeField] private BagsUI lootedInventoryMenu;
 
         [Title("Right")]
-        [SerializeField] MenuContainer rightMenus;
+        [SerializeField]
+        private MenuContainer rightMenus;
 
-        [SerializeField] CharacterInventoryUI inventoryMenu;
+        [SerializeField] private CharacterInventoryUI inventoryMenu;
 
         [Header("Menu buttons")]
-        [SerializeField] Button characterButton;
+        [SerializeField]
+        private Button characterButton;
 
-        [SerializeField] Button inventoryButton;
+        [SerializeField] private Button inventoryButton;
 
         [Header("Dependencies")]
-        [SerializeField] CinemachineVirtualCamera virtualCamera;
+        [SerializeField]
+        private CinemachineVirtualCamera virtualCamera;
 
-        CinemachineFramingTransposer _transposer;
-        float _currentTransposerTargetValue;
+        private CinemachineFramingTransposer _transposer;
+        private float _currentTransposerTargetValue;
 
-        void Awake() {
+        private void Awake() {
             characterButton.onClick.AddListener(characterMenu.ToggleOpened);
             inventoryButton.onClick.AddListener(inventoryMenu.ToggleOpened);
 
@@ -71,14 +77,14 @@ namespace Unbowed.UI {
             EventsContext.Instance.otherInventoryRequest += OnOtherInventoryRequest;
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             ActivePlayer.PlayerChanged -= SetInventory;
             EventsContext.Instance.otherInventoryRequest -= OnOtherInventoryRequest;
         }
 
-        void SetInventory() => inventoryMenu.SetInventory(ActivePlayer.GetInventory());
+        private void SetInventory() => inventoryMenu.SetInventory(ActivePlayer.GetInventory());
 
-        void OnOtherInventoryRequest(Unbowed.Gameplay.Characters.Modules.Inventory inventory, bool value) {
+        private void OnOtherInventoryRequest(Unbowed.Gameplay.Characters.Modules.Inventory inventory, bool value) {
             if (value) {
                 lootedInventoryMenu.SetInventory(inventory);
                 lootedInventoryMenu.Open();
@@ -89,21 +95,21 @@ namespace Unbowed.UI {
             }
         }
 
-        void Update() {
+        private void Update() {
             if (Input.GetKeyDown(KeyCode.Escape)) pauseScreen.ToggleActive();
             if (Input.GetKeyDown(KeyCode.C)) characterMenu.ToggleOpened();
             if (Input.GetKeyDown(KeyCode.B)) inventoryMenu.ToggleOpened();
         }
 
-        void FloatCameraLeft() {
+        private void FloatCameraLeft() {
             FloatScreen(leftMenus);
         }
 
-        void FloatCameraRight() {
+        private void FloatCameraRight() {
             FloatScreen(rightMenus);
         }
 
-        void FloatScreen(Menu screen) {
+        private void FloatScreen(Menu screen) {
             var rectTransform = screen.GetComponent<RectTransform>();
             var cam = Camera.main;
             float offsetPixels = rectTransform.sizeDelta.x * transform.localScale.x *

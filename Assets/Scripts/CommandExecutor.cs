@@ -10,8 +10,8 @@ namespace Unbowed {
 
         public Command MainCommand { get; private set; }
         
-        [ShowInInspector, PropertyOrder(1), DisplayAsString] 
-        string CurrentCommandString => MainCommand?.ToString();
+        [ShowInInspector, PropertyOrder(1), DisplayAsString]
+        private string CurrentCommandString => MainCommand?.ToString();
 
         [ShowInInspector, PropertyOrder(2)]
         public readonly List<Command> additionalCommands = new List<Command>();
@@ -47,7 +47,7 @@ namespace Unbowed {
 
         public void StopMain() => MainCommand?.Stop(false);
 
-        void OnCommandExecuted(Command command, bool result) {
+        private void OnCommandExecuted(Command command, bool result) {
             if (additionalCommands.Contains(command)) {
                 additionalCommands.Remove(command);
             } else {

@@ -7,12 +7,13 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay.Items {
     public class DroppedItem : SerializedMonoBehaviour, IInteractable {
-        [SerializeField, Range(0, 20f)] float throwForce = 1f;
-        [SerializeField, MinMaxSlider(0, 20f)] Vector2 throwTorqueRange;
+        [SerializeField, Range(0, 20f)] private float throwForce = 1f;
+        [SerializeField, MinMaxSlider(0, 20f)] private Vector2 throwTorqueRange;
+        [SerializeField, AssetsOnly] private GameObject defaultItemModel;
 
         public Characters.Items.Item Item { get; private set; }
 
-        void Update() {
+        private void Update() {
             if (Input.GetKey(KeyCode.LeftAlt)) {
                 if (!RectUtils.One.Contains(Camera.main.WorldToViewportPoint(transform.position))) return;
                 EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
@@ -21,17 +22,17 @@ namespace Unbowed.Gameplay.Items {
             if (Input.GetKeyUp(KeyCode.LeftAlt)) OnMouseExit();
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             OnMouseExit();
             EventsContext.Instance.descriptionCreateRequest?.Invoke(this, false);
         }
 
-        void OnMouseOver() {
+        private void OnMouseOver() {
             if (MouseContext.Instance.BlockedByUI) return;
             EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
         }
 
-        void OnMouseExit() {
+        private void OnMouseExit() {
             EventsContext.Instance.descriptionShowRequest?.Invoke(this, false);
         }
 
@@ -39,8 +40,8 @@ namespace Unbowed.Gameplay.Items {
             Item = item;
             EventsContext.Instance.descriptionCreateRequest?.Invoke(this, true);
             Instantiate(item.Config.modelPrefab != null ? 
-                item.Config.modelPrefab : 
-                ItemsConfig.Instance.defaultItemModelPrefab, transform);
+                item.Config.modelPrefab :
+                defaultItemModel, transform);
             ThrowItemModelUpwards();
         }
 

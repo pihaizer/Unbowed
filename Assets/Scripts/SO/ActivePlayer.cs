@@ -16,7 +16,7 @@ namespace Unbowed.SO {
         public static event Action Revived;
         public static event Action StatsUpdated;
 
-        static Character _player;
+        private static Character _player;
 
         public static bool Exists { get; private set; } = false;
 
@@ -61,12 +61,12 @@ namespace Unbowed.SO {
             _player.transform.rotation = new Quaternion();
         }
 
-        static void OnHealthChanged(HealthChangeData data) => HealthChanged?.Invoke(data);
+        private static void OnHealthChanged(HealthChangeData data) => HealthChanged?.Invoke(data);
 
-        static void OnDied(DeathData data) => Died?.Invoke(data);
+        private static void OnDied(DeathData data) => Died?.Invoke(data);
 
-        static void OnRevived() => Revived?.Invoke();
+        private static void OnRevived() => Revived?.Invoke();
 
-        static void OnStatsUpdated() => StatsUpdated?.Invoke();
+        private static void OnStatsUpdated() => StatsUpdated?.Invoke();
     }
 }

@@ -6,21 +6,21 @@ using UnityEngine;
 
 namespace Unbowed.UI {
     public class TargetUI : MonoBehaviour {
-        [SerializeField] TMP_Text nameText;
-        [SerializeField] HealthBarUI healthBar;
+        [SerializeField] private TMP_Text nameText;
+        [SerializeField] private HealthBarUI healthBar;
 
-        ISelectable _target;
+        private ISelectable _target;
 
-        void Start() {
+        private void Start() {
             MouseContext.Instance.GameViewTargetChanged += OnMouseStateGameViewTargetChanged;
             OnMouseStateGameViewTargetChanged(MouseContext.Instance.GameViewTarget);
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             MouseContext.Instance.GameViewTargetChanged -= OnMouseStateGameViewTargetChanged;
         }
 
-        void OnMouseStateGameViewTargetChanged(ISelectable newTarget) {
+        private void OnMouseStateGameViewTargetChanged(ISelectable newTarget) {
             if (_target is IHittable oldHittable && oldHittable is Character oldCharacter) {
                 oldCharacter.health.HealthChanged -= healthBar.OnHealthChanged;
             }

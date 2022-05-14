@@ -10,9 +10,9 @@ namespace Unbowed.UI.Gameplay.Stats {
     public class StatUI : MonoBehaviour {
         public StatType type;
         
-        [SerializeField] TMP_Text text;
-        [SerializeField] string format;
-        [SerializeField] bool floorToInt = true;
+        [SerializeField] private TMP_Text text;
+        [SerializeField] private string format;
+        [SerializeField] private bool floorToInt = true;
 
         public void Init(Unbowed.Gameplay.Characters.Stats.Stats stats) {
             float value = stats[type];

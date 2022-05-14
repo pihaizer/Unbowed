@@ -17,15 +17,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Playground.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Act1/StartingLocation.unity
-    guid: e9ef248a4a95fce4db9a019ab84ab939
-  - enabled: 1
-    path: Assets/Scenes/Act1/Location1.unity
-    guid: b292d60ce03c0e44ab0f61c32b88c60b
-  - enabled: 1
-    path: Assets/Scenes/Act1/Act1.unity
-    guid: d04cb6129f7eb1e4f882299726991cd5
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: c3cc642149c4c604c886dce3ec16be87, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 2e864c3b655988b46849dc06a04b37b9, type: 2}

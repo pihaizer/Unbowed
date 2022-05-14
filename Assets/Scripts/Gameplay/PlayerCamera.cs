@@ -6,15 +6,15 @@ using UnityEngine;
 namespace Unbowed.Gameplay {
     [RequireComponent(typeof(CinemachineVirtualCamera))]
     public class PlayerCamera : MonoBehaviour {
-        CinemachineVirtualCamera _camera;
-        
-        void Awake() {
+        private CinemachineVirtualCamera _camera;
+
+        private void Awake() {
             _camera = GetComponent<CinemachineVirtualCamera>();
             ActivePlayer.PlayerChanged += ActivePlayerOnPlayerChanged;
             ActivePlayerOnPlayerChanged();
         }
 
-        void ActivePlayerOnPlayerChanged() {
+        private void ActivePlayerOnPlayerChanged() {
             if (!ActivePlayer.Exists) return;
             var playerTransform = ActivePlayer.GetTransform();
             _camera.Follow = playerTransform;

@@ -11,7 +11,7 @@ namespace Unbowed.SO {
     public class SceneConfig : ScriptableObject {
         public string sceneName;
 
-        void OnEnable() {
+        private void OnEnable() {
             if (ScenesConfig.Instance._allSceneConfigs.Contains(this)) return;
             ScenesConfig.Instance._allSceneConfigs.Add(this);
             
@@ -20,7 +20,7 @@ namespace Unbowed.SO {
 #endif
         }
 
-        void OnDestroy() {
+        private void OnDestroy() {
             if (!ScenesConfig.Instance._allSceneConfigs.Contains(this)) return;
             ScenesConfig.Instance._allSceneConfigs.Remove(this);
             

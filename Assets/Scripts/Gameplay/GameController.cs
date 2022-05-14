@@ -4,26 +4,29 @@ using Sirenix.OdinInspector;
 using Unbowed.Managers.Saves;
 using Unbowed.SO;
 using UnityEngine;
+using Zenject;
 
 namespace Unbowed.Gameplay {
     public class GameController : MonoBehaviour {
-        [SerializeField] SceneConfig startingLocationConfig;
-        SaveFile _save;
+        [SerializeField] private SceneConfig startingLocationConfig;
+        [Inject] private SaveController _saveController;
+        private SaveFile _save;
 
-        void Start() {
-            _save = SaveController.Load();
+        private void Start() {
+            _save = _saveController.Load();
             var operation = ScenesConfig.Instance.Load(new SceneChangeRequest(startingLocationConfig) {
-                useLoadingScreen = true
+                useLoadingScreen = true,
+                setActive = true
             });
             if(operation != null) operation.completed += OnLoadCompleted;
             else OnLoadCompleted(null);
         }
 
-        void OnLoadCompleted(AsyncOperation obj) {
+        private void OnLoadCompleted(AsyncOperation obj) {
             StartCoroutine(InitPlayer());
         }
 
-        IEnumerator InitPlayer() {
+        private IEnumerator InitPlayer() {
             if (_save.characters.Count == 0) yield break;
             yield return new WaitUntil(() => ActivePlayer.Exists && ActivePlayer.Get().IsStarted);
             var player = ActivePlayer.Get();
@@ -35,10 +38,10 @@ namespace Unbowed.Gameplay {
             var save = new SaveFile();
             var playerSave = CharacterSave.FromCharacter(ActivePlayer.Get());
             save.characters.Add(playerSave);
-            SaveController.Save(save);
+            _saveController.Save(save);
         }
 
-        void OnApplicationQuit() {
+        private void OnApplicationQuit() {
             Save();
         }
     }

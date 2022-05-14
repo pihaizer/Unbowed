@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Unbowed.Utility.WaitFor {
     public class WaitForSecondsRange : CustomYieldInstruction {
-        readonly float _startTime;
-        readonly float _waitTime;
+        private readonly float _startTime;
+        private readonly float _waitTime;
 
         public override bool keepWaiting => (Time.time - _startTime) < _waitTime;
 

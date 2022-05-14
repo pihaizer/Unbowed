@@ -6,9 +6,9 @@ using UnityEngine.AI;
 namespace Unbowed.Gameplay.Characters.Commands {
     public class InteractCommand : CharacterCommand {
         public IInteractable Target { get; }
-        readonly float _maxTime;
-        Character _character;
-        float _startTime;
+        private readonly float _maxTime;
+        private Character _character;
+        private float _startTime;
 
 
         public InteractCommand(IInteractable target, float maxTime = float.MaxValue) {
@@ -47,7 +47,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             base.Stop(result);
         }
 
-        void GoToTarget(IInteractable target) {
+        private void GoToTarget(IInteractable target) {
             var path = new NavMeshPath();
             var interactablePosition = target.GetTransform().position;
 
@@ -81,7 +81,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             }
         }
 
-        bool TryInteract() {
+        private bool TryInteract() {
             if (!IsInRange(Target)) return false;
 
             _character.movement.NavAgent.ResetPath();
@@ -89,7 +89,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             return true;
         }
 
-        bool IsInRange(IInteractable target) {
+        private bool IsInRange(IInteractable target) {
             if (target == null || target.GetTransform() == null) return false;
 
             return (target.GetTransform().position - _character.transform.position).sqrMagnitude <

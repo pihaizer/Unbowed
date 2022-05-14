@@ -1,6 +1,6 @@
 ﻿namespace Unbowed.Gameplay.Characters.Commands {
     public class IdleCommand : CharacterCommand {
-        float _timeRemaining;
+        private float _timeRemaining;
 
         public IdleCommand(float time) {
             _timeRemaining = time;

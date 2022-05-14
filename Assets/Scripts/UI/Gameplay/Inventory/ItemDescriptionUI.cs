@@ -5,7 +5,8 @@ using System.Linq;
 using Sirenix.OdinInspector;
 
 using TMPro;
-
+using Unbowed.Gameplay.Characters.Configs.Stats;
+using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Items;
 
 using UnityEngine;
@@ -15,13 +16,13 @@ using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     public class ItemDescriptionUI : CanvasGroupMenu {
-        [SerializeField, ChildGameObjectsOnly] TMP_Text itemName;
+        [SerializeField, ChildGameObjectsOnly] private TMP_Text itemName;
         [FormerlySerializedAs("slot"), SerializeField, ChildGameObjectsOnly]
-        TMP_Text equipmentType;
-        [SerializeField, ChildGameObjectsOnly] TMP_Text primaryEffectorsText;
-        [SerializeField, ChildGameObjectsOnly] TMP_Text secondaryEffectorsText;
-        [SerializeField, ChildGameObjectsOnly] TMP_Text description;
-        [SerializeField] Vector2 screenMaxOffset;
+        private TMP_Text equipmentType;
+        [SerializeField, ChildGameObjectsOnly] private TMP_Text primaryEffectorsText;
+        [SerializeField, ChildGameObjectsOnly] private TMP_Text secondaryEffectorsText;
+        [SerializeField, ChildGameObjectsOnly] private TMP_Text description;
+        [SerializeField] private Vector2 screenMaxOffset;
 
         public void SetItem(Item item) {
             if (item == null) {
@@ -31,27 +32,28 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
             itemName.text = item.Name;
             itemName.color = new Color(item.Color.r, item.Color.g, item.Color.b, 1);
-
+            
             description.gameObject.SetActive(!string.IsNullOrEmpty(item.Config.description));
             description.SetText(item.Config.description);
 
             primaryEffectorsText.text = "";
             secondaryEffectorsText.text = "";
-            if (item.statEffectorsBundle != null) {
-               
-                foreach (var modifier in item.statEffectorsBundle.statModifiers) {
-                    if (modifier.isPrimary)
-                        primaryEffectorsText.text += modifier.GetDescription() + '\n';
-                    else
-                        secondaryEffectorsText.text += modifier.GetDescription() + '\n';
-                }
+
+            if (item is not Equipment {Stats: { }} equipment)
+            {
+                equipmentType.gameObject.SetActive(false);
+                return;
+            }
+            
+            foreach (StatEffector modifier in equipment.Stats.statEffectors) {
+                if (modifier.isPrimary)
+                    primaryEffectorsText.text += modifier.GetDescription() + '\n';
+                else
+                    secondaryEffectorsText.text += modifier.GetDescription() + '\n';
             }
 
-            equipmentType.gameObject.SetActive(item.IsEquipment());
-
-            if (item.IsEquipment(out var equipmentConfig)) {
-                equipmentType.text = equipmentConfig.type.ToString();
-            }
+            equipmentType.gameObject.SetActive(true);
+            equipmentType.text = equipment.Config.ToString();
         }
 
         protected override void SetOpened(bool value) {
@@ -59,7 +61,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             base.SetOpened(value);
         }
 
-        void UpdatePosition() {
+        private void UpdatePosition() {
             var rt = GetComponent<RectTransform>();
             rt.pivot = new Vector2(0.5f, 0);
             rt.anchorMax = rt.anchorMin = new Vector2(0.5f, 1);

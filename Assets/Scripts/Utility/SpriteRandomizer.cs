@@ -8,7 +8,7 @@ namespace Unbowed.Utility {
     public class SpriteRandomizer : MonoBehaviour {
         public List<SpriteWeight> sprites;
 
-        void Start() {
+        private void Start() {
             var spriteRenderer = GetComponent<SpriteRenderer>();
             var weightSum = sprites.Select(x => x.weight).Aggregate((sum, next) => sum + next);
             var randomValue = UnityEngine.Random.Range(0, weightSum - 1e-6f);

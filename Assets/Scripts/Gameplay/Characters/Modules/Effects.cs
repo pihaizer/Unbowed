@@ -7,16 +7,16 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Modules {
     public class Effects : MonoBehaviour {
-        readonly List<IEffect> _effects = new List<IEffect>();
+        private readonly List<IEffect> _effects = new List<IEffect>();
         
         public event Action<IEffect> Added;
         public event Action<IEffect> Removed;
 
-        void Update() {
+        private void Update() {
             for (int i = _effects.Count - 1; i >= 0; i--) _effects[i].Update();
         }
 
-        void FixedUpdate() {
+        private void FixedUpdate() {
             for (int i = _effects.Count - 1; i >= 0; i--) _effects[i].FixedUpdate();
         }
 

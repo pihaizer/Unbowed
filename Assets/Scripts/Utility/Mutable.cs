@@ -6,7 +6,7 @@ namespace Unbowed.Utility {
     [Serializable]
     public class Mutable<T> {
         public event Action<T> Changed;
-        [SerializeField, ReadOnly] T _value;
+        [SerializeField, ReadOnly] private T _value;
         
         public T Value {
             get => _value;
