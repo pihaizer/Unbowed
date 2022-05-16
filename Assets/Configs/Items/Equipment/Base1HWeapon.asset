@@ -12,14 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6c6c4001198478e83a1bbd73457a691, type: 3}
   m_Name: Base1HWeapon
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: asdqweasd
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
   modelPrefab: {fileID: 0}
-  size: {x: 0, y: 0}
-  itemLevel: 0
+  size: {x: 1, y: 3}
+  itemLevel: 3
   primaryStats: []
   rarityWeights:
-    weights: []
+    weights:
+    - value: 0
+      weight: 0.255
+      normalized: 0
+    - value: 1
+      weight: 0.294
+      normalized: 0
+    - value: 2
+      weight: 0.382
+      normalized: 0
+    - value: 3
+      weight: 0.343
+      normalized: 0
+    - value: 4
+      weight: 0.333
+      normalized: 0
   isTwoHanded: 0
   MeleeWeaponType: 0

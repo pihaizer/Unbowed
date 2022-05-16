@@ -13,10 +13,10 @@ namespace Unbowed.Managers {
         private void Awake() {
             if (initScenesConfig) ScenesConfig.Instance.Init();
             
-            if (!ScenesConfig.Instance.loadedScenes.Contains(sceneLoaded) &&
-                (!ignoreIfHasScenes || ScenesConfig.Instance.loadedScenes.Count == 0)) {
+            if (!ScenesConfig.Instance.LoadedScenes.Contains(sceneLoaded) &&
+                (!ignoreIfHasScenes || ScenesConfig.Instance.LoadedScenes.Count == 0)) {
                 ScenesConfig.Instance.Load(new SceneChangeRequest(sceneLoaded) {
-                    setActive = setActive, useLoadingScreen = useLoadingScreen
+                    SetActive = setActive, UseLoadingScreen = useLoadingScreen
                 });
             }
 

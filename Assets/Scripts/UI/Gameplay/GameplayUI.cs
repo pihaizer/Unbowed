@@ -6,12 +6,14 @@ using Sirenix.OdinInspector;
 
 using Unbowed.Gameplay;
 using Unbowed.Gameplay.Characters;
+using Unbowed.Signals;
 using Unbowed.SO;
 using Unbowed.UI.Gameplay.Inventory;
 using Unbowed.UI.ItemNameplates;
 using Unbowed.Utility;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Unbowed.UI {
     [RequireComponent(typeof(Canvas))]
@@ -53,6 +55,8 @@ namespace Unbowed.UI {
         [SerializeField]
         private CinemachineVirtualCamera virtualCamera;
 
+        [Inject] private SignalBus _bus;
+        
         private CinemachineFramingTransposer _transposer;
         private float _currentTransposerTargetValue;
 
@@ -71,25 +75,25 @@ namespace Unbowed.UI {
             ActivePlayer.PlayerChanged += SetInventory;
             inventoryMenu.SetInventory(ActivePlayer.GetInventory());
 
-            leftMenus.IsOpened.Changed += (value) => FloatCameraLeft();
-            rightMenus.IsOpened.Changed += (value) => FloatCameraRight();
+            leftMenus.IsOpened.Changed += _ => FloatCameraLeft();
+            rightMenus.IsOpened.Changed += _ => FloatCameraRight();
 
-            EventsContext.Instance.otherInventoryRequest += OnOtherInventoryRequest;
+            _bus.Subscribe<ShowInventoryRequest>(OnOtherInventoryRequest);
         }
 
         private void OnDestroy() {
             ActivePlayer.PlayerChanged -= SetInventory;
-            EventsContext.Instance.otherInventoryRequest -= OnOtherInventoryRequest;
+            _bus.Unsubscribe<ShowInventoryRequest>(OnOtherInventoryRequest);
         }
 
         private void SetInventory() => inventoryMenu.SetInventory(ActivePlayer.GetInventory());
 
-        private void OnOtherInventoryRequest(Unbowed.Gameplay.Characters.Modules.Inventory inventory, bool value) {
-            if (value) {
-                lootedInventoryMenu.SetInventory(inventory);
+        private void OnOtherInventoryRequest(ShowInventoryRequest signal) {
+            if (signal.IsOpen) {
+                lootedInventoryMenu.SetInventory(signal.Inventory);
                 lootedInventoryMenu.Open();
             } else {
-                if (lootedInventoryMenu.Inventory != inventory) return;
+                if (lootedInventoryMenu.Inventory != signal.Inventory) return;
                 lootedInventoryMenu.SetInventory(null);
                 lootedInventoryMenu.Close();
             }

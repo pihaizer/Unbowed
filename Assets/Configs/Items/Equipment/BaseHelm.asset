@@ -12,13 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef32be4497a44ef28264942bdfbc737e, type: 3}
   m_Name: BaseHelm
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: asdqwe
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
   modelPrefab: {fileID: 0}
-  size: {x: 0, y: 0}
-  itemLevel: 0
+  size: {x: 2, y: 2}
+  itemLevel: 3
   primaryStats: []
   rarityWeights:
-    weights: []
+    weights:
+    - value: 0
+      weight: 0.049
+      normalized: 0.07458143
+    - value: 1
+      weight: 0.098
+      normalized: 0.14916286
+    - value: 2
+      weight: 0.157
+      normalized: 0.238965
+    - value: 3
+      weight: 0.167
+      normalized: 0.25418568
+    - value: 4
+      weight: 0.186
+      normalized: 0.28310502
   ArmorType: 0

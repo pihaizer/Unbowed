@@ -33,7 +33,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
         private void ToMainMenu() {
             FindObjectOfType<GameController>().Save();
             ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenu) {
-                unloadOther = true, setActive = true, useLoadingScreen = true
+                UnloadOther = true, SetActive = true, UseLoadingScreen = true
             });
         }
     }

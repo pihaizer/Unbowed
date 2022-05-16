@@ -1,20 +1,37 @@
 ﻿using System;
+using Unbowed.Signals;
 using Unbowed.SO;
 using UnityEngine;
+using Zenject;
 
-namespace Unbowed.UI {
-    public class LoaderScreen : MonoBehaviour {
+namespace Unbowed.UI
+{
+    public class LoaderScreen : MonoBehaviour
+    {
         [SerializeField] private GameObject loadingScreenContent;
 
-        private int _showLoaderCalls = 0;
+        [Inject] private SignalBus _bus;
 
-        private void Start() {
-            loadingScreenContent.gameObject.SetActive(ScenesConfig.Instance.loadedScenes.Count == 0);
-            EventsContext.Instance.showLoadingScreen += ShowLoadingScreen;
+        private int _showLoaderCalls;
+
+        private void Awake()
+        {
+            _bus.Subscribe<LoadingScreenRequestSignal>(ShowLoadingScreen);
         }
 
-        private void ShowLoadingScreen(bool value) {
-            _showLoaderCalls += value ? 1 : -1;
+        private void Start()
+        {
+            loadingScreenContent.gameObject.SetActive(ScenesConfig.Instance.LoadedScenes.Count == 0);
+        }
+
+        private void OnDestroy()
+        {
+            _bus.Unsubscribe<LoadingScreenRequestSignal>(ShowLoadingScreen);
+        }
+
+        private void ShowLoadingScreen(LoadingScreenRequestSignal signal)
+        {
+            _showLoaderCalls += signal.IsOpen ? 1 : -1;
             loadingScreenContent.SetActive(_showLoaderCalls > 0);
         }
     }

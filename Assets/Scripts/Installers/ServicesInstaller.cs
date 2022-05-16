@@ -7,7 +7,7 @@ namespace Unbowed.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<SaveController>().AsSingle().NonLazy();
+            Container.Bind<ISaveController>().To<SaveController>().AsSingle().NonLazy();
         }
     }
 }

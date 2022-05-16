@@ -1,22 +1,26 @@
 ﻿using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Characters.Modules;
+using Unbowed.Signals;
 using Unbowed.SO;
 using Unbowed.Utility;
 using UnityEngine;
+using Zenject;
 
 namespace Unbowed.Gameplay.Items {
-    public class DroppedItem : SerializedMonoBehaviour, IInteractable {
+    public class DroppedItem : MonoBehaviour, IInteractable {
         [SerializeField, Range(0, 20f)] private float throwForce = 1f;
         [SerializeField, MinMaxSlider(0, 20f)] private Vector2 throwTorqueRange;
         [SerializeField, AssetsOnly] private GameObject defaultItemModel;
+
+        [Inject] private SignalBus _bus;
 
         public Characters.Items.Item Item { get; private set; }
 
         private void Update() {
             if (Input.GetKey(KeyCode.LeftAlt)) {
                 if (!RectUtils.One.Contains(Camera.main.WorldToViewportPoint(transform.position))) return;
-                EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
+                _bus.Fire(new DescriptionShowRequestSignal(this, true));
             }
 
             if (Input.GetKeyUp(KeyCode.LeftAlt)) OnMouseExit();
@@ -24,21 +28,21 @@ namespace Unbowed.Gameplay.Items {
 
         private void OnDestroy() {
             OnMouseExit();
-            EventsContext.Instance.descriptionCreateRequest?.Invoke(this, false);
+            _bus.Fire(new DescriptionCreateRequestSignal(this, false));
         }
 
         private void OnMouseOver() {
             if (MouseContext.Instance.BlockedByUI) return;
-            EventsContext.Instance.descriptionShowRequest?.Invoke(this, true);
+            _bus.Fire(new DescriptionShowRequestSignal(this, true));
         }
 
         private void OnMouseExit() {
-            EventsContext.Instance.descriptionShowRequest?.Invoke(this, false);
+            _bus.Fire(new DescriptionShowRequestSignal(this, false));
         }
 
         public void SetItem(Characters.Items.Item item) {
             Item = item;
-            EventsContext.Instance.descriptionCreateRequest?.Invoke(this, true);
+            // _bus.Fire(new DescriptionCreateRequestSignal(this, true));
             Instantiate(item.Config.modelPrefab != null ? 
                 item.Config.modelPrefab :
                 defaultItemModel, transform);

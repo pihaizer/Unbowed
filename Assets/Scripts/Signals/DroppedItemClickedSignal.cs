@@ -6,7 +6,7 @@ namespace Unbowed.Gameplay.Signals
         
         public DroppedItemClickedSignal(IInteractable interactable)
         {
-            
+            Interactable = interactable;
         }
     }
 }

@@ -22,7 +22,11 @@ namespace Unbowed.Gameplay.Characters.Items
         public Inventory Inventory => location.Inventory;
         public bool IsInBags => !location.IsEquipped;
 
-        public ItemConfig Config { get; set; }
+        public ItemConfig Config
+        {
+            get => _config;
+            set => _config = value;
+        } 
 
         public virtual string Name => Config.displayName;
 
@@ -30,7 +34,7 @@ namespace Unbowed.Gameplay.Characters.Items
 
         public Vector2Int Size => Config.size;
 
-        public Item(ItemConfig config) => Config = config;
+        public Item(ItemConfig config) => _config = config;
 
 
         #region Serialization

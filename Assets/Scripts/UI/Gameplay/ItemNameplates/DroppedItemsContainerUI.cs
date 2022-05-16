@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Unbowed.Gameplay.Items;
+using Unbowed.Signals;
 using Unbowed.SO;
 using UnityEngine;
+using Zenject;
 
 namespace Unbowed.UI.ItemNameplates {
     public class DroppedItemsContainerUI : MonoBehaviour {
-        [SerializeField, ChildGameObjectsOnly] private DroppedItemNameplateUI reference;
+        [SerializeField] private DroppedItemNameplateUI nameplatePrefab;
 
-        private readonly Dictionary<DroppedItem, DroppedItemNameplateUI> _shownItems =
-            new Dictionary<DroppedItem, DroppedItemNameplateUI>();
+        private readonly Dictionary<DroppedItem, DroppedItemNameplateUI> _shownItems = new();
+
+        [Inject] private SignalBus _bus;
 
         private void Awake() {
-            reference.gameObject.SetActive(false);
-            EventsContext.Instance.descriptionCreateRequest += RequestCreateItem;
-            EventsContext.Instance.descriptionShowRequest += RequestShowItem;
+            _bus.Subscribe<DescriptionCreateRequestSignal>(OnCreateItemRequest);
+            _bus.Subscribe<DescriptionShowRequestSignal>(OnShowItemRequest);
         }
 
         private void OnDestroy() {
-            EventsContext.Instance.descriptionCreateRequest -= RequestCreateItem;
-            EventsContext.Instance.descriptionShowRequest -= RequestShowItem;
+            _bus.Unsubscribe<DescriptionCreateRequestSignal>(OnCreateItemRequest);
+            _bus.Unsubscribe<DescriptionShowRequestSignal>(OnShowItemRequest);
         }
 
         private void Update() {
@@ -29,26 +31,26 @@ namespace Unbowed.UI.ItemNameplates {
             }
         }
 
-        private void RequestShowItem(DroppedItem item, bool value) {
-            if (!_shownItems.ContainsKey(item)) {
-                if (value)
-                    RequestCreateItem(item, true);
+        private void OnShowItemRequest(DescriptionShowRequestSignal signal) {
+            if (!_shownItems.ContainsKey(signal.Item)) {
+                if (signal.IsShow)
+                    OnCreateItemRequest(new DescriptionCreateRequestSignal(signal.Item, true));
                 else
                     return;
             }
 
-            _shownItems[item].gameObject.SetActive(value);
+            _shownItems[signal.Item].gameObject.SetActive(signal.IsShow);
         }
 
-        private void RequestCreateItem(DroppedItem item, bool value) {
-            if (_shownItems.ContainsKey(item) && !value) {
-                Destroy(_shownItems[item].gameObject);
-                _shownItems.Remove(item);
-            } else if (!_shownItems.ContainsKey(item) && value) {
-                var nameplate = Instantiate(reference, transform);
-                nameplate.Item = item;
-                nameplate.transform.position = Camera.main.WorldToScreenPoint(item.transform.position);
-                _shownItems.Add(item, nameplate);
+        private void OnCreateItemRequest(DescriptionCreateRequestSignal signal) {
+            if (_shownItems.ContainsKey(signal.Item) && !signal.IsCreate) {
+                Destroy(_shownItems[signal.Item].gameObject);
+                _shownItems.Remove(signal.Item);
+            } else if (!_shownItems.ContainsKey(signal.Item) && signal.IsCreate) {
+                var nameplate = Instantiate(nameplatePrefab, transform);
+                nameplate.Item = signal.Item;
+                nameplate.transform.position = Camera.main.WorldToScreenPoint(signal.Item.transform.position);
+                _shownItems.Add(signal.Item, nameplate);
             }
         }
     }

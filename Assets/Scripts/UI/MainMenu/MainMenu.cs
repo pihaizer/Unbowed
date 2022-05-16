@@ -23,7 +23,7 @@ namespace Unbowed.UI.MainMenu {
 
         private void StartNewGame() {
             ScenesConfig.Instance.Load(new SceneChangeRequest(gameSceneConfig) {
-                useLoadingScreen = true, setActive = true, unloadOther = true
+                UseLoadingScreen = true, SetActive = true, UnloadOther = true
             });
         }
 

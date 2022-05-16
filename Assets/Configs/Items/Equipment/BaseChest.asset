@@ -12,13 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef32be4497a44ef28264942bdfbc737e, type: 3}
   m_Name: BaseChest
   m_EditorClassIdentifier: 
-  displayName: 
+  displayName: asdqwe
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
   modelPrefab: {fileID: 0}
-  size: {x: 0, y: 0}
-  itemLevel: 0
+  size: {x: 2, y: 3}
+  itemLevel: 3
   primaryStats: []
   rarityWeights:
-    weights: []
+    weights:
+    - value: 0
+      weight: 0.167
+      normalized: 0.18331502
+    - value: 1
+      weight: 0.137
+      normalized: 0.15038419
+    - value: 2
+      weight: 0.186
+      normalized: 0.20417124
+    - value: 3
+      weight: 0.196
+      normalized: 0.21514818
+    - value: 4
+      weight: 0.225
+      normalized: 0.24698132
   ArmorType: 0

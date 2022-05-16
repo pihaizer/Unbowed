@@ -9,14 +9,16 @@ using Zenject;
 namespace Unbowed.Gameplay {
     public class GameController : MonoBehaviour {
         [SerializeField] private SceneConfig startingLocationConfig;
-        [Inject] private SaveController _saveController;
+        [Inject] private ISaveController _saveController;
+
+        private const string _saveKey = "save";
         private SaveFile _save;
 
-        private void Start() {
-            _save = _saveController.Load();
-            var operation = ScenesConfig.Instance.Load(new SceneChangeRequest(startingLocationConfig) {
-                useLoadingScreen = true,
-                setActive = true
+        private async void Start() {
+            _save = await _saveController.GetAsync<SaveFile>(_saveKey);
+            AsyncOperation operation = ScenesConfig.Instance.Load(new SceneChangeRequest(startingLocationConfig) {
+                UseLoadingScreen = true,
+                SetActive = true
             });
             if(operation != null) operation.completed += OnLoadCompleted;
             else OnLoadCompleted(null);
@@ -36,9 +38,9 @@ namespace Unbowed.Gameplay {
         [Button]
         public void Save() {
             var save = new SaveFile();
-            var playerSave = CharacterSave.FromCharacter(ActivePlayer.Get());
+            CharacterSave playerSave = CharacterSave.FromCharacter(ActivePlayer.Get());
             save.characters.Add(playerSave);
-            _saveController.Save(save);
+            _saveController.SetAsync(_saveKey, save);
         }
 
         private void OnApplicationQuit() {

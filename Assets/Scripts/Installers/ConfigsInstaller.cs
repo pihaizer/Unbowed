@@ -14,6 +14,12 @@ namespace Unbowed.Configs
         {
             Container.Bind<AllStatModifiers>().FromInstance(allStatModifiersConfig);
             Container.Bind<AllItemsConfig>().FromInstance(allItemsConfig);
+            
+
+            foreach (ItemConfig itemConfig in allItemsConfig.allItems)
+            {
+                Container.QueueForInject(itemConfig);
+            }
         }
     }
 }
