@@ -1,4 +1,5 @@
 ﻿using System;
+using Unbowed.Managers;
 using Unbowed.Signals;
 using Unbowed.SO;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Unbowed.UI
         [SerializeField] private GameObject loadingScreenContent;
 
         [Inject] private SignalBus _bus;
+        [Inject] private IScenesController _scenesController;
 
         private int _showLoaderCalls;
 
@@ -21,7 +23,7 @@ namespace Unbowed.UI
 
         private void Start()
         {
-            loadingScreenContent.gameObject.SetActive(ScenesConfig.Instance.LoadedScenes.Count == 0);
+            loadingScreenContent.gameObject.SetActive(_scenesController.LoadedScenes.Count == 0);
         }
 
         private void OnDestroy()

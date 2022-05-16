@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allStatModifiersConfig: {fileID: 11400000, guid: 9cffb53748e4d6147a40abc2ffedac65, type: 2}
   allItemsConfig: {fileID: 11400000, guid: 773635a8a04672e49944e62b89338459, type: 2}
+  scenesConfig: {fileID: 11400000, guid: 1419acc6d8cee314c918797643d3ffc3, type: 2}
 --- !u!114 &4063676891995776325
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Sirenix.OdinInspector;
+using Unbowed.Managers;
 using Unbowed.Managers.Saves;
 using Unbowed.SO;
 using UnityEngine;
@@ -10,21 +11,21 @@ namespace Unbowed.Gameplay {
     public class GameController : MonoBehaviour {
         [SerializeField] private SceneConfig startingLocationConfig;
         [Inject] private ISaveController _saveController;
+        [Inject] private IScenesController _scenesController;
 
         private const string _saveKey = "save";
         private SaveFile _save;
 
         private async void Start() {
             _save = await _saveController.GetAsync<SaveFile>(_saveKey);
-            AsyncOperation operation = ScenesConfig.Instance.Load(new SceneChangeRequest(startingLocationConfig) {
+            await _scenesController.Load(new SceneChangeRequest(startingLocationConfig) {
                 UseLoadingScreen = true,
                 SetActive = true
             });
-            if(operation != null) operation.completed += OnLoadCompleted;
-            else OnLoadCompleted(null);
+            OnLoadCompleted();
         }
 
-        private void OnLoadCompleted(AsyncOperation obj) {
+        private void OnLoadCompleted() {
             StartCoroutine(InitPlayer());
         }
 

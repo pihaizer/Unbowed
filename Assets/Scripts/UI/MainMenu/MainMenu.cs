@@ -1,9 +1,11 @@
 using System;
 using Sirenix.OdinInspector;
+using Unbowed.Managers;
 using Unbowed.SO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Unbowed.UI.MainMenu {
     public class MainMenu : MonoBehaviour {
@@ -15,6 +17,8 @@ namespace Unbowed.UI.MainMenu {
 
         [SerializeField] private SceneConfig gameSceneConfig;
 
+        [Inject] private IScenesController _scenesController;
+
         private void Awake() {
             newGameButton.onClick.AddListener(StartNewGame);
             optionsButton.onClick.AddListener(OpenOptions);
@@ -22,7 +26,7 @@ namespace Unbowed.UI.MainMenu {
         }
 
         private void StartNewGame() {
-            ScenesConfig.Instance.Load(new SceneChangeRequest(gameSceneConfig) {
+            _scenesController.Load(new SceneChangeRequest(gameSceneConfig) {
                 UseLoadingScreen = true, SetActive = true, UnloadOther = true
             });
         }

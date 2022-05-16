@@ -8,7 +8,6 @@ using Unbowed.UI.Gameplay.Inventory;
 using UnityEngine;
 
 namespace Unbowed.UI {
-    [GlobalConfig("Assets/Resources/Configs")]
     public class UIConfig : GlobalConfig<UIConfig> {
         [Title("Colors")]
         public Color defaultSlotColor;

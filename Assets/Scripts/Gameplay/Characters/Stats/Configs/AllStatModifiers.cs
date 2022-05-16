@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Configs.Stats.Configs
 {
-    [GlobalConfig("Assets/Resources/Configs")]
     public class AllStatModifiers : ScriptableObject
     {
         public List<StatModifierConfig> statModifierConfigs;

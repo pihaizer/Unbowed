@@ -1,6 +1,7 @@
 ﻿using System;
 using Unbowed.SO;
 using UnityEngine;
+using Zenject;
 
 namespace Unbowed.Managers {
     public class OnStartLoader : MonoBehaviour {
@@ -10,12 +11,12 @@ namespace Unbowed.Managers {
         [SerializeField] private bool useLoadingScreen;
         [SerializeField] private bool ignoreIfHasScenes;
 
+        [Inject] private IScenesController _scenesController;
+
         private void Awake() {
-            if (initScenesConfig) ScenesConfig.Instance.Init();
-            
-            if (!ScenesConfig.Instance.LoadedScenes.Contains(sceneLoaded) &&
-                (!ignoreIfHasScenes || ScenesConfig.Instance.LoadedScenes.Count == 0)) {
-                ScenesConfig.Instance.Load(new SceneChangeRequest(sceneLoaded) {
+            if (!_scenesController.LoadedScenes.Contains(sceneLoaded) &&
+                (!ignoreIfHasScenes || _scenesController.LoadedScenes.Count == 0)) {
+                _scenesController.Load(new SceneChangeRequest(sceneLoaded) {
                     SetActive = setActive, UseLoadingScreen = useLoadingScreen
                 });
             }

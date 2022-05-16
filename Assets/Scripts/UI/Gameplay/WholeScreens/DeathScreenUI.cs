@@ -1,13 +1,17 @@
 using Unbowed.Gameplay;
+using Unbowed.Managers;
 using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Unbowed.UI.Gameplay.WholeScreens {
     public class DeathScreenUI : MonoBehaviour {
         [SerializeField] private Button reviveButton;
         [SerializeField] private Button toMainMenuButton;
         [SerializeField] private SceneConfig mainMenuScene;
+
+        [Inject] private IScenesController _scenesController;
 
         private void Awake() {
             ActivePlayer.Died += OnPlayerDied;
@@ -29,7 +33,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
 
         private void ToMainMenu() {
             FindObjectOfType<GameController>().Save();
-            ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenuScene)
+            _scenesController.Load(new SceneChangeRequest(mainMenuScene)
                 {SetActive = true, UnloadOther = true, UseLoadingScreen = true});
         }
     }

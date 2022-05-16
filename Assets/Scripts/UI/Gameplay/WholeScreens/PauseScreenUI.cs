@@ -1,9 +1,11 @@
 ﻿using System;
 
 using Unbowed.Gameplay;
+using Unbowed.Managers;
 using Unbowed.SO;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Unbowed.UI.Gameplay.WholeScreens {
     public class PauseScreenUI : MonoBehaviour {
@@ -12,6 +14,8 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
         [SerializeField] private Button toMainMenuButton;
 
         [SerializeField] private SceneConfig mainMenu;
+        
+        [Inject] private IScenesController _scenesController;
 
         private void Awake() {
             resumeButton.onClick.AddListener(Resume);
@@ -32,7 +36,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens {
 
         private void ToMainMenu() {
             FindObjectOfType<GameController>().Save();
-            ScenesConfig.Instance.Load(new SceneChangeRequest(mainMenu) {
+            _scenesController.Load(new SceneChangeRequest(mainMenu) {
                 UnloadOther = true, SetActive = true, UseLoadingScreen = true
             });
         }

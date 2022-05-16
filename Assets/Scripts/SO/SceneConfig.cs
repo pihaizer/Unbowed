@@ -10,23 +10,5 @@ namespace Unbowed.SO {
     [ExecuteAlways]
     public class SceneConfig : ScriptableObject {
         public string sceneName;
-
-        private void OnEnable() {
-            if (ScenesConfig.Instance._allSceneConfigs.Contains(this)) return;
-            ScenesConfig.Instance._allSceneConfigs.Add(this);
-            
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(ScenesConfig.Instance);
-#endif
-        }
-
-        private void OnDestroy() {
-            if (!ScenesConfig.Instance._allSceneConfigs.Contains(this)) return;
-            ScenesConfig.Instance._allSceneConfigs.Remove(this);
-            
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(ScenesConfig.Instance);
-#endif
-        }
     }
 }
