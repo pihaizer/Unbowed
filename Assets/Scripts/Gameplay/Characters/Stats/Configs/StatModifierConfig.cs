@@ -3,7 +3,6 @@
 using Sirenix.OdinInspector;
 
 using Unbowed.Gameplay.Characters.Configs.Stats;
-using Unbowed.Gameplay.Characters.Configs.Stats.Configs;
 using Unbowed.Utility;
 
 using UnityEngine;

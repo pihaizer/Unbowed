@@ -82,6 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b847bb26b346ec859ad1097ad0ea90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  globalConfig: {fileID: 11400000, guid: 531e877bdfbf30943845193de1c165fc, type: 2}
   allStatModifiersConfig: {fileID: 11400000, guid: 9cffb53748e4d6147a40abc2ffedac65, type: 2}
   allItemsConfig: {fileID: 11400000, guid: 773635a8a04672e49944e62b89338459, type: 2}
   scenesConfig: {fileID: 11400000, guid: 1419acc6d8cee314c918797643d3ffc3, type: 2}

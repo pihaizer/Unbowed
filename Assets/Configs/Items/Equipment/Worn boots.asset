@@ -10,30 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef32be4497a44ef28264942bdfbc737e, type: 3}
-  m_Name: BaseHelm
+  m_Name: Worn boots
   m_EditorClassIdentifier: 
-  displayName: asdqwe
+  displayName: Worn boots
   description: 
-  icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
+  icon: {fileID: 21300000, guid: e420c5bc93cb2604695a893500c897e3, type: 3}
   modelPrefab: {fileID: 0}
   size: {x: 2, y: 2}
   itemLevel: 3
-  primaryStats: []
+  primaryStats:
+  - statType: 11
+    value: 5
+    isPrimary: 1
+    type: 1
   rarityWeights:
     weights:
     - value: 0
-      weight: 0.049
-      normalized: 0.07458143
+      weight: 0.176
+      normalized: 0.16793893
     - value: 1
-      weight: 0.098
-      normalized: 0.14916286
+      weight: 0.206
+      normalized: 0.19656488
     - value: 2
-      weight: 0.157
-      normalized: 0.238965
+      weight: 0.265
+      normalized: 0.25286257
     - value: 3
-      weight: 0.167
-      normalized: 0.25418568
+      weight: 0.225
+      normalized: 0.21469465
     - value: 4
-      weight: 0.186
-      normalized: 0.28310502
-  ArmorType: 0
+      weight: 0.176
+      normalized: 0.16793893
+  ArmorType: 2

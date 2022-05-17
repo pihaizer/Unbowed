@@ -9,8 +9,10 @@ namespace Unbowed.Gameplay.Characters.Items
 {
     public abstract class Equipment : Item
     {
+        [JsonIgnore]
         public new EquipmentConfig Config => _config is EquipmentConfig equipmentConfig ? equipmentConfig : null;
 
+        [JsonProperty]
         public StatEffectorsBundle Stats;
 
         public abstract string EquipmentTypeName { get; }

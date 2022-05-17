@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Sirenix.OdinInspector;
+using Unbowed.Gameplay.Characters;
 using Unbowed.Managers;
 using Unbowed.Managers.Saves;
 using Unbowed.SO;
@@ -30,9 +31,9 @@ namespace Unbowed.Gameplay {
         }
 
         private IEnumerator InitPlayer() {
-            if (_save.characters.Count == 0) yield break;
+            if (_save?.characters == null || _save.characters.Count == 0) yield break;
             yield return new WaitUntil(() => ActivePlayer.Exists && ActivePlayer.Get().IsStarted);
-            var player = ActivePlayer.Get();
+            Character player = ActivePlayer.Get();
             _save.characters[0].ApplyToCharacter(player);
         }
 

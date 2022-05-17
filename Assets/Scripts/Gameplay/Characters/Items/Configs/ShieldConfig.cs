@@ -1,7 +1,9 @@
 ﻿using Unbowed.Gameplay.Items;
+using UnityEngine;
 
 namespace Unbowed.Gameplay.Characters.Items.Configs
 {
+    [CreateAssetMenu]
     public class ShieldConfig : EquipmentConfig
     {
         public override bool Fits(EquipmentSlot slot) => 

@@ -26,7 +26,5 @@ namespace Unbowed.Gameplay.Characters.Items.Configs {
         public int itemLevel;
 
         public abstract Item Generate(float value);
-
-        private static List<ItemConfig> _allItemConfigs;
     }
 }

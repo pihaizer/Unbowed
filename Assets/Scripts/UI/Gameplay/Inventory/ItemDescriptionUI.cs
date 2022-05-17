@@ -30,7 +30,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
                 return;
             }
 
-            itemName.text = item.Name;
+            itemName.text = item.Config.displayName;
             itemName.color = new Color(item.Color.r, item.Color.g, item.Color.b, 1);
             
             description.gameObject.SetActive(!string.IsNullOrEmpty(item.Config.description));
@@ -53,7 +53,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             }
 
             equipmentType.gameObject.SetActive(true);
-            equipmentType.text = equipment.Config.ToString();
+            equipmentType.text = equipment.EquipmentTypeName;
         }
 
         protected override void SetOpened(bool value) {

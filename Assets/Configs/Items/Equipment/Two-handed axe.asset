@@ -10,15 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6c6c4001198478e83a1bbd73457a691, type: 3}
-  m_Name: Base2HWeapon
+  m_Name: Two-handed axe
   m_EditorClassIdentifier: 
-  displayName: asdqweasd
+  displayName: Two-handed axe
   description: 
   icon: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
   modelPrefab: {fileID: 0}
   size: {x: 2, y: 4}
   itemLevel: 3
-  primaryStats: []
+  primaryStats:
+  - statType: 14
+    value: 3
+    isPrimary: 1
+    type: 0
+  - statType: 15
+    value: 8
+    isPrimary: 1
+    type: 0
+  - statType: 16
+    value: 1.2
+    isPrimary: 1
+    type: 0
   rarityWeights:
     weights:
     - value: 0
@@ -36,5 +48,5 @@ MonoBehaviour:
     - value: 4
       weight: 0.206
       normalized: 0.23897912
-  isTwoHanded: 0
-  MeleeWeaponType: 0
+  isTwoHanded: 1
+  MeleeWeaponType: 1

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using HyperCore.Utility;
+using Newtonsoft.Json;
 using Sirenix.OdinInspector;
+using Unbowed.Configs;
 using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.Gameplay.Characters.Stats;
@@ -11,12 +14,14 @@ using Zenject;
 
 namespace Unbowed.Gameplay.Characters.Items
 {
-    [Serializable, InlineProperty, LabelWidth(200), AddJsonTypename]
+    [JsonObject(MemberSerialization.OptIn), AddJsonTypename]
+    [Serializable, InlineProperty, LabelWidth(200)]
     public abstract class Item : ICloneable
     {
         [ShowInInspector]
         protected ItemConfig _config;
 
+        [JsonProperty]
         public ItemLocation location = ItemLocation.None;
 
         public Inventory Inventory => location.Inventory;
@@ -39,8 +44,20 @@ namespace Unbowed.Gameplay.Characters.Items
 
         #region Serialization
 
-        [SerializeField, HideInInspector]
-        public string configName;
+        [JsonProperty]
+        private string _configName;
+
+        [OnSerializing]
+        private void OnSerializing(StreamingContext context)
+        {
+            _configName = _config.name;
+        }
+
+        [OnDeserialized]
+        private void OnDeserialized(StreamingContext context)
+        {
+            Config = AllItemsConfig.Instance.allItems.FirstOrDefault(config => config.name == _configName);
+        }
 
         #endregion
 

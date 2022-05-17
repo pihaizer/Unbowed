@@ -30,5 +30,10 @@ namespace Unbowed.InGameDebug {
         private void Update() {
             if (Input.GetKeyDown(KeyCode.F12)) _debugUIController.gameObject.ToggleActive();
         }
+
+        public void SetTimescale(float value)
+        {
+            Time.timeScale = value <= 1 ? value : Mathf.Lerp(1, 10, value - 1);
+        }
     }
 }

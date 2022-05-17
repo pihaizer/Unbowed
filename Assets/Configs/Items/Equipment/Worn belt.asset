@@ -10,30 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef32be4497a44ef28264942bdfbc737e, type: 3}
-  m_Name: BaseBoots
+  m_Name: Worn belt
   m_EditorClassIdentifier: 
-  displayName: asdqwe
+  displayName: Worn belt
   description: 
-  icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
+  icon: {fileID: 21300000, guid: da09804303305f542a686824630e7269, type: 3}
   modelPrefab: {fileID: 0}
-  size: {x: 2, y: 2}
+  size: {x: 2, y: 1}
   itemLevel: 3
-  primaryStats: []
+  primaryStats:
+  - statType: 11
+    value: 3
+    isPrimary: 1
+    type: 1
   rarityWeights:
     weights:
     - value: 0
-      weight: 0.176
-      normalized: 0.16793893
+      weight: 0.186
+      normalized: 0.1995708
     - value: 1
-      weight: 0.206
-      normalized: 0.19656488
+      weight: 0.157
+      normalized: 0.16845493
     - value: 2
-      weight: 0.265
-      normalized: 0.25286257
+      weight: 0.206
+      normalized: 0.22103003
     - value: 3
-      weight: 0.225
-      normalized: 0.21469465
+      weight: 0.216
+      normalized: 0.23175965
     - value: 4
-      weight: 0.176
-      normalized: 0.16793893
-  ArmorType: 0
+      weight: 0.167
+      normalized: 0.17918454
+  ArmorType: 4

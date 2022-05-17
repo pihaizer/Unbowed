@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Unbowed.Configs;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Items.Configs;

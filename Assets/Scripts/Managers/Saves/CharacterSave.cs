@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using Sirenix.Serialization;
-
+using Newtonsoft.Json;
 using Unbowed.Gameplay.Characters;
-using Unbowed.Gameplay.Items;
-
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.Managers.Saves {
     [Serializable]
     public class CharacterSave {
+        [JsonProperty]
         public List<Item> items;
 
         public static CharacterSave FromCharacter(Character character) {

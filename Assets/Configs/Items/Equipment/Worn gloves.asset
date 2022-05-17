@@ -10,30 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef32be4497a44ef28264942bdfbc737e, type: 3}
-  m_Name: BaseChest
+  m_Name: Worn gloves
   m_EditorClassIdentifier: 
-  displayName: asdqwe
+  displayName: Worn gloves
   description: 
-  icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
+  icon: {fileID: 21300000, guid: d4f5634edede200468fc1ccf30e6f3a1, type: 3}
   modelPrefab: {fileID: 0}
-  size: {x: 2, y: 3}
+  size: {x: 2, y: 2}
   itemLevel: 3
-  primaryStats: []
+  primaryStats:
+  - statType: 11
+    value: 5
+    isPrimary: 1
+    type: 1
   rarityWeights:
     weights:
     - value: 0
-      weight: 0.167
-      normalized: 0.18331502
-    - value: 1
-      weight: 0.137
-      normalized: 0.15038419
-    - value: 2
-      weight: 0.186
-      normalized: 0.20417124
-    - value: 3
-      weight: 0.196
-      normalized: 0.21514818
-    - value: 4
       weight: 0.225
-      normalized: 0.24698132
-  ArmorType: 0
+      normalized: 0.19148937
+    - value: 1
+      weight: 0.235
+      normalized: 0.2
+    - value: 2
+      weight: 0.245
+      normalized: 0.20851065
+    - value: 3
+      weight: 0.235
+      normalized: 0.2
+    - value: 4
+      weight: 0.235
+      normalized: 0.2
+  ArmorType: 1

@@ -3,6 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using HyperCore.Utility;
 using Newtonsoft.Json;
+using Unbowed.Configs;
 using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Items.Configs;
 using UnityEngine;
@@ -18,14 +19,14 @@ namespace Unbowed.Managers.Saves
         {
             string destination = Application.persistentDataPath + $"/{key}.json";
 
-            if (!File.Exists(destination)) return default(T);
+            if (!File.Exists(destination)) return default;
 
             string json = await File.ReadAllTextAsync(destination);
             var file = JsonConvert.DeserializeObject<T>(json,
                 new JsonSerializerSettings
                 {
-                    ContractResolver = AddJsonTypenameContractResolver.Instance,
-                    Converters = {new ItemsConverter(_allItemsConfig)}
+                    ContractResolver = new AddJsonTypenameContractResolver(),
+                    Converters = {new ItemsConverter(_allItemsConfig)},
                 });
             return file;
         }
@@ -34,7 +35,11 @@ namespace Unbowed.Managers.Saves
         {
             string destination = Application.persistentDataPath + $"/{key}.json";
             File.WriteAllText(destination, JsonConvert.SerializeObject(value,
-                new JsonSerializerSettings {ContractResolver = AddJsonTypenameContractResolver.Instance}));
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new AddJsonTypenameContractResolver(),
+                    Converters = {new ItemsConverter(_allItemsConfig)}
+                }));
             return Task.CompletedTask;
         }
     }

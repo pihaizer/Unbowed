@@ -19,7 +19,6 @@ namespace Unbowed.Gameplay.Characters.Modules
         public event Action<Item> RemovedItem;
 
         [SerializeField] private Vector2Int size;
-        [SerializeField] private List<Item> defaultItems;
 
         [Inject] private ItemsDropper _itemsDropper;
 
@@ -30,7 +29,7 @@ namespace Unbowed.Gameplay.Characters.Modules
         public List<Item> InBags => Items.Where(it => !it.location.IsEquipped).ToList();
         public Vector2Int Size => size;
 
-        public void Init() => SetItems(defaultItems);
+        public void Init() => SetItems(new List<Item>());
 
         public void SetItems(List<Item> items)
         {
@@ -43,7 +42,7 @@ namespace Unbowed.Gameplay.Characters.Modules
                 }
             }
 
-            Items = items ?? defaultItems;
+            Items = items ?? new List<Item>();
             if (Items == null) return;
 
             foreach (var item in Items)

@@ -13,7 +13,7 @@ namespace Unbowed.Managers {
 
         [Inject] private IScenesController _scenesController;
 
-        private void Awake() {
+        private void Start() {
             if (!_scenesController.LoadedScenes.Contains(sceneLoaded) &&
                 (!ignoreIfHasScenes || _scenesController.LoadedScenes.Count == 0)) {
                 _scenesController.Load(new SceneChangeRequest(sceneLoaded) {

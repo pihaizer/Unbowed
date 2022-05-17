@@ -10,15 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6c6c4001198478e83a1bbd73457a691, type: 3}
-  m_Name: Base1HWeapon
+  m_Name: Short sword
   m_EditorClassIdentifier: 
-  displayName: asdqweasd
+  displayName: Short sword
   description: 
-  icon: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
+  icon: {fileID: 21300000, guid: 5fd50594014b70e48bd6993443d46b32, type: 3}
   modelPrefab: {fileID: 0}
   size: {x: 1, y: 3}
   itemLevel: 3
-  primaryStats: []
+  primaryStats:
+  - statType: 14
+    value: 2
+    isPrimary: 1
+    type: 0
+  - statType: 15
+    value: 5
+    isPrimary: 1
+    type: 0
+  - statType: 16
+    value: 0.75
+    isPrimary: 1
+    type: 0
   rarityWeights:
     weights:
     - value: 0

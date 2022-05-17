@@ -30,7 +30,7 @@ MonoBehaviour:
     hitMomentPercent: 0.333
   dropsConfig:
     hasDrops: 1
-    magicFind: 5
+    magicFind: 1
     amountRange: {x: 0, y: 2}
     amountWeights:
       weights:

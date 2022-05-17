@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using Unbowed.Configs;
 using Unbowed.Gameplay.Items;
 using Unbowed.UI.Gameplay.Inventory;
 using UnityEngine;
 
 namespace Unbowed.UI {
-    public class UIConfig : GlobalConfig<UIConfig> {
+    public class UIConfig : ScriptableObject {
         [Title("Colors")]
         public Color defaultSlotColor;
 
@@ -27,6 +28,8 @@ namespace Unbowed.UI {
         [Title("Prefabs")]
         [AssetsOnly]
         public ItemUI itemUI;
+
+        public static UIConfig Instance => GlobalConfig.Instance.UIConfig;
 
         public Color GetEquipmentColor(EquipmentRarity rarity) =>
             equipmentColors.FirstOrDefault(rc => rc.rarity == rarity).color;

@@ -24,7 +24,7 @@ MonoBehaviour:
   stats:
     stats:
     - type: 30
-      baseValue: 5
+      baseValue: 1
   distances: {fileID: 11400000, guid: 38340cb7be5e4ad45a8a440d3e03af03, type: 2}
   animationConfig:
     hitMomentPercent: 0.333
