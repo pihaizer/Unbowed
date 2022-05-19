@@ -1,5 +1,6 @@
 ﻿using Unbowed.Gameplay.Signals;
 using Unbowed.Signals;
+using Unbowed.UI.Signals;
 using Zenject;
 
 namespace Unbowed.Installers
@@ -10,8 +11,9 @@ namespace Unbowed.Installers
         {
             SignalBusInstaller.Install(Container);
             Container.DeclareSignal<LoadingScreenRequestSignal>();
+            Container.DeclareSignal<ScreenActionSignal>();
             Container.DeclareSignal<DroppedItemClickedSignal>();
-            Container.DeclareSignal<ShowInventoryRequest>();
+            Container.DeclareSignal<ShowInventoryRequestSignal>();
             Container.DeclareSignal<DescriptionCreateRequestSignal>();
             Container.DeclareSignal<DescriptionShowRequestSignal>();
         }

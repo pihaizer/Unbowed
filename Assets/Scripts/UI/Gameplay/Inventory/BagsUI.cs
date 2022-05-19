@@ -1,26 +1,29 @@
 using System;
 using System.Collections.Generic;
+using HyperCore.UI;
 using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using Zenject;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.UI.Gameplay.Inventory {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(GridLayoutGroup))]
-    public class BagsUI : Menu {
-        [OdinSerialize, ChildGameObjectsOnly] private CellUI _cellReference;
-        [OdinSerialize, AssetsOnly] private ItemUI _itemUIPrefab;
+    public class BagsUI : CanvasScreen {
+        [SerializeField, AssetsOnly] private CellUI _cellPrefab;
+        [SerializeField, AssetsOnly] private ItemUI _itemUIPrefab;
 
         // ReSharper disable once Unity.RedundantHideInInspectorAttribute
         [OdinSerialize, HideInInspector] private CellUI[] _cells;
 
         [ShowInInspector]
         public List<ItemUI> ItemUIs { get; private set; }
+
+        [Inject] private DiContainer _container;
 
         public Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
 
@@ -42,7 +45,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
             if (Inventory == null) return;
 
-            _cellReference.gameObject.SetActive(false);
+            // _cellReference.gameObject.SetActive(false);
             SetSize(Inventory.Size);
             SetItems(Inventory.Items);
             Inventory.AddedItem += AddItem;
@@ -54,12 +57,14 @@ namespace Unbowed.UI.Gameplay.Inventory {
             Size = size;
             int newSize1d = Size.x * Size.y;
 
-            var rectTransform = GetComponent<RectTransform>();
+            // var rectTransform = GetComponent<RectTransform>();
             var grid = GetComponent<GridLayoutGroup>();
+            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            grid.constraintCount = size.x;
 
-            float width = grid.cellSize.x * Size.x + grid.spacing.x * (Size.x - 1) + grid.padding.horizontal;
-            float height = grid.cellSize.y * Size.y + grid.spacing.y * (Size.y - 1) + grid.padding.vertical;
-            rectTransform.sizeDelta = new Vector2(width, height);
+            // float width = grid.cellSize.x * Size.x + grid.spacing.x * (Size.x - 1) + grid.padding.horizontal;
+            // float height = grid.cellSize.y * Size.y + grid.spacing.y * (Size.y - 1) + grid.padding.vertical;
+            // rectTransform.sizeDelta = new Vector2(width, height);
 
             if (oldSize1d == newSize1d) return;
 
@@ -79,7 +84,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             }
 
             for (int i = oldSize1d; i < newSize1d; i++) {
-                var cell = Instantiate(_cellReference, transform, false);
+                var cell = _container.InstantiatePrefab(_cellPrefab, transform).GetComponent<CellUI>();
                 _cells[i] = cell;
                 cell.Init();
                 cell.gameObject.SetActive(true);
@@ -104,7 +109,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
         private void AddItem(Item item) {
             if (!item.IsInBags) return;
 
-            var itemUI = Instantiate(_itemUIPrefab, transform);
+            var itemUI = _container.InstantiatePrefab(_itemUIPrefab, transform).GetComponent<ItemUI>();
             itemUI.SetItem(item);
             itemUI.IsHoveredChanged += OnItemHoveredChanged;
             itemUI.Dragged += OnItemDragged;

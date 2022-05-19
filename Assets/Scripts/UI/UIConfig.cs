@@ -11,7 +11,8 @@ using UnityEngine;
 namespace Unbowed.UI {
     public class UIConfig : ScriptableObject {
         [Title("Colors")]
-        public Color defaultSlotColor;
+        public Color defaultBagsSlotColor;
+        public Color defaultEquipmentSlotColor;
 
         public Color positiveSlotColor;
         [Range(0, 1)] public float positiveBlend;

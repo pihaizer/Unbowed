@@ -13,7 +13,6 @@ namespace Unbowed.Gameplay.Characters.Modules
         private float runningSpeedMultiplier = 2f;
         private bool _isRunning;
         private Modifier<float> _runningSpeedModifier;
-        private Modifier<float> _testSpeedModifier;
 
         public float Speed => speed;
         public NavMeshAgent NavAgent { get; private set; }
@@ -25,7 +24,6 @@ namespace Unbowed.Gameplay.Characters.Modules
             speed.Changed += newValue => NavAgent.speed = newValue;
             NavAgent.speed = speed;
             _runningSpeedModifier = new Modifier<float>(runningSpeedMultiplier, Operations.Mul);
-            speed.AddModifier(_testSpeedModifier);
         }
 
         public void ToggleRunning() => SetRunning(!_isRunning);

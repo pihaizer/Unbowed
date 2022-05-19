@@ -13,6 +13,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
         [SerializeField, ChildGameObjectsOnly] private ItemUI _itemUI;
         [SerializeField] private EquipmentSlot _slot;
 
+        public EquipmentSlot Slot => _slot;
+
         private Inventory _inventory;
 
         public void Init(Inventory inventory) {
@@ -30,6 +32,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
             _inventory.AddedItem += InventoryOnAddedItem;
             _inventory.RemovedItem += InventoryOnRemovedItem;
         }
+
+        protected override Color GetDefaultSlotColor() => UIConfig.Instance.defaultEquipmentSlotColor;
 
         private void ItemUIOnIsHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
             if (value)

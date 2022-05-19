@@ -48,7 +48,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
         }
 
         private Color GetColor() {
-            var color = Item?.Color ?? UIConfig.Instance.defaultSlotColor;
+            var color = Item?.Color ?? GetDefaultSlotColor();
 
             color = _state switch {
                 State.Default => color,
@@ -65,6 +65,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
             return color;
         }
+
+        protected virtual Color GetDefaultSlotColor() => UIConfig.Instance.defaultBagsSlotColor; 
 
         public enum State {
             Default,

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
-
+using HyperCore.UI;
 using Sirenix.OdinInspector;
 
 using TMPro;
@@ -15,7 +15,7 @@ using UnityEngine.Serialization;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
 namespace Unbowed.UI.Gameplay.Inventory {
-    public class ItemDescriptionUI : CanvasGroupMenu {
+    public class ItemDescriptionUI : GameObjectScreen {
         [SerializeField, ChildGameObjectsOnly] private TMP_Text itemName;
         [FormerlySerializedAs("slot"), SerializeField, ChildGameObjectsOnly]
         private TMP_Text equipmentType;
@@ -25,10 +25,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
         [SerializeField] private Vector2 screenMaxOffset;
 
         public void SetItem(Item item) {
-            if (item == null) {
-                Close();
-                return;
-            }
+            if (item == null) return;
 
             itemName.text = item.Config.displayName;
             itemName.color = new Color(item.Color.r, item.Color.g, item.Color.b, 1);
@@ -56,9 +53,10 @@ namespace Unbowed.UI.Gameplay.Inventory {
             equipmentType.text = equipment.EquipmentTypeName;
         }
 
-        protected override void SetOpened(bool value) {
+        protected override void SetOpenedInternal(bool value)
+        {
             if (value) UpdatePosition();
-            base.SetOpened(value);
+            base.SetOpenedInternal(value);
         }
 
         private void UpdatePosition() {
@@ -68,7 +66,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             rt.anchoredPosition = Vector2.zero;
             rt.ForceUpdateRectTransforms();
 
-            var canvas = GetComponentsInParent<Canvas>().First(parentCanvas => parentCanvas.isRootCanvas);
+            Canvas canvas = GetComponentsInParent<Canvas>().First(parentCanvas => parentCanvas.isRootCanvas);
             float scaleFactor = canvas.scaleFactor;
 
             if (rt.position.x - rt.pivot.x * rt.sizeDelta.x * scaleFactor < 0) {

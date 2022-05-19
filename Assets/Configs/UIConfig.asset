@@ -12,25 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b55dd6f397354b71920fa042fab9af8c, type: 3}
   m_Name: UIConfig
   m_EditorClassIdentifier: 
-  defaultSlotColor: {r: 0.48235294, g: 0.48235294, b: 0.48235294, a: 0.5019608}
+  defaultBagsSlotColor: {r: 0.34509805, g: 0.31764707, b: 0.39607847, a: 1}
+  defaultEquipmentSlotColor: {r: 0.19215687, g: 0.14901961, b: 0.20784314, a: 1}
   positiveSlotColor: {r: 0.10720008, g: 0.6886792, b: 0.20688213, a: 1}
   positiveBlend: 0.5
-  errorSlotColor: {r: 0.5943396, g: 0.21026166, b: 0.21026166, a: 0.5019608}
+  errorSlotColor: {r: 0.5943396, g: 0.21026166, b: 0.21026166, a: 0.9019608}
   errorBlend: 0.5
   hoverSlotColor: {r: 0, g: 0, b: 0, a: 1}
-  hoverBlend: 0.35
-  replaceSlotColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  hoverBlend: 0.438
+  replaceSlotColor: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0.7607843}
   replaceBlend: 1
   equipmentColors:
   - rarity: 0
-    color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0.49803922}
+    color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0.9019608}
   - rarity: 1
-    color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0.49803922}
+    color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 0.9019608}
   - rarity: 2
-    color: {r: 0.4285333, g: 0.6443281, b: 0.8490566, a: 0.49803922}
+    color: {r: 0.29587933, g: 0.43871453, b: 0.5754717, a: 0.9019608}
   - rarity: 3
-    color: {r: 0.8301887, g: 0.8117629, b: 0.246707, a: 0.49803922}
+    color: {r: 0.8301887, g: 0.8117629, b: 0.246707, a: 0.9019608}
   - rarity: 4
-    color: {r: 0.8301887, g: 0.542906, b: 0.09789959, a: 0.49803922}
-  itemsAnimationTime: 0.1
+    color: {r: 0.5754717, g: 0.34881914, b: 0.0027144956, a: 0.9019608}
   itemUI: {fileID: 423861785635135808, guid: 3a400a73a6bcf9841ac12837df3f37ef, type: 3}
