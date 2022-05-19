@@ -32,7 +32,7 @@ namespace Unbowed.UI.Gameplay.WholeScreens
         protected override void SetOpenedInternal(bool value)
         {
             base.SetOpenedInternal(value);
-            Time.timeScale = value ? 1 : 0;
+            Time.timeScale = value ? 0 : 1;
         }
 
         private void Resume() => Close();

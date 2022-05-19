@@ -28,6 +28,7 @@ namespace Unbowed.Gameplay {
 
         private void OnLoadCompleted() {
             StartCoroutine(InitPlayer());
+            Time.timeScale = 1;
         }
 
         private IEnumerator InitPlayer() {
