@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.AI.Brains;
 using UnityEngine;
+using Zenject;
 
 namespace Unbowed.SO.Brains {
     [CreateAssetMenu(fileName = "BasicBrainConfig", menuName = "SO/Brains/BasicBrainConfig")]
@@ -14,6 +16,6 @@ namespace Unbowed.SO.Brains {
         public List<CharacterTypeSO> targetTypes;
         public LayerMask sightLayerMask;
 
-        public override Brain Inject(Character body) => new BasicBrain(this, body, ID);
+        public override Brain Create() => new BasicBrain(this);
     }
 }

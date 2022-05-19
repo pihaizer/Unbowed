@@ -4,34 +4,48 @@ using System.Linq;
 using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Items;
 using Unbowed.SO;
-using Unbowed.UI.Gameplay.Inventory;
+using Unbowed.UI.Gameplay.Items;
+using Unbowed.UI.Signals;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
-namespace Unbowed.UI.Gameplay {
-    public class ItemDragger : MonoBehaviour {
+namespace Unbowed.UI.Gameplay
+{
+    public class ItemDragger : MonoBehaviour
+    {
         private ItemUI _draggedItemUI;
         private RectTransform _dragRect;
-        
-        public static ItemDragger Instance { get; private set; }
 
         public Item Item { get; private set; }
         public bool IsDragging => Item != null;
 
         [Inject] private ItemsDropper _itemsDropper;
+        [Inject] private SignalBus _signalBus;
 
-        private void Awake() {
-            Instance = this;
+        private void Awake()
+        {
+            _signalBus.Subscribe<ItemUiClickedSignal>(OnItemClicked);
         }
 
-        private void OnDestroy() {
-            if (Instance == this) Instance = null;
+        private void OnItemClicked(ItemUiClickedSignal signal)
+        {
+            if (IsDragging) return;
+            DragItemUi(signal.ItemUI);
         }
 
-        public void DragItem(Item item) {
+        public void DragItemUi(ItemUI itemUI)
+        {
+            if (IsDragging) return;
+            Item item = itemUI.Item;
+            Destroy(itemUI.gameObject);
+            DragItem(item);
+        }
+
+        public void DragItem(Item item)
+        {
             if (IsDragging) StopDragging();
 
             Item = item;
@@ -51,7 +65,8 @@ namespace Unbowed.UI.Gameplay {
             StartCoroutine(DragItemCoroutine());
         }
 
-        private IEnumerator DragItemCoroutine() {
+        private IEnumerator DragItemCoroutine()
+        {
             MouseContext.Instance.blockedByDraggedItem = true;
             var raycastResults = new List<RaycastResult>();
             var cell = new Vector2Int(int.MaxValue, int.MaxValue);
@@ -61,17 +76,20 @@ namespace Unbowed.UI.Gameplay {
             bool isFirstFrame = true;
             bool mouseAlreadyUp = false;
 
-            while (IsDragging) {
+            while (IsDragging)
+            {
                 _dragRect.position = Input.mousePosition; // / scaler.transform.localScale.x;
 
                 pointerEventData.position = Input.mousePosition;
                 EventSystem.current.RaycastAll(pointerEventData, raycastResults);
 
-                if (raycastResults.Any(raycastResult => raycastResult.gameObject.TryGetComponent(out bagsUI))) {
+                if (raycastResults.Any(raycastResult => raycastResult.gameObject.TryGetComponent(out bagsUI)))
+                {
                     cell = HandleOnBags(bagsUI);
                 }
 
-                if (!isFirstFrame && Input.GetMouseButtonDown(0)) {
+                if (!isFirstFrame && Input.GetMouseButtonDown(0))
+                {
                     TryPlaceItem(bagsUI, cell);
                     mouseAlreadyUp = Input.GetMouseButtonUp(0);
                 }
@@ -88,7 +106,8 @@ namespace Unbowed.UI.Gameplay {
             MouseContext.Instance.blockedByDraggedItem = false;
         }
 
-        private Vector2Int HandleOnBags(BagsUI bagsUI) {
+        private Vector2Int HandleOnBags(BagsUI bagsUI)
+        {
             var bagsRect = bagsUI.GetComponent<RectTransform>();
             var bagsSize = bagsRect.sizeDelta;
             var bagsPivot = bagsRect.pivot;
@@ -109,21 +128,29 @@ namespace Unbowed.UI.Gameplay {
 
             if (!bagsUI.Inventory.IsInGrid(new RectInt(cell, Item.Config.size))) return cell;
 
-            if (bagsUI.Inventory.CanMoveItemToLocation(Item, location, out var removedItem)) {
-                if (removedItem != null) {
+            if (bagsUI.Inventory.CanMoveItemToLocation(Item, location, out var removedItem))
+            {
+                if (removedItem != null)
+                {
                     bagsUI.SetAreaState(removedItem.location.position, removedItem.Size, CellUI.State.Replace);
-                } else {
+                }
+                else
+                {
                     bagsUI.SetAreaState(cell, Item.Config.size, CellUI.State.Positive);
                 }
-            } else {
+            }
+            else
+            {
                 bagsUI.SetAreaState(cell, Item.Config.size, CellUI.State.Error);
             }
 
             return cell;
         }
 
-        private bool TryPlaceItem(BagsUI bagsUI, Vector2Int cell) {
-            if (bagsUI == null) {
+        private bool TryPlaceItem(BagsUI bagsUI, Vector2Int cell)
+        {
+            if (bagsUI == null)
+            {
                 if (EventSystem.current.IsPointerOverGameObject()) return false;
 
                 _itemsDropper.DropItem(Item, ActivePlayer.GetTransform());
@@ -132,10 +159,11 @@ namespace Unbowed.UI.Gameplay {
             }
 
             if (!bagsUI.Inventory.TryMoveItemToLocation(_draggedItemUI.Item,
-                ItemLocation.InBag(bagsUI.Inventory, cell), out var removedItem))
+                    ItemLocation.InBag(bagsUI.Inventory, cell), out var removedItem))
                 return false;
 
-            if (removedItem != null) {
+            if (removedItem != null)
+            {
                 Item = removedItem;
                 _draggedItemUI.SetItem(Item);
                 return true;
@@ -145,7 +173,8 @@ namespace Unbowed.UI.Gameplay {
             return true;
         }
 
-        private void StopDragging() {
+        private void StopDragging()
+        {
             Item = null;
             Destroy(_draggedItemUI.gameObject);
             _draggedItemUI = null;

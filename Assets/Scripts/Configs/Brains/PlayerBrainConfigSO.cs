@@ -10,8 +10,6 @@ namespace Unbowed.SO.Brains {
         public LayerMask navMeshLayerMask;
         public float maxWalkDistance = 100f;
 
-        [Inject] private SignalBus _bus;
-
-        public override Brain Inject(Character body) => new PlayerBrain(this, body,_bus, ID);
+        public override Brain Create() => new PlayerBrain(this);
     }
 }

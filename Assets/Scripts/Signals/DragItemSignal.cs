@@ -1,4 +1,4 @@
-﻿using Unbowed.UI.Gameplay.Inventory;
+﻿using Unbowed.UI.Gameplay.Items;
 using UnityEngine.EventSystems;
 
 namespace Unbowed.Signals

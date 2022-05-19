@@ -10,53 +10,62 @@ using Zenject;
 
 namespace Unbowed.Gameplay.Characters.AI.Brains {
     public class PlayerBrain : Brain {
-        private readonly Character _body;
         private readonly PlayerBrainConfigSO _config;
-        private readonly SignalBus _bus;
         
-        public PlayerBrain(PlayerBrainConfigSO config, Character body, SignalBus bus, int id) : base(body, id) {
-            _body = body;
+        [Inject] private SignalBus _bus;
+        [Inject] private ItemDragger _itemDragger;
+        
+        public PlayerBrain(PlayerBrainConfigSO config) : base(config.ID) {
             _config = config;
-            _bus = bus;
+        }
+
+        [Inject] 
+        public void OnDependenciesInjected()
+        {
             _bus.Subscribe<DroppedItemClickedSignal>(OnItemClicked);
-            ActivePlayer.SetPlayer(_body);
+        } 
+
+        public override void SetBody(Character body)
+        {
+            base.SetBody(body);
+            ActivePlayer.SetPlayer(Body);
         }
 
         public override void OnDestroy() {
-            if (ActivePlayer.Get() == _body) ActivePlayer.SetPlayer(null);
+            if (ActivePlayer.Get() == Body) ActivePlayer.SetPlayer(null);
             _bus.Unsubscribe<DroppedItemClickedSignal>(OnItemClicked);
         }
 
         private void OnItemClicked(DroppedItemClickedSignal signal) {
-            if (ItemDragger.Instance.IsDragging) return;
-            if (!(_body.commands.MainCommand is InteractCommand interactCommand) ||
+            if (_itemDragger.IsDragging) return;
+            if (!(Body.commands.MainCommand is InteractCommand interactCommand) ||
                 interactCommand.Target != signal.Interactable) {
-                _body.commands.Execute(new InteractCommand(signal.Interactable));
+                Body.commands.Execute(new InteractCommand(signal.Interactable));
             }
         }
 
         public override void Update() {
             base.Update();
-            if (Input.GetKeyDown(KeyCode.R)) _body.movement.ToggleRunning();
-            if (_body.health.isDead || _body.areActionsBlocked) return;
+            if (Input.GetKeyDown(KeyCode.R)) Body.movement.ToggleRunning();
+            if (Body.health.isDead || Body.areActionsBlocked) return;
             if (Input.GetMouseButton(0)) OnLMB();
         }
 
         private void OnLMB() {
-            if (ItemDragger.Instance.IsDragging) return;
+            if (_itemDragger.IsDragging) return;
             if (MouseContext.Instance.GameViewTarget != null) {
                 switch (MouseContext.Instance.GameViewTarget) {
                     case IHittable hittable
                         when hittable.CanBeHit() &&
-                             (!(_body.commands.MainCommand is AttackCommand
+                             (!(Body.commands.MainCommand is AttackCommand
                                   attackCommand) ||
                               attackCommand.Target != hittable):
-                        _body.commands.Execute(new AttackCommand(hittable));
+                        Body.commands.Execute(new AttackCommand(hittable));
                         break;
                     case IInteractable interactable
-                        when !(_body.commands.MainCommand is InteractCommand interactCommand) ||
+                        when !(Body.commands.MainCommand is InteractCommand interactCommand) ||
                              interactCommand.Target != interactable:
-                        _body.commands.Execute(new InteractCommand(interactable));
+                        Body.commands.Execute(new InteractCommand(interactable));
                         break;
                 }
             } else {
@@ -65,7 +74,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
                     _config.navMeshLayerMask))
                     return;
                 if (NavMesh.SamplePosition(hit.point, out var navMeshHit, _config.maxWalkDistance, 1))
-                    _body.commands.Execute(new MoveCommand(navMeshHit.position));
+                    Body.commands.Execute(new MoveCommand(navMeshHit.position));
             }
         }
     }

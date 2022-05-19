@@ -13,6 +13,7 @@ namespace Unbowed.Installers
             Container.DeclareSignal<LoadingScreenRequestSignal>();
             Container.DeclareSignal<ScreenActionSignal>();
             Container.DeclareSignal<DroppedItemClickedSignal>();
+            Container.DeclareSignal<ItemUiClickedSignal>();
             Container.DeclareSignal<ShowInventoryRequestSignal>();
             Container.DeclareSignal<DescriptionCreateRequestSignal>();
             Container.DeclareSignal<DescriptionShowRequestSignal>();

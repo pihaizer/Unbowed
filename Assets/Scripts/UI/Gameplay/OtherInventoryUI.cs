@@ -1,5 +1,5 @@
 ﻿using HyperCore.UI;
-using Unbowed.UI.Gameplay.Inventory;
+using Unbowed.UI.Gameplay.Items;
 using Unbowed.UI.Signals;
 using UnityEngine;
 using Zenject;

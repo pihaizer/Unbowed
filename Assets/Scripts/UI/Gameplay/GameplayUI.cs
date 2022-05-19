@@ -8,7 +8,7 @@ using Unbowed.Gameplay;
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.SO;
-using Unbowed.UI.Gameplay.Inventory;
+using Unbowed.UI.Gameplay.Items;
 using Unbowed.UI.Signals;
 using Unbowed.Utility;
 using UnityEngine;

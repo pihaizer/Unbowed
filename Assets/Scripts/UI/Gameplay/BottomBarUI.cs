@@ -1,5 +1,4 @@
 ﻿using HyperCore.UI;
-using Unbowed.UI.Gameplay.Inventory;
 using Unbowed.UI.Gameplay.Stats;
 using Unbowed.UI.Signals;
 using UnityEngine;

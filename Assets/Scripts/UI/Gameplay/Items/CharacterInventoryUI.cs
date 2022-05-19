@@ -4,7 +4,7 @@ using Unbowed.UI.Signals;
 using UnityEngine;
 using Zenject;
 
-namespace Unbowed.UI.Gameplay.Inventory
+namespace Unbowed.UI.Gameplay.Items
 {
     public class CharacterInventoryUI : CanvasScreen
     {

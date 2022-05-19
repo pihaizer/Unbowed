@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
 using Unbowed.Gameplay.Items;
 using UnityEngine;
 
-namespace Unbowed.UI.Gameplay.Inventory {
+namespace Unbowed.UI.Gameplay.Items {
     public class EquipmentUI : MonoBehaviour {
         [SerializeField] private List<EquipmentPair> _equipments;
 

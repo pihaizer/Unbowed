@@ -2,41 +2,46 @@ using System;
 using System.Collections.Generic;
 using HyperCore.UI;
 using Sirenix.OdinInspector;
-using Sirenix.Serialization;
-using Unbowed.Gameplay.Items;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zenject;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
-namespace Unbowed.UI.Gameplay.Inventory {
-    [RequireComponent(typeof(RectTransform))]
+namespace Unbowed.UI.Gameplay.Items
+{
     [RequireComponent(typeof(GridLayoutGroup))]
-    public class BagsUI : CanvasScreen {
+    public class BagsUI : CanvasScreen
+    {
         [SerializeField, AssetsOnly] private CellUI _cellPrefab;
         [SerializeField, AssetsOnly] private ItemUI _itemUIPrefab;
+        [SerializeField, ChildGameObjectsOnly] private Transform itemsContainer;
 
-        // ReSharper disable once Unity.RedundantHideInInspectorAttribute
-        [OdinSerialize, HideInInspector] private CellUI[] _cells;
+        [Inject] private ItemUI.Factory _itemUiFactory;
+        [Inject] private ItemDragger _itemDragger;
 
-        [ShowInInspector]
+        private CellUI[] _cells;
+
         public List<ItemUI> ItemUIs { get; private set; }
-
-        [Inject] private DiContainer _container;
-
         public Unbowed.Gameplay.Characters.Modules.Inventory Inventory { get; private set; }
-
         public Vector2Int Size { get; private set; }
 
-        public void SetInventory(Unbowed.Gameplay.Characters.Modules.Inventory inventory) {
+        protected override void Awake()
+        {
+            base.Awake();
+            GetComponent<GridLayoutGroup>();
+        }
+
+        public void SetInventory(Unbowed.Gameplay.Characters.Modules.Inventory inventory)
+        {
             if (Inventory == inventory) return;
-            
-            if (Inventory != null) {
+
+            if (Inventory != null)
+            {
                 Inventory.AddedItem -= AddItem;
                 Inventory.RemovedItem -= RemoveItem;
 
-                foreach (var itemUI in ItemUIs) {
+                foreach (var itemUI in ItemUIs)
+                {
                     Destroy(itemUI.gameObject);
                 }
             }
@@ -52,23 +57,20 @@ namespace Unbowed.UI.Gameplay.Inventory {
             Inventory.RemovedItem += RemoveItem;
         }
 
-        private void SetSize(Vector2Int size) {
+        private void SetSize(Vector2Int size)
+        {
             int oldSize1d = Size.x * Size.y;
             Size = size;
             int newSize1d = Size.x * Size.y;
 
-            // var rectTransform = GetComponent<RectTransform>();
             var grid = GetComponent<GridLayoutGroup>();
             grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
             grid.constraintCount = size.x;
 
-            // float width = grid.cellSize.x * Size.x + grid.spacing.x * (Size.x - 1) + grid.padding.horizontal;
-            // float height = grid.cellSize.y * Size.y + grid.spacing.y * (Size.y - 1) + grid.padding.vertical;
-            // rectTransform.sizeDelta = new Vector2(width, height);
-
             if (oldSize1d == newSize1d) return;
 
-            for (int i = newSize1d; i < oldSize1d; i++) {
+            for (int i = newSize1d; i < oldSize1d; i++)
+            {
                 if (_cells[i] == null) continue;
                 if (Application.isEditor)
                     DestroyImmediate(_cells[i].gameObject);
@@ -79,16 +81,20 @@ namespace Unbowed.UI.Gameplay.Inventory {
             var oldCells = _cells;
             _cells = new CellUI[newSize1d];
 
-            for (int i = 0; i < Math.Min(oldSize1d, newSize1d); i++) {
+            for (int i = 0; i < Math.Min(oldSize1d, newSize1d); i++)
+            {
                 _cells[i] = oldCells[i];
             }
 
-            for (int i = oldSize1d; i < newSize1d; i++) {
-                var cell = _container.InstantiatePrefab(_cellPrefab, transform).GetComponent<CellUI>();
+            for (int i = oldSize1d; i < newSize1d; i++)
+            {
+                CellUI cell = Instantiate(_cellPrefab, transform);
                 _cells[i] = cell;
                 cell.Init();
                 cell.gameObject.SetActive(true);
             }
+            
+            LayoutRebuilder.ForceRebuildLayoutImmediate(GetComponent<RectTransform>());
         }
 
         private CellUI GetCell(int x, int y) => _cells[y * Size.x + x];
@@ -97,45 +103,60 @@ namespace Unbowed.UI.Gameplay.Inventory {
 
         private void SetCell(int x, int y, CellUI cellUI) => _cells[y * Size.x + x] = cellUI;
 
-        private void SetItems(IEnumerable<Item> items) {
+        private void SetItems(IEnumerable<Item> items)
+        {
             ItemUIs = new List<ItemUI>();
             if (items == null) return;
-            foreach (Item item in items) {
+            foreach (Item item in items)
+            {
                 if (!item.IsInBags) continue;
                 AddItem(item);
             }
         }
 
-        private void AddItem(Item item) {
+        private void AddItem(Item item)
+        {
             if (!item.IsInBags) return;
 
-            var itemUI = _container.InstantiatePrefab(_itemUIPrefab, transform).GetComponent<ItemUI>();
+            var itemUI = _itemUiFactory.Create(_itemUIPrefab).GetComponent<ItemUI>();
+            itemUI.transform.SetParent(itemsContainer);
             itemUI.SetItem(item);
-            itemUI.IsHoveredChanged += OnItemHoveredChanged;
-            itemUI.Dragged += OnItemDragged;
+            itemUI.transform.position = CalculateItemPositionInBags(itemUI);
+            itemUI.IsHoveredChanged += value => OnItemHoveredChanged(itemUI, value);
             ItemUIs.Add(itemUI);
 
-            foreach (var position in new RectInt(item.location.position, item.Config.size).allPositionsWithin) {
+            foreach (var position in new RectInt(item.location.position, item.Config.size).allPositionsWithin)
+            {
                 GetCell(position).SetItem(item);
             }
-
-            itemUI.transform.SetParent(GetCell(item.location.position).transform, false);
         }
 
-        private void RemoveItem(Item item) {
+        private Vector3 CalculateItemPositionInBags(ItemUI itemUI)
+        {
+            var itemTransform = itemUI.GetComponent<RectTransform>();
+            var cellTransform = GetCell(itemUI.Item.location.position).GetComponent<RectTransform>();
+            Vector3 position = cellTransform.position + Vector3.Scale(cellTransform.sizeDelta, new Vector3(-0.5f, 0.5f));
+            position += Vector3.Scale(itemTransform.sizeDelta, new Vector3(0.5f, -0.5f));
+            return position;
+        }
+
+        private void RemoveItem(Item item)
+        {
             if (!item.IsInBags) return;
 
             var uiToRemove = ItemUIs.Find(ui => ui.Item == item);
             ItemUIs.Remove(uiToRemove);
             Destroy(uiToRemove.gameObject);
             var rect = new RectInt(item.location.position, item.Config.size);
-            foreach (var position in rect.allPositionsWithin) {
+            foreach (var position in rect.allPositionsWithin)
+            {
                 GetCell(position).SetItem(null);
             }
         }
 
-        private void OnItemHoveredChanged(ItemUI itemUI, bool value, PointerEventData data) {
-            if (ItemDragger.Instance.IsDragging) return;
+        private void OnItemHoveredChanged(ItemUI itemUI, bool value)
+        {
+            if (_itemDragger.IsDragging) return;
             SetAreaState(itemUI.Item.location.position, itemUI.Item.Config.size,
                 value ? CellUI.State.Hover : CellUI.State.Default);
         }
@@ -143,25 +164,23 @@ namespace Unbowed.UI.Gameplay.Inventory {
         public void SetAreaState(Vector2Int min, Vector2Int size, CellUI.State state) =>
             SetAreaAction(min, size, ui => ui.SetState(state));
 
-        public void ResetCellsState() {
-            foreach (var cellUI in _cells) cellUI.ResetState();
+        public void ResetCellsState()
+        {
+            foreach (CellUI cellUI in _cells) cellUI.ResetState();
         }
 
         public void ResetAreaState(Vector2Int min, Vector2Int size) =>
             SetAreaAction(min, size, ui => ui.ResetState());
 
-        private void SetAreaAction(Vector2Int min, Vector2Int size, Action<CellUI> action) {
+        private void SetAreaAction(Vector2Int min, Vector2Int size, Action<CellUI> action)
+        {
             var rect = new RectInt(min, size);
-            foreach (var position in rect.allPositionsWithin) {
+            foreach (var position in rect.allPositionsWithin)
+            {
                 if (position.x < 0 || position.y < 0) return;
                 if (position.x >= Size.x || position.y >= Size.y) return;
                 action(GetCell(position));
             }
-        }
-
-        private void OnItemDragged(ItemUI itemUI, PointerEventData pointerEventData) {
-            if (ItemDragger.Instance.IsDragging) return;
-            ItemDragger.Instance.DragItem(itemUI.Item);
         }
 
         #region Editor
@@ -169,7 +188,8 @@ namespace Unbowed.UI.Gameplay.Inventory {
         [NonSerialized, ShowInInspector, HideInPlayMode, OnValueChanged(nameof(UpdateSizeInEditor))]
         private Vector2Int _editorSize;
 
-        private void UpdateSizeInEditor() {
+        private void UpdateSizeInEditor()
+        {
             if (Application.isPlaying) throw new Exception("Invoked in game");
             SetSize(_editorSize);
         }

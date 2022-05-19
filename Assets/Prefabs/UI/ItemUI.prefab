@@ -37,11 +37,11 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 47.5, y: 47.5}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &423861785635135808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cellSize: 50.6
-  _cellSpacing: 2
+  _cellSpacing: 0
   _image: {fileID: 423861785964742275}
   _raycastReceiver: {fileID: 4771378465049941310}
   itemDescriptionPrefab: {fileID: 2956476838085114081, guid: dd87f7a10991ff2489acb6da3b935513, type: 3}

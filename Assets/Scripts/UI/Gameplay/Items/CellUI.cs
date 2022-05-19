@@ -3,13 +3,11 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using Sirenix.OdinInspector;
-using Unbowed.Gameplay.Items;
 using UnityEngine;
 using UnityEngine.UI;
-
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
-namespace Unbowed.UI.Gameplay.Inventory {
+namespace Unbowed.UI.Gameplay.Items {
     public class CellUI : MonoBehaviour {
         [SerializeField, ChildGameObjectsOnly] private Image _background;
 
@@ -23,7 +21,7 @@ namespace Unbowed.UI.Gameplay.Inventory {
             _background.color = GetColor();
         }
 
-        private void OnDestroy() {
+        protected virtual void OnDestroy() {
             _tweener.Kill();
         }
 

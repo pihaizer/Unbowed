@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using Unbowed.Configs;
 using Unbowed.Gameplay.Items;
-using Unbowed.UI.Gameplay.Inventory;
+using Unbowed.UI.Gameplay.Items;
 using UnityEngine;
 
 namespace Unbowed.UI {
