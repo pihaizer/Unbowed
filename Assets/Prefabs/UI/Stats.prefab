@@ -2837,7 +2837,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 974881632037646601, guid: 113f7809adcc9084e884269f9704ff32, type: 3}
       propertyPath: m_text
-      value: 'Health
+      value: 'Max Health
 
 '
       objectReference: {fileID: 0}
