@@ -1,9 +1,5 @@
 ﻿using TMPro;
-
-using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.Gameplay.Characters.Stats;
-using Unbowed.Gameplay.Characters.Stats.Configs;
-
 using UnityEngine;
 
 namespace Unbowed.UI.Gameplay.Stats {

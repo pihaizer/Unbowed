@@ -26,8 +26,6 @@ namespace Unbowed.UI
         [Title("Left")]
         [SerializeField] private CanvasScreenContainer leftCanvasScreens;
 
-        // [SerializeField] private BagsUI lootedInventoryMenu;
-
         [Title("Right")]
         [SerializeField] private CanvasScreenContainer rightCanvasScreens;
 

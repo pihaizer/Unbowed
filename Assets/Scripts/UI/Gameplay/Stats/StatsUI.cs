@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using HyperCore.UI;
-using Sirenix.Serialization;
-using Unbowed.Gameplay.Characters.Configs.Stats;
 using Unbowed.SO;
 using Unbowed.UI.Signals;
 using UnityEngine;
