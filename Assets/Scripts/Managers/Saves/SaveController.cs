@@ -38,7 +38,8 @@ namespace Unbowed.Managers.Saves
                 new JsonSerializerSettings
                 {
                     ContractResolver = new AddJsonTypenameContractResolver(),
-                    Converters = {new ItemsConverter(_allItemsConfig)}
+                    Converters = {new ItemsConverter(_allItemsConfig)},
+                    Formatting = Formatting.Indented
                 }));
             return Task.CompletedTask;
         }

@@ -23,7 +23,7 @@ namespace Unbowed
             {
                 characters = new List<CharacterSave>
                 {
-                    new() {items = items}
+                    new() {Items = items}
                 }
             };
             Debug.Log(JsonConvert.SerializeObject(saveFile, new JsonSerializerSettings()

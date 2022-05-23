@@ -333,9 +333,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  characterType: {fileID: 11400000, guid: d5c8972de7b40a34e8441c958d1e74ca, type: 2}
-  config: {fileID: 11400000, guid: 007df2ef7539c79478accc56a30a7d58, type: 2}
+    SerializationNodes:
+    - Name: Experience
+      Entry: 7
+      Data: 0|Unbowed.Gameplay.Characters.Modules.ExperienceModule, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+  Type: 0
+  Config: {fileID: 11400000, guid: 007df2ef7539c79478accc56a30a7d58, type: 2}
   health: {fileID: 5208877964504438424}
   effects: {fileID: 4957951782329403665}
   movement: {fileID: 8622382516364442156}

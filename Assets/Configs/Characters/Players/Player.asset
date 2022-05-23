@@ -12,15 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90cfd411fcb446ffb3d5077532dfaeb8, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
   stats:
     stats:
     - type: 30
@@ -36,3 +27,8 @@ MonoBehaviour:
       weights: []
     equipmentLevelRange: {x: 0, y: 0}
     specialDrops: []
+  ExperienceConfig:
+    StartLevel: 1
+    ExperienceOnKill: 0
+    CanLevelUp: 1
+    ExperienceGainDistance: 50

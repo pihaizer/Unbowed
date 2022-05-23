@@ -59,7 +59,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
         }
 
         private bool IsWanted(Character character) {
-            return character != Body && character.CanBeHit() && Config.targetTypes.Contains(character.characterType);
+            return character != Body && character.CanBeHit() && Config.targetTypes.Contains(character.Type);
         }
 
         private bool Sees(Character other) {
@@ -76,7 +76,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
             
             if (NavMesh.CalculatePath(Body.transform.position,
                 character.transform.position, NavMesh.AllAreas, path)) {
-                return path.GetLength() < character.config.distances.maxChaseRange;
+                return path.GetLength() < character.Config.distances.maxChaseRange;
             }
 
             return false;

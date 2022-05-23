@@ -13,6 +13,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
         private readonly PlayerBrainConfigSO _config;
         
         [Inject] private SignalBus _bus;
+        [Inject] private PlayerController _playerController;
         [Inject] private ItemDragger _itemDragger;
         
         public PlayerBrain(PlayerBrainConfigSO config) : base(config.ID) {
@@ -28,6 +29,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
         public override void SetBody(Character body)
         {
             base.SetBody(body);
+            _playerController.SetPlayer(Body);
             ActivePlayer.SetPlayer(Body);
         }
 

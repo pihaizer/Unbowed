@@ -1,4 +1,5 @@
 ﻿using Sirenix.Utilities;
+using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Items.Configs;
 using Unbowed.SO;
 using Unbowed.UI;
@@ -15,6 +16,7 @@ namespace Unbowed.Configs
         public AllStatModifiers AllStatModifiers;
         public ScenesConfig ScenesConfig;
         public UIConfig UIConfig;
+        public LevelingConfig LevelingConfig;
         
         public static GlobalConfig Instance
         {

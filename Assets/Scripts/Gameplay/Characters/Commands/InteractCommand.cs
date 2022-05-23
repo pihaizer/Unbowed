@@ -74,7 +74,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
 
             if (_character.movement.NavAgent.hasPath &&
                 _character.movement.NavAgent.GetRemainingDistance() >
-                _character.config.distances.maxChaseRange) {
+                _character.Config.distances.maxChaseRange) {
                 Debug.Log(
                     $"Stopping interacting due to remaining distance {_character.movement.NavAgent.GetRemainingDistance()}");
                 Stop(false);
@@ -93,7 +93,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             if (target == null || target.GetTransform() == null) return false;
 
             return (target.GetTransform().position - _character.transform.position).sqrMagnitude <
-                   Mathf.Pow(_character.config.distances.interactRange, 2);
+                   Mathf.Pow(_character.Config.distances.interactRange, 2);
         }
 
         public override string ToString() => $"Interacting with {Target.GetTransform().name}";

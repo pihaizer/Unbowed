@@ -212,6 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 47833359}
+  - component: {fileID: 47833360}
   m_Layer: 5
   m_Name: PlayerBars
   m_TagString: Untagged
@@ -243,6 +244,20 @@ RectTransform:
   m_AnchoredPosition: {x: 85, y: 82}
   m_SizeDelta: {x: 536.12305, y: 216.09998}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &47833360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47833358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddf16db49a7a4cfbb28f60b27627b1a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _experienceSlider: {fileID: 1384788181}
+  _levelText: {fileID: 1662428165}
 --- !u!1 &119524754
 GameObject:
   m_ObjectHideFlags: 0

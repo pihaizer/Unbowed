@@ -108,9 +108,15 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  characterType: {fileID: 11400000, guid: 4ad3bf4f56a177645a15ac9dedd70c32, type: 2}
-  config: {fileID: 11400000, guid: 4ce9f56ad9154a442969b2faeb47103a, type: 2}
+    SerializationNodes:
+    - Name: ExperienceModule
+      Entry: 7
+      Data: 0|Unbowed.Gameplay.Characters.Modules.ExperienceModule, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+  CharacterType: 3
+  Config: {fileID: 11400000, guid: 4ce9f56ad9154a442969b2faeb47103a, type: 2}
   health: {fileID: 5282695693614217950}
   effects: {fileID: 4046771223707662603}
   movement: {fileID: 5208873020895564635}
@@ -190,7 +196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 0, y: 0}
-  defaultItems: []
 --- !u!114 &7527860590083313997
 MonoBehaviour:
   m_ObjectHideFlags: 0

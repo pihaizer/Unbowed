@@ -66,7 +66,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             _character.movement.NavAgent.SetPath(path);
 
             if (_character.movement.NavAgent.hasPath &&
-                _character.movement.NavAgent.GetRemainingDistance() > _character.config.distances.maxChaseRange) {
+                _character.movement.NavAgent.GetRemainingDistance() > _character.Config.distances.maxChaseRange) {
                 Debug.Log($"Stopping attack due to remaining distance {_character.movement.NavAgent.GetRemainingDistance()}");
                 Stop(false);
             }
@@ -85,7 +85,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             if (target == null || target.GetGameObject() == null) return false;
 
             return (target.GetGameObject().transform.position - _character.transform.position).sqrMagnitude <
-                   Mathf.Pow(_character.config.distances.attackRadius, 2);
+                   Mathf.Pow(_character.Config.distances.attackRadius, 2);
         }
 
         private IEnumerator AttackCoroutine(IHittable target) {
@@ -96,9 +96,9 @@ namespace Unbowed.Gameplay.Characters.Commands {
             _character.areActionsBlocked.AddModifier(_actionsBlock);
             isAttacking.Set(true);
             _character.transform.LookAt(target.GetGameObject().transform);
-            yield return new WaitForSeconds(attackTime * _character.config.animationConfig.hitMomentPercent);
+            yield return new WaitForSeconds(attackTime * _character.Config.animationConfig.hitMomentPercent);
             target.Hit(VectorRandom.Range(damageRange), _character);
-            yield return new WaitForSeconds(attackTime * (1 - _character.config.animationConfig.hitMomentPercent));
+            yield return new WaitForSeconds(attackTime * (1 - _character.Config.animationConfig.hitMomentPercent));
             _character.areActionsBlocked.RemoveModifier(_actionsBlock);
             isAttacking.Set(false);
             Stop(true);

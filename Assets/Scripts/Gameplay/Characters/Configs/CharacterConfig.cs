@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 namespace Unbowed.Gameplay.Characters.Configs {
     [CreateAssetMenu]
-    public class CharacterConfig : SerializedScriptableObject {
+    public class CharacterConfig : ScriptableObject {
         [HideLabel, InlineProperty]
         public Characters.Stats.Stats stats = new Characters.Stats.Stats();
 
@@ -13,5 +13,7 @@ namespace Unbowed.Gameplay.Characters.Configs {
         public CharacterAnimationConfig animationConfig;
 
         public DropsConfig dropsConfig;
+
+        public ExperienceConfig ExperienceConfig;
     }
 }

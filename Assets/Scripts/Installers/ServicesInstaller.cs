@@ -13,15 +13,16 @@ namespace Unbowed.Installers
     public class ServicesInstaller : MonoInstaller
     {
         [SerializeField, AssetsOnly] private ItemDragger itemDraggerPrefab;
-        
+
         public override void InstallBindings()
         {
             Container.Bind<ISaveController>().To<SaveController>().AsSingle().NonLazy();
             Container.BindInterfacesTo<ScenesController>().AsSingle().NonLazy();
-            
+
             Container.BindFactory<BrainConfigSO, Brain, BrainFactory>()
                 .FromFactory<InjectingBrainFactory>();
             Container.Bind<ItemDragger>().FromComponentInNewPrefab(itemDraggerPrefab).AsSingle();
+            Container.Bind<PlayerController>().AsSingle().NonLazy();
         }
     }
 }

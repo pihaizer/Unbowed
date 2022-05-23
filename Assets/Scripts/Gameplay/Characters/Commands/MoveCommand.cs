@@ -17,7 +17,7 @@ namespace Unbowed.Gameplay.Characters.Commands {
             _character = character;
 
             if (Vector3.Distance(_character.transform.position, _newMoveTarget) <
-                _character.config.distances.noMoveRange) {
+                _character.Config.distances.noMoveRange) {
                 Stop(true);
                 return;
             }

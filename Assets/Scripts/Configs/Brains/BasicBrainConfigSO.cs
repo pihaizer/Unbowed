@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms.VisualStyles;
-using Unbowed.Gameplay.Characters;
+﻿using UnityEngine;
+using System.Collections.Generic;
 using Unbowed.Gameplay.Characters.AI.Brains;
-using UnityEngine;
-using Zenject;
 
 namespace Unbowed.SO.Brains {
     [CreateAssetMenu(fileName = "BasicBrainConfig", menuName = "SO/Brains/BasicBrainConfig")]
@@ -13,7 +10,7 @@ namespace Unbowed.SO.Brains {
         public float maxWalkDistance = 10f;
         public float maxWalkTime = 999;
         public Vector2 idleAfterMoveTimeRange = new Vector2(1, 2);
-        public List<CharacterTypeSO> targetTypes;
+        public List<CharacterType> targetTypes;
         public LayerMask sightLayerMask;
 
         public override Brain Create() => new BasicBrain(this);

@@ -1,5 +1,4 @@
-﻿using System;
-using HyperCore.UI;
+﻿using HyperCore.UI;
 using Unbowed.Gameplay;
 using Unbowed.Managers;
 using Unbowed.SO;
@@ -8,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Unbowed.UI.Gameplay.WholeScreens
+namespace Unbowed.UI.Gameplay.Popups
 {
     public class PauseScreenUI : CanvasScreen
     {

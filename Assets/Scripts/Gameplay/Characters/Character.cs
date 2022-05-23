@@ -1,21 +1,21 @@
 ﻿using System;
-
 using Sirenix.OdinInspector;
-
 using Unbowed.Gameplay.Characters;
 using Unbowed.Gameplay.Characters.Commands;
 using Unbowed.Gameplay.Characters.Configs;
 using Unbowed.Gameplay.Characters.Items;
 using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.Gameplay.Characters.Stats;
+using Unbowed.Gameplay.Signals;
 using Unbowed.SO;
 using Unbowed.Utility.Modifiers;
-
 using UnityEngine;
-
+using UnityEngine.Serialization;
+using Zenject;
 using Item = Unbowed.Gameplay.Characters.Items.Item;
 
-namespace Unbowed.Gameplay.Characters {
+namespace Unbowed.Gameplay.Characters
+{
     [RequireComponent(typeof(Modules.Health))]
     [RequireComponent(typeof(Modules.Effects))]
     [RequireComponent(typeof(Modules.Movement))]
@@ -23,40 +23,38 @@ namespace Unbowed.Gameplay.Characters {
     [RequireComponent(typeof(Modules.Commands))]
     [RequireComponent(typeof(Modules.Drops))]
     [ExecuteAlways]
-    public class Character : SerializedMonoBehaviour, ISelectable, IHittable {
+    public class Character : MonoBehaviour, ISelectable, IHittable
+    {
         // configs
-        public CharacterTypeSO characterType;
-        public CharacterConfig config;
+        [FormerlySerializedAs("CharacterType")] public CharacterType Type;
+        public CharacterConfig Config;
 
         // modules
-        [HideInInspector]
-        public Modules.Health health;
+        [HideInInspector] public Modules.Health health;
 
-        [HideInInspector]
-        public Modules.Effects effects;
+        [HideInInspector] public Modules.Effects effects;
 
-        [HideInInspector]
-        public Modules.Movement movement;
+        [HideInInspector] public Modules.Movement movement;
 
-        [HideInInspector]
-        public Modules.Inventory inventory;
-        
-        [HideInInspector]
-        public Modules.Commands commands;
+        [HideInInspector] public Modules.Inventory inventory;
 
-        [HideInInspector]
-        public Modules.Drops drops;
+        [HideInInspector] public Modules.Commands commands;
+
+        [HideInInspector] public Modules.Drops drops;
+
+        public Modules.ExperienceModule Experience = new();
+
+        [Inject] private SignalBus _bus;
 
         // runtime values
         public bool IsStarted { get; private set; }
-        
-        [ShowInInspector]
-        public Stats.Stats Stats { get; private set; }
 
-        [NonSerialized]
-        public readonly ModifiableParameter<bool> areActionsBlocked = new ModifiableParameter<bool>();
+        [ShowInInspector] public Stats.Stats Stats { get; private set; }
 
-        private void OnEnable() {
+        [NonSerialized] public readonly ModifiableParameter<bool> areActionsBlocked = new();
+
+        private void OnEnable()
+        {
             health = GetComponent<Modules.Health>();
             movement = GetComponent<Modules.Movement>();
             inventory = GetComponent<Modules.Inventory>();
@@ -65,10 +63,11 @@ namespace Unbowed.Gameplay.Characters {
             effects = GetComponent<Modules.Effects>();
         }
 
-        protected void Start() {
+        protected void Start()
+        {
             if (!Application.isPlaying) return;
 
-            Stats = new Stats.Stats(config.stats);
+            Stats = new Stats.Stats(Config.stats);
             Stats.Update();
 
             InitHealth();
@@ -76,25 +75,30 @@ namespace Unbowed.Gameplay.Characters {
             InitInventory();
             InitCommandExecutor();
             InitDropsModule();
+            InitExperienceModule();
 
             IsStarted = true;
         }
 
-        public void Hit(int damage, Character source) {
+        public void Hit(int damage, Character source)
+        {
             health.Hit(damage, source);
-            if (damage >= health.Max * CharacterConstants.StunDamageThreshold) {
+            if (damage >= health.Max * CharacterConstants.StunDamageThreshold)
+            {
                 commands.ForceExecute(new HitRecoveryCommand());
             }
         }
 
-        public bool TryUseItem(Item item) {
+        public bool TryUseItem(Item item)
+        {
             if (item is not UsableItem usableItem) return false;
             usableItem.Config.appliedEffect.Build().Apply(this);
             Inventory.RemoveItem(item);
             return true;
         }
 
-        private void InitHealth() {
+        private void InitHealth()
+        {
             health.Init(Mathf.FloorToInt(Stats[StatType.Health]));
             health.Died += OnDeath;
             health.Revived += OnRevive;
@@ -102,36 +106,45 @@ namespace Unbowed.Gameplay.Characters {
 
         private void InitSpeed() => movement.Init(Stats[StatType.MoveSpeed]);
 
-        private void InitInventory() {
+        private void InitInventory()
+        {
             inventory.AddedItem += InventoryOnAddedItem;
             inventory.RemovedItem += InventoryOnRemovedItem;
             inventory.Init();
         }
 
-        private void InventoryOnAddedItem(Item item) {
+        private void InventoryOnAddedItem(Item item)
+        {
             if (item is not Equipment equipment) return;
             if (equipment.IsEquipped) Stats.AddModifier(equipment.Stats);
         }
 
-        private void InventoryOnRemovedItem(Item item) {
+        private void InventoryOnRemovedItem(Item item)
+        {
             if (item is not Equipment equipment) return;
             if (equipment.IsEquipped) Stats.RemoveModifier(equipment.Stats);
         }
 
         private void InitCommandExecutor() => commands.Init(this);
 
-        private void InitDropsModule() => drops.Init(config.dropsConfig);
+        private void InitDropsModule() => drops.Init(Config.dropsConfig);
 
-        private void OnDeath(DeathData data) {
+        private void InitExperienceModule() => Experience.Init(this, _bus);
+
+        private void OnDeath(DeathData data)
+        {
             commands.StopMain();
             movement.NavAgent.enabled = false;
             StopAllCoroutines();
             movement.Stop();
+            _bus.AbstractFire(new CharacterDiedSignal(this, data.killer));
         }
 
-        private void OnRevive() {
+        private void OnRevive()
+        {
             gameObject.SetActive(true);
             movement.NavAgent.enabled = true;
+            _bus.Fire(new CharacterRevivedSignal(this));
         }
 
         public bool CanBeHit() => !health.isDead;
