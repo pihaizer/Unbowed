@@ -2,10 +2,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-#if UNITY_EDITOR
-
-#endif
-
 namespace Unbowed.Gameplay.Characters.Items.Configs {
     public abstract class ItemConfig : ScriptableObject {
         public string displayName;

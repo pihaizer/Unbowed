@@ -17,13 +17,12 @@ namespace Unbowed.Gameplay.Characters {
         }
 
         private void UpdateMouseTargetSO() {
-            var mouseState = MouseContext.Instance;
-            mouseState.isOffGameView =
+            MouseContext.isOffGameView =
                 !RectUtils.One.Contains(selectionCamera.ScreenToViewportPoint(Input.mousePosition)) ||
                 eventSystem.IsPointerOverGameObject();
 
-            if (mouseState.isOffGameView) {
-                mouseState.SetGameViewTarget(null);
+            if (MouseContext.isOffGameView) {
+                MouseContext.SetGameViewTarget(null);
                 return;
             }
 
@@ -35,12 +34,12 @@ namespace Unbowed.Gameplay.Characters {
                 if (TrySetTarget(selectable)) return;
             }
 
-            mouseState.SetGameViewTarget(null);
+            MouseContext.SetGameViewTarget(null);
         }
 
         private bool TrySetTarget(ISelectable selectable) {
             if (selectable == null || !selectable.CanBeSelected()) return false;
-            MouseContext.Instance.SetGameViewTarget(selectable);
+            MouseContext.SetGameViewTarget(selectable);
             return true;
         }
     }

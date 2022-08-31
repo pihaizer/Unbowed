@@ -15,7 +15,7 @@ MonoBehaviour:
   displayName: Worn jacket
   description: 
   icon: {fileID: 21300000, guid: 2f1eaeeaad36ee5469eff7ff158f37ba, type: 3}
-  modelPrefab: {fileID: 0}
+  modelPrefab: {fileID: -7642057981061368651, guid: 4928704ba0da1f04aa534d4ba814b638, type: 3}
   size: {x: 2, y: 3}
   itemLevel: 3
   primaryStats:

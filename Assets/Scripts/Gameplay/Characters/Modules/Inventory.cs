@@ -19,11 +19,11 @@ namespace Unbowed.Gameplay.Characters.Modules
         public event Action<Item> RemovedItem;
 
         [SerializeField] private Vector2Int size;
+        [SerializeField] private List<Item> startingItems;
 
         [Inject] private ItemsDropper _itemsDropper;
 
-        [ShowInInspector]
-        public List<Item> Items { get; private set; }
+        [SerializeField] public List<Item> Items;
 
         public List<Item> Equipped => Items.Where(it => it.location.IsEquipped).ToList();
         public List<Item> InBags => Items.Where(it => !it.location.IsEquipped).ToList();

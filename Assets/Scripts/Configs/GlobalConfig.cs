@@ -46,6 +46,6 @@ namespace Unbowed.Configs
             var config = AssetDatabase.LoadAssetAtPath<GlobalConfig>(AssetDatabase.GUIDToAssetPath(guids[0]));
             return config;
         }
-    }
 #endif
+    }
 }

@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26d63d9fcd24d76a7ddf241bfba9ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwForce: 7.5
-  throwTorqueRange: {x: 1.7841877, y: 3.7606835}
+  throwForce: 7
+  throwTorqueRange: {x: 2.5519288, y: 6.1721067}
   defaultItemModel: {fileID: 1602792797147479645, guid: aa63a3783ab5f884986902a37233f29c, type: 3}
 --- !u!114 &1498355823199075605
 MonoBehaviour:

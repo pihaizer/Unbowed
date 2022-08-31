@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7171042462120796960}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseBoots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3457699503781446332}
   - component: {fileID: 1056975702346904800}
   - component: {fileID: 1908865346575382743}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlateSet1_Boots
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,6 +10,7 @@ namespace Unbowed.Gameplay.Characters.Items
     public class ItemsDropper : MonoInstaller
     {
         [SerializeField, AssetsOnly] private DroppedItem _droppedItemPrefab;
+        [SerializeField] private Vector3 _droppedItemsOffset;
 
         public override void InstallBindings()
         {
@@ -20,7 +21,7 @@ namespace Unbowed.Gameplay.Characters.Items
         {
             Inventory.RemoveItem(item);
             DroppedItem droppedItem = Instantiate(_droppedItemPrefab);
-            droppedItem.transform.position = transform.position + Vector3.up;
+            droppedItem.transform.position = transform.position + _droppedItemsOffset;
             droppedItem.SetItem(item);
         }
     }

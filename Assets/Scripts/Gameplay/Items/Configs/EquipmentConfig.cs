@@ -33,7 +33,7 @@ namespace Unbowed.Gameplay.Characters.Items.Configs
             StatModifierConfig[] modifiers = AllStatModifiers.Instance.statModifierConfigs
                 .Where(mod => itemLevel >= mod.itemLevelRange.x &&
                               itemLevel <= mod.itemLevelRange.y).ToArray();
-
+                
             int modifiersAmount = rarity switch
             {
                 EquipmentRarity.Poor => 0,

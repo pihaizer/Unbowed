@@ -8,7 +8,6 @@ namespace Unbowed.Gameplay.Levels {
         [SerializeField] private Trigger[] triggers;
         [SerializeField] private MeshRenderer[] roofs;
         [SerializeField] private MeshRenderer[] walls;
-        [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material transparentMaterial;
 
         private int _triggersCount;
@@ -39,7 +38,7 @@ namespace Unbowed.Gameplay.Levels {
                 for (int i = 0; i < roof.materials.Length; i++) {
                     if (value) {
                         roof.materials[i] = new Material(transparentMaterial) {
-                            mainTexture = defaultMaterial.mainTexture, color = defaultMaterial.color,
+                            mainTexture = roof.sharedMaterial.mainTexture, color = roof.sharedMaterial.color,
                         };
                         roof.materials[i].SetShaderPassEnabled("ShadowCaster", true);
                     }
@@ -47,7 +46,7 @@ namespace Unbowed.Gameplay.Levels {
                     if (!value) {
                         int i1 = i;
                         tweener.onComplete += () => {
-                            roof.materials[i1] = new Material(defaultMaterial);
+                            roof.materials[i1] = new Material(roof.sharedMaterial);
                         };
                     }
                 }
@@ -56,14 +55,14 @@ namespace Unbowed.Gameplay.Levels {
             foreach (var wall in walls) {
                 if (value) {
                     wall.material = new Material(transparentMaterial) {
-                        mainTexture = defaultMaterial.mainTexture, color = defaultMaterial.color
+                        mainTexture = wall.sharedMaterial.mainTexture, color = wall.sharedMaterial.color
                     };
                     wall.material.SetShaderPassEnabled("ShadowCaster", true);
                 }
                 var tweener = wall.material.DOFade(value ? 0.25f : 1, 0.3f);
                 if (!value)
                     tweener.onComplete += () => {
-                        wall.material = new Material(defaultMaterial);
+                        wall.material = new Material(wall.sharedMaterial);
                     };
             }
         }

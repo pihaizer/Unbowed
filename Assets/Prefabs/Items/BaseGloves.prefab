@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4159310748323339461}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseGloves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8086168453315245550}
   - component: {fileID: 313250798752154186}
   - component: {fileID: 6303195665555083339}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlateSet1_Gloves
   m_TagString: Untagged
   m_Icon: {fileID: 0}

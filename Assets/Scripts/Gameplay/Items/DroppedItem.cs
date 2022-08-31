@@ -32,7 +32,7 @@ namespace Unbowed.Gameplay.Items {
         }
 
         private void OnMouseOver() {
-            if (MouseContext.Instance.BlockedByUI) return;
+            if (MouseContext.BlockedByUI) return;
             _bus.Fire(new DescriptionShowRequestSignal(this, true));
         }
 

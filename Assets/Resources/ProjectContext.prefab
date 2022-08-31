@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _droppedItemPrefab: {fileID: 3196568061667994077, guid: 4b8e1070046dd9a4480200a5c922a305, type: 3}
+  _droppedItemsOffset: {x: 0, y: 2, z: 0}
 --- !u!114 &-6043047917307453716
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ namespace Unbowed.Gameplay.Signals
     {
         public override void InstallBindings()
         {
-            Container.DeclareSignal<CharacterDiedSignal>();
+            Container.DeclareSignalWithInterfaces<CharacterDiedSignal>();
             Container.DeclareSignal<CharacterRevivedSignal>();
             Container.DeclareSignal<CharacterLeveledUp>();
             Container.DeclareSignal<PlayerChangedSignal>();

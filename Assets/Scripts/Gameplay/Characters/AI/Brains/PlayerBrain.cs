@@ -55,8 +55,8 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
 
         private void OnLMB() {
             if (_itemDragger.IsDragging) return;
-            if (MouseContext.Instance.GameViewTarget != null) {
-                switch (MouseContext.Instance.GameViewTarget) {
+            if (MouseContext.GameViewTarget != null) {
+                switch (MouseContext.GameViewTarget) {
                     case IHittable hittable
                         when hittable.CanBeHit() &&
                              (!(Body.commands.MainCommand is AttackCommand
@@ -71,7 +71,7 @@ namespace Unbowed.Gameplay.Characters.AI.Brains {
                         break;
                 }
             } else {
-                if (MouseContext.Instance.BlockedByUI) return;
+                if (MouseContext.BlockedByUI) return;
                 if (!Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out var hit, 100f,
                     _config.navMeshLayerMask))
                     return;

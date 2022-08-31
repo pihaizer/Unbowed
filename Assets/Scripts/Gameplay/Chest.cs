@@ -4,6 +4,7 @@ using Unbowed.Gameplay.Characters.Modules;
 using Unbowed.Signals;
 using Unbowed.SO;
 using Unbowed.UI.Signals;
+using Unbowed.Utility;
 using UnityEngine;
 using Zenject;
 
@@ -15,8 +16,9 @@ namespace Unbowed.Gameplay {
         [Inject] private SignalBus _bus;
 
         private Inventory _inventory;
-        private bool _isOpened = true;
         private GameObject _opener;
+
+        public readonly Mutable<bool> IsOpened = new();
 
         private void Start() {
             _inventory = GetComponent<Inventory>();
@@ -24,10 +26,10 @@ namespace Unbowed.Gameplay {
         }
 
         private void Update() {
-            if (!_isOpened) return;
+            if (!IsOpened) return;
             
             if (_opener == null) {
-                _isOpened = false;
+                IsOpened.Value = false;
                 return;
             }
 
@@ -35,15 +37,13 @@ namespace Unbowed.Gameplay {
                 return;
             
             _bus.Fire(new ScreenActionSignal(ScreenNames.OtherInventory, ScreenAction.Close, _inventory));
-            // _bus.Fire(new ShowInventoryRequestSignal(_inventory, false));
-            _isOpened = false;
+            IsOpened.Value = false;
             _opener = null;
         }
 
         public void Interact(GameObject source) {
             _bus.Fire(new ScreenActionSignal(ScreenNames.OtherInventory, ScreenAction.Open, _inventory));
-            // _bus.Fire(new ShowInventoryRequestSignal(_inventory, true));
-            _isOpened = true;
+            IsOpened.Value = true;
             _opener = source;
         }
 

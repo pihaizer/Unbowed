@@ -10,6 +10,8 @@ using Zenject;
 namespace Unbowed.UI.MainMenu {
     public class MainMenu : MonoBehaviour {
         [SerializeField, ChildGameObjectsOnly] private Button newGameButton;
+        
+        // [SerializeField, ChildGameObjectsOnly] private Button continueButton;
 
         [SerializeField, ChildGameObjectsOnly] private Button optionsButton;
 
@@ -21,11 +23,12 @@ namespace Unbowed.UI.MainMenu {
 
         private void Awake() {
             newGameButton.onClick.AddListener(StartNewGame);
+            // continueButton.onClick.AddListener(StartNewGame);
             optionsButton.onClick.AddListener(OpenOptions);
             exitButton.onClick.AddListener(Exit);
         }
 
-        private void StartNewGame() {
+        public void StartNewGame() {
             _scenesController.Load(new SceneChangeRequest(gameSceneConfig) {
                 UseLoadingScreen = true, SetActive = true, UnloadOther = true
             });

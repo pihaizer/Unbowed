@@ -5,18 +5,17 @@ using UnityEngine;
 
 namespace Unbowed.SO {
     [CreateAssetMenu(fileName = "Target", menuName = "SO/Gameplay/Target", order = 0)]
-    [GlobalConfig("Assets/Configs")]
-    public class MouseContext : GlobalConfig<MouseContext> {
-        public event Action<ISelectable> GameViewTargetChanged;
+    public static class MouseContext {
+        public static event Action<ISelectable> GameViewTargetChanged;
         
-        [NonSerialized] public bool isOffGameView;
-        [NonSerialized] public bool blockedByDraggedItem;
+        public static bool isOffGameView;
+        public static bool blockedByDraggedItem;
 
-        public bool BlockedByUI => isOffGameView || blockedByDraggedItem;
+        public static bool BlockedByUI => isOffGameView || blockedByDraggedItem;
         
-        public ISelectable GameViewTarget { get; private set; }
+        public static ISelectable GameViewTarget { get; private set; }
 
-        public void SetGameViewTarget(ISelectable target) {
+        public static void SetGameViewTarget(ISelectable target) {
             if (GameViewTarget == target) return;
             GameViewTarget = target;
             GameViewTargetChanged?.Invoke(GameViewTarget);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Two-handed axe
   m_EditorClassIdentifier: 
   displayName: Two-handed axe
-  description: 
+  description: A simple old two-handed axe, nothing special.
   icon: {fileID: 21300000, guid: 172774604c1bee84185a69041576525b, type: 3}
   modelPrefab: {fileID: 0}
   size: {x: 2, y: 4}
@@ -34,19 +34,19 @@ MonoBehaviour:
   rarityWeights:
     weights:
     - value: 0
-      weight: 0.147
-      normalized: 0.17053364
+      weight: 0.199
+      normalized: 0.13074902
     - value: 1
-      weight: 0.147
-      normalized: 0.17053364
+      weight: 0.581
+      normalized: 0.38173455
     - value: 2
-      weight: 0.176
-      normalized: 0.20417634
+      weight: 0.463
+      normalized: 0.304205
     - value: 3
-      weight: 0.186
-      normalized: 0.21577726
+      weight: 0.257
+      normalized: 0.16885677
     - value: 4
-      weight: 0.206
-      normalized: 0.23897912
+      weight: 0.022
+      normalized: 0.014454666
   isTwoHanded: 1
   MeleeWeaponType: 1

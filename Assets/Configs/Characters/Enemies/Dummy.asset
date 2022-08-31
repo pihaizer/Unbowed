@@ -22,18 +22,15 @@ MonoBehaviour:
   dropsConfig:
     hasDrops: 1
     magicFind: 1
-    amountRange: {x: 0, y: 2}
+    amountRange: {x: 0, y: 1}
     amountWeights:
       weights:
       - value: 0
-        weight: 0
-        normalized: 0
+        weight: 0.206
+        normalized: 0.197318
       - value: 1
-        weight: 0
-        normalized: 0
-      - value: 2
-        weight: 0.763
-        normalized: 1
+        weight: 0.838
+        normalized: 0.802682
     equipmentLevelRange: {x: 0, y: 13}
     specialDrops: []
   ExperienceConfig:

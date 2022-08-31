@@ -1,9 +1,8 @@
-﻿using System;
+﻿using HyperCore.UI;
 using HyperCore.Utility;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace HyperCore.UI
+namespace Unbowed.UI
 {
     [RequireComponent(typeof(Canvas))]
     public class CanvasScreen : BaseScreen

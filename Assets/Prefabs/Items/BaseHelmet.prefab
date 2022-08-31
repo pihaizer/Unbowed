@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7411898663413562511}
   - component: {fileID: 5564442055471883237}
   - component: {fileID: 3076211953421854192}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlateSet1_Helmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1243228356256662589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BaseHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

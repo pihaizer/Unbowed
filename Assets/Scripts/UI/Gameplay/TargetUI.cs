@@ -12,12 +12,12 @@ namespace Unbowed.UI {
         private ISelectable _target;
 
         private void Start() {
-            MouseContext.Instance.GameViewTargetChanged += OnMouseStateGameViewTargetChanged;
-            OnMouseStateGameViewTargetChanged(MouseContext.Instance.GameViewTarget);
+            MouseContext.GameViewTargetChanged += OnMouseStateGameViewTargetChanged;
+            OnMouseStateGameViewTargetChanged(MouseContext.GameViewTarget);
         }
 
         private void OnDestroy() {
-            MouseContext.Instance.GameViewTargetChanged -= OnMouseStateGameViewTargetChanged;
+            MouseContext.GameViewTargetChanged -= OnMouseStateGameViewTargetChanged;
         }
 
         private void OnMouseStateGameViewTargetChanged(ISelectable newTarget) {
